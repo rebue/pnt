@@ -6,6 +6,7 @@ logs
 .DS_Store
 *.pdb
 *.ldb
+*.pjb
 *.gz
 *.log.gz
 *.class

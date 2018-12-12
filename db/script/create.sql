@@ -1,12 +1,12 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2018/12/11 21:42:45                          */
+/* Created on:     2018/12/12 16:06:49                          */
 /*==============================================================*/
 
 
-drop table if exists PNT_ACCOUNT;
-
 drop table if exists PNT_LOG;
+
+drop table if exists PNT_ACCOUNT;
 
 drop table if exists PNT_LOG_TYPE;
 
@@ -30,7 +30,7 @@ create table PNT_LOG
 (
    ID                   bigint not null comment '积分日志ID',
    ACCOUNT_ID           bigint not null comment '积分账户ID(等于SUC的用户ID)',
-   LOG_TYPE_ID          bigint not null comment '积分日志类型ID',
+   LOG_TYPE_ID          varchar(30) not null comment '积分日志类型ID',
    CHANGED_POINTS       numeric(18,4) not null comment '改变积分的数量',
    CHANGED_TITILE       varchar(30) not null comment '改变积分的标题',
    CHANGED_DETAIL       varchar(200) comment '改变积分的详情',
@@ -48,10 +48,9 @@ alter table PNT_LOG comment '积分日志';
 /*==============================================================*/
 create table PNT_LOG_TYPE
 (
-   ID                   bigint not null comment '积分日志类型ID',
-   TYPE_CODE            varchar(30) not null comment '积分日志类型编码',
+   ID                   varchar(30) not null comment '积分日志类型ID',
    TYPE_NAME            varchar(30) not null comment '积分日志类型名称',
-   REMARK               varchar(200) comment '积分日志类型备注',
+   REMARK               varchar(120) comment '积分日志类型备注',
    primary key (ID)
 );
 

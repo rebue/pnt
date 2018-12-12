@@ -1,16 +1,13 @@
 package rebue.pnt.svc.impl;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
 import rebue.pnt.mapper.PntLogMapper;
 import rebue.pnt.mo.PntLogMo;
 import rebue.pnt.svc.PntLogSvc;
-
 import rebue.robotech.svc.impl.MybatisBaseSvcImpl;
 
 /**
@@ -30,11 +27,11 @@ import rebue.robotech.svc.impl.MybatisBaseSvcImpl;
 @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 @Service
 public class PntLogSvcImpl extends MybatisBaseSvcImpl<PntLogMo, java.lang.Long, PntLogMapper> implements PntLogSvc {
-	
+
     /**
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
-	private static final Logger _log = LoggerFactory.getLogger(PntLogSvcImpl.class);
+    private static final Logger _log = LoggerFactory.getLogger(PntLogSvcImpl.class);
 
     /**
      * @mbg.generated 自动生成，如需修改，请删除本行
@@ -42,12 +39,11 @@ public class PntLogSvcImpl extends MybatisBaseSvcImpl<PntLogMo, java.lang.Long, 
     @Override
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
     public int add(PntLogMo mo) {
-    	_log.info("添加积分日志");
+        _log.info("添加积分日志");
         // 如果id为空那么自动生成分布式id
         if (mo.getId() == null || mo.getId() == 0) {
             mo.setId(_idWorker.getId());
         }
         return super.add(mo);
     }
-
 }
