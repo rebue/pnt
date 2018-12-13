@@ -19,5 +19,12 @@
 		"targetFile": "${entityName}Ctrl.java",
 		"isGenTargetOnMiddleTable": false,
 		"backup": false
+	},
+	{
+		"templateName": "test.btl",
+		"targetDir": "../pnt-svr/src/test/java/${modulePath}/test/",
+		"targetFile": "${entityName}Tests.java",
+		"isGenTargetOnMiddleTable": false,
+		"backup": false
 	}
 ]

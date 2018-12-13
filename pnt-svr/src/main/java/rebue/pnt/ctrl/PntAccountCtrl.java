@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import rebue.pnt.mo.PntAccountMo;
 import rebue.pnt.svc.PntAccountSvc;
 import rebue.robotech.dic.ResultDic;
+import rebue.robotech.ro.IdRo;
 import rebue.robotech.ro.Ro;
 
 /**
@@ -51,9 +52,9 @@ public class PntAccountCtrl {
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
     @PostMapping("/pnt/account")
-    Ro add(@RequestBody PntAccountMo mo) throws Exception {
+    IdRo add(@RequestBody PntAccountMo mo) throws Exception {
         _log.info("add PntAccountMo: {}", mo);
-        Ro ro = new Ro();
+        IdRo ro = new IdRo();
         try {
             int result = svc.add(mo);
             if (result == 1) {
@@ -61,6 +62,7 @@ public class PntAccountCtrl {
                 _log.info("{}: mo-{}", msg, mo);
                 ro.setMsg(msg);
                 ro.setResult(ResultDic.SUCCESS);
+                ro.setId(mo.getId().toString());
                 return ro;
             } else {
                 String msg = "添加失败";
