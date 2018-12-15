@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import rebue.pnt.dao.PntLogDao;
+import rebue.pnt.jo.PntLogJo;
 import rebue.pnt.mapper.PntLogMapper;
 import rebue.pnt.mo.PntLogMo;
 import rebue.pnt.svc.PntLogSvc;

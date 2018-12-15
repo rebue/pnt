@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import ${modulePackage}.dao.${entityName}Dao;
-import ${modulePackage}.jo.${entityName}Type;
+import ${modulePackage}.jo.${entityName}Jo;
 import ${modulePackage}.mapper.${entityName}Mapper;
 import ${moClassFullName};
 import ${modulePackage}.svc.${entityName}Svc;

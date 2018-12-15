@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import rebue.pnt.dao.PntAccountDao;
+import rebue.pnt.jo.PntAccountJo;
 import rebue.pnt.mapper.PntAccountMapper;
 import rebue.pnt.mo.PntAccountMo;
 import rebue.pnt.svc.PntAccountSvc;
