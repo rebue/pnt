@@ -9,7 +9,7 @@ import rebue.robotech.dic.ResultDic;
 import rebue.robotech.ro.IdRo;
 import rebue.robotech.ro.Ro;
 import rebue.wheel.OkhttpUtils;
-import rebue.wheel.test.MockDataUtils;
+import rebue.wheel.RandomEx;
 
 /**
  * 积分日志
@@ -30,15 +30,18 @@ public class PntLogTests {
      */
     @Test
     public void testCrud() throws IOException, ReflectiveOperationException {
-        final PntLogMo mo = (PntLogMo) MockDataUtils.newRandomPojo(new PntLogMo().getClass());
-        mo.setId(null);
-        System.out.println("添加积分日志的参数为：" + mo);
-        final String addResult = OkhttpUtils.postByJsonParams(hostUrl + "/pnt/log", mo);
-        System.out.println("添加积分日志的返回值为：" + addResult);
-        final IdRo idRo = _objectMapper.readValue(addResult, IdRo.class);
-        System.out.println(idRo);
-        Assert.assertEquals(ResultDic.SUCCESS, idRo.getResult());
-        mo.setId(Long.valueOf(idRo.getId()));
+        PntLogMo mo = null;
+        for (int i = 0; i < 20; i++) {
+            mo = (PntLogMo) RandomEx.randomPojo(PntLogMo.class);
+            mo.setId(null);
+            System.out.println("添加积分日志的参数为：" + mo);
+            final String addResult = OkhttpUtils.postByJsonParams(hostUrl + "/pnt/log", mo);
+            System.out.println("添加积分日志的返回值为：" + addResult);
+            final IdRo idRo = _objectMapper.readValue(addResult, IdRo.class);
+            System.out.println(idRo);
+            Assert.assertEquals(ResultDic.SUCCESS, idRo.getResult());
+            mo.setId(Long.valueOf(idRo.getId()));
+        }
         final String listResult = OkhttpUtils.get(hostUrl + "/pnt/log?pageNum=1&pageSize=5");
         System.out.println("查询积分日志的返回值为：" + listResult);
         System.out.println("获取单个积分日志的参数为：" + mo.getId());

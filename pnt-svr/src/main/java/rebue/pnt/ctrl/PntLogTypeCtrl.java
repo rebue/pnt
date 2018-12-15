@@ -180,7 +180,7 @@ public class PntLogTypeCtrl {
      */
     @GetMapping("/pnt/logtype/getbyid")
     PntLogTypeMo getById(@RequestParam("id") java.lang.String id) {
-        _log.info("get PntLogTypeMo by id: " + id);
+        _log.info("get PntLogTypeMo by id: {}", id);
         return svc.getById(id);
     }
 }

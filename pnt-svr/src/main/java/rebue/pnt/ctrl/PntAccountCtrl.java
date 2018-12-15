@@ -180,7 +180,7 @@ public class PntAccountCtrl {
      */
     @GetMapping("/pnt/account/getbyid")
     PntAccountMo getById(@RequestParam("id") java.lang.Long id) {
-        _log.info("get PntAccountMo by id: " + id);
+        _log.info("get PntAccountMo by id: {}", id);
         return svc.getById(id);
     }
 }

@@ -5,10 +5,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import rebue.pnt.dao.PntLogDao;
 import rebue.pnt.mapper.PntLogMapper;
 import rebue.pnt.mo.PntLogMo;
 import rebue.pnt.svc.PntLogSvc;
-import rebue.robotech.svc.impl.MybatisBaseSvcImpl;
+import rebue.robotech.svc.impl.BaseSvcImpl;
 
 /**
  * 积分日志
@@ -26,7 +27,7 @@ import rebue.robotech.svc.impl.MybatisBaseSvcImpl;
  */
 @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 @Service
-public class PntLogSvcImpl extends MybatisBaseSvcImpl<PntLogMo, java.lang.Long, PntLogMapper> implements PntLogSvc {
+public class PntLogSvcImpl extends BaseSvcImpl<java.lang.Long, PntLogJo, PntLogDao, PntLogMo, PntLogMapper> implements PntLogSvc {
 
     /**
      * @mbg.generated 自动生成，如需修改，请删除本行

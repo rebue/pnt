@@ -11,3 +11,8 @@ logs
 *.log.gz
 *.class
 rebel.xml
+.idea
+/lib
+*.eml
+*.iml
+pom.xml.versionsBackup

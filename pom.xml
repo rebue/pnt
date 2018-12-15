@@ -9,7 +9,7 @@
 
 	<groupId>com.github.rebue.pnt</groupId>
 	<artifactId>pnt</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.9</version>
 	<packaging>pom</packaging>
 	<description>积分系统微服务</description>
 
@@ -25,12 +25,12 @@
 			<dependency>
 				<groupId>com.github.rebue.pnt</groupId>
 				<artifactId>pnt-api</artifactId>
-				<version>1.0.0</version>
+				<version>1.0.9</version>
 			</dependency>
 			<dependency>
 				<groupId>com.github.rebue.pnt</groupId>
 				<artifactId>pnt-bll</artifactId>
-				<version>1.0.0</version>
+				<version>1.0.9</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

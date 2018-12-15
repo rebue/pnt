@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>com.github.rebue.pnt</groupId>
 		<artifactId>pnt</artifactId>
-		<version>1.0.0</version>
+		<version>1.0.9</version>
 	</parent>
 
 	<artifactId>pnt-bll</artifactId>
@@ -21,6 +21,10 @@
 			<artifactId>robotech-bll</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>com.github.rebue.sbs</groupId>
@@ -30,21 +34,6 @@
 		<dependency>
 			<groupId>com.github.rebue.sbs</groupId>
 			<artifactId>dozer-spring-boot-starter</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-tx</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.mybatis</groupId>
-			<artifactId>mybatis</artifactId>
 		</dependency>
 
 		<dependency>

@@ -5,10 +5,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import rebue.pnt.dao.PntAccountDao;
 import rebue.pnt.mapper.PntAccountMapper;
 import rebue.pnt.mo.PntAccountMo;
 import rebue.pnt.svc.PntAccountSvc;
-import rebue.robotech.svc.impl.MybatisBaseSvcImpl;
+import rebue.robotech.svc.impl.BaseSvcImpl;
 
 /**
  * 积分账户信息
@@ -26,7 +27,7 @@ import rebue.robotech.svc.impl.MybatisBaseSvcImpl;
  */
 @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 @Service
-public class PntAccountSvcImpl extends MybatisBaseSvcImpl<PntAccountMo, java.lang.Long, PntAccountMapper> implements PntAccountSvc {
+public class PntAccountSvcImpl extends BaseSvcImpl<java.lang.Long, PntAccountJo, PntAccountDao, PntAccountMo, PntAccountMapper> implements PntAccountSvc {
 
     /**
      * @mbg.generated 自动生成，如需修改，请删除本行

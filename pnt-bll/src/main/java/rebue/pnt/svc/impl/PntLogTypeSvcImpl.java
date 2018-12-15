@@ -1,15 +1,20 @@
 package rebue.pnt.svc.impl;
 
+import java.util.List;
 import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import rebue.pnt.dao.PntLogTypeDao;
+import rebue.pnt.jo.PntLogTypeJo;
 import rebue.pnt.mapper.PntLogTypeMapper;
 import rebue.pnt.mo.PntLogTypeMo;
 import rebue.pnt.svc.PntLogTypeSvc;
-import rebue.robotech.svc.impl.MybatisBaseSvcImpl;
+import rebue.robotech.dic.ResultDic;
+import rebue.robotech.ro.Ro;
+import rebue.robotech.svc.impl.BaseSvcImpl;
 
 /**
  * 积分日志类型
@@ -27,7 +32,7 @@ import rebue.robotech.svc.impl.MybatisBaseSvcImpl;
  */
 @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 @Service
-public class PntLogTypeSvcImpl extends MybatisBaseSvcImpl<PntLogTypeMo, java.lang.String, PntLogTypeMapper> implements PntLogTypeSvc {
+public class PntLogTypeSvcImpl extends BaseSvcImpl<java.lang.String, PntLogTypeJo, PntLogTypeDao, PntLogTypeMo, PntLogTypeMapper> implements PntLogTypeSvc {
 
     /**
      * @mbg.generated 自动生成，如需修改，请删除本行
@@ -46,5 +51,16 @@ public class PntLogTypeSvcImpl extends MybatisBaseSvcImpl<PntLogTypeMo, java.lan
             mo.setId(UUID.randomUUID().toString().replaceAll("-", ""));
         }
         return super.add(mo);
+    }
+
+    @Override
+    public Ro testJpa() {
+        _log.info("测试JPA");
+        final Ro ro = new Ro();
+        final List<PntLogTypeJo> list = _dao.findAll();
+        _log.debug("返回列表: {}", list);
+        ro.setResult(ResultDic.SUCCESS);
+        ro.setMsg("测试JPA成功");
+        return ro;
     }
 }

@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>com.github.rebue.pnt</groupId>
 		<artifactId>pnt</artifactId>
-		<version>1.0.0</version>
+		<version>1.0.9</version>
 	</parent>
 
 	<artifactId>pnt-svr</artifactId>

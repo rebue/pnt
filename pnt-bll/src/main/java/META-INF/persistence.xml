@@ -5,4 +5,5 @@
 		<class>rebue.pnt.jo.PntLog</class>
 		<class>rebue.pnt.jo.PntLogType</class>
 	</persistence-unit>
+	<persistence-unit name="persistenceUnit"/>
 </persistence>
