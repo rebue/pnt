@@ -9,7 +9,7 @@
     <id column="ID" jdbcType="BIGINT" property="id" />
     <result column="ACCOUNT_ID" jdbcType="BIGINT" property="accountId" />
     <result column="LOG_TYPE_ID" jdbcType="VARCHAR" property="logTypeId" />
-    <result column="CHANGED_POINTS" jdbcType="DECIMAL" property="changedPoints" />
+    <result column="CHANGED_POINTS" jdbcType="BIGINT" property="changedPoints" />
     <result column="CHANGED_TITILE" jdbcType="VARCHAR" property="changedTitile" />
     <result column="CHANGED_DETAIL" jdbcType="VARCHAR" property="changedDetail" />
     <result column="ORDER_ID" jdbcType="BIGINT" property="orderId" />
@@ -52,7 +52,7 @@
       ORDER_ID, ORDER_DETAIL_ID, CHANGED_TIMESTAMP
       )
     values (#{id,jdbcType=BIGINT}, #{accountId,jdbcType=BIGINT}, #{logTypeId,jdbcType=VARCHAR}, 
-      #{changedPoints,jdbcType=DECIMAL}, #{changedTitile,jdbcType=VARCHAR}, #{changedDetail,jdbcType=VARCHAR}, 
+      #{changedPoints,jdbcType=BIGINT}, #{changedTitile,jdbcType=VARCHAR}, #{changedDetail,jdbcType=VARCHAR}, 
       #{orderId,jdbcType=BIGINT}, #{orderDetailId,jdbcType=BIGINT}, #{changedTimestamp,jdbcType=BIGINT}
       )
   </insert>
@@ -102,7 +102,7 @@
         #{logTypeId,jdbcType=VARCHAR},
       </if>
       <if test="changedPoints != null">
-        #{changedPoints,jdbcType=DECIMAL},
+        #{changedPoints,jdbcType=BIGINT},
       </if>
       <if test="changedTitile != null">
         #{changedTitile,jdbcType=VARCHAR},
@@ -135,7 +135,7 @@
         LOG_TYPE_ID = #{logTypeId,jdbcType=VARCHAR},
       </if>
       <if test="changedPoints != null">
-        CHANGED_POINTS = #{changedPoints,jdbcType=DECIMAL},
+        CHANGED_POINTS = #{changedPoints,jdbcType=BIGINT},
       </if>
       <if test="changedTitile != null">
         CHANGED_TITILE = #{changedTitile,jdbcType=VARCHAR},
@@ -163,7 +163,7 @@
     update PNT_LOG
     set ACCOUNT_ID = #{accountId,jdbcType=BIGINT},
       LOG_TYPE_ID = #{logTypeId,jdbcType=VARCHAR},
-      CHANGED_POINTS = #{changedPoints,jdbcType=DECIMAL},
+      CHANGED_POINTS = #{changedPoints,jdbcType=BIGINT},
       CHANGED_TITILE = #{changedTitile,jdbcType=VARCHAR},
       CHANGED_DETAIL = #{changedDetail,jdbcType=VARCHAR},
       ORDER_ID = #{orderId,jdbcType=BIGINT},
@@ -196,7 +196,7 @@
         and LOG_TYPE_ID = #{logTypeId,jdbcType=VARCHAR}
       </if>
       <if test="changedPoints != null">
-        and CHANGED_POINTS = #{changedPoints,jdbcType=DECIMAL}
+        and CHANGED_POINTS = #{changedPoints,jdbcType=BIGINT}
       </if>
       <if test="changedTitile != null and changedTitile != ''">
         and CHANGED_TITILE = #{changedTitile,jdbcType=VARCHAR}
@@ -242,7 +242,7 @@
         and LOG_TYPE_ID = #{logTypeId,jdbcType=VARCHAR}
       </if>
       <if test="changedPoints != null and changedPoints != ''">
-        and CHANGED_POINTS = #{changedPoints,jdbcType=DECIMAL}
+        and CHANGED_POINTS = #{changedPoints,jdbcType=BIGINT}
       </if>
       <if test="changedTitile != null and changedTitile != ''">
         and CHANGED_TITILE = #{changedTitile,jdbcType=VARCHAR}
@@ -276,7 +276,7 @@
         and LOG_TYPE_ID = #{logTypeId,jdbcType=VARCHAR}
       </if>
       <if test="changedPoints != null">
-        and CHANGED_POINTS = #{changedPoints,jdbcType=DECIMAL}
+        and CHANGED_POINTS = #{changedPoints,jdbcType=BIGINT}
       </if>
       <if test="changedTitile != null and changedTitile != ''">
         and CHANGED_TITILE = #{changedTitile,jdbcType=VARCHAR}

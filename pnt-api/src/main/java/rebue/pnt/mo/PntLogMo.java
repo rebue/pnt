@@ -3,7 +3,6 @@ package rebue.pnt.mo;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 /**
  * 积分日志
@@ -49,7 +48,7 @@ public class PntLogMo implements Serializable {
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
-    private BigDecimal changedPoints;
+    private Long changedPoints;
 
     /**
      *    改变积分的标题
@@ -174,7 +173,7 @@ public class PntLogMo implements Serializable {
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
-    public BigDecimal getChangedPoints() {
+    public Long getChangedPoints() {
         return changedPoints;
     }
 
@@ -185,7 +184,7 @@ public class PntLogMo implements Serializable {
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
-    public void setChangedPoints(BigDecimal changedPoints) {
+    public void setChangedPoints(Long changedPoints) {
         this.changedPoints = changedPoints;
     }
 

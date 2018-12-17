@@ -3,7 +3,6 @@ package rebue.pnt.mo;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 /**
  * 积分账户信息
@@ -31,7 +30,7 @@ public class PntAccountMo implements Serializable {
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
-    private BigDecimal points;
+    private Long points;
 
     /**
      *    是否锁定
@@ -76,7 +75,7 @@ public class PntAccountMo implements Serializable {
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
-    public BigDecimal getPoints() {
+    public Long getPoints() {
         return points;
     }
 
@@ -87,7 +86,7 @@ public class PntAccountMo implements Serializable {
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
-    public void setPoints(BigDecimal points) {
+    public void setPoints(Long points) {
         this.points = points;
     }
 
