@@ -1,12 +1,14 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2018/12/12 16:06:49                          */
+/* Created on:     2018/12/17 17:30:54                          */
 /*==============================================================*/
 
 
 drop table if exists PNT_LOG;
 
 drop table if exists PNT_ACCOUNT;
+
+drop table if exists PNT_FLOW;
 
 drop table if exists PNT_LOG_TYPE;
 
@@ -16,12 +18,29 @@ drop table if exists PNT_LOG_TYPE;
 create table PNT_ACCOUNT
 (
    ID                   bigint not null comment '积分账户ID(等于SUC的用户ID)',
-   POINTS               numeric(18,4) not null comment '当前积分数量',
+   POINTS               bigint not null comment '当前积分数量',
    IS_LOCKED            bool not null default false comment '是否锁定',
    primary key (ID)
 );
 
 alter table PNT_ACCOUNT comment '积分账户信息';
+
+/*==============================================================*/
+/* Table: PNT_FLOW                                              */
+/*==============================================================*/
+create table PNT_FLOW
+(
+   ID                   bigint not null comment '流水ID(等于日志ID)',
+   ACCOUNT_ID           bigint not null comment '积分账户ID(等于SUC的用户ID)',
+   POINTS               bigint not null comment '当前积分数量',
+   OLD_MODIFIED_TIMESTAMP bigint not null comment '旧修改时间戳',
+   MODIFIED_TIMESTAMP   bigint not null comment '修改时间戳(添加或更新本条记录时的时间戳)',
+   primary key (ID),
+   unique key AK_ACCOUNT_ID_AND_MODIFIED_TIMESTAMP (MODIFIED_TIMESTAMP, ACCOUNT_ID),
+   unique key AK_ACCOUNT_ID_AND_OLD_MODIFIED_TIMESTAMP (OLD_MODIFIED_TIMESTAMP, ACCOUNT_ID)
+);
+
+alter table PNT_FLOW comment '积分账户流水(将账户每一次积分变更作个记录)';
 
 /*==============================================================*/
 /* Table: PNT_LOG                                               */
@@ -31,7 +50,7 @@ create table PNT_LOG
    ID                   bigint not null comment '积分日志ID',
    ACCOUNT_ID           bigint not null comment '积分账户ID(等于SUC的用户ID)',
    LOG_TYPE_ID          varchar(30) not null comment '积分日志类型ID',
-   CHANGED_POINTS       numeric(18,4) not null comment '改变积分的数量',
+   CHANGED_POINTS       bigint not null comment '改变积分的数量',
    CHANGED_TITILE       varchar(30) not null comment '改变积分的标题',
    CHANGED_DETAIL       varchar(200) comment '改变积分的详情',
    ORDER_ID             bigint not null comment '订单ID',
@@ -55,6 +74,9 @@ create table PNT_LOG_TYPE
 );
 
 alter table PNT_LOG_TYPE comment '积分日志类型';
+
+alter table PNT_FLOW add constraint FK_RELATIONSHIP_3 foreign key (ACCOUNT_ID)
+      references PNT_ACCOUNT (ID) on delete restrict on update restrict;
 
 alter table PNT_LOG add constraint FK_RELATIONSHIP_1 foreign key (ACCOUNT_ID)
       references PNT_ACCOUNT (ID) on delete restrict on update restrict;
