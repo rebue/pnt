@@ -14,30 +14,30 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import rebue.pnt.mo.PntLogMo;
-import rebue.pnt.svc.PntLogSvc;
+import rebue.pnt.mo.PntIncomeLogMo;
+import rebue.pnt.svc.PntIncomeLogSvc;
 import rebue.robotech.dic.ResultDic;
 import rebue.robotech.ro.IdRo;
 import rebue.robotech.ro.Ro;
 
 /**
- * 积分日志
+ * 收益日志
  *
  * @mbg.generated 自动生成的注释，如需修改本注释，请删除本行
  */
 @RestController
-public class PntLogCtrl {
+public class PntIncomeLogCtrl {
 
     /**
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
-    private static final Logger _log = LoggerFactory.getLogger(PntLogCtrl.class);
+    private static final Logger _log = LoggerFactory.getLogger(PntIncomeLogCtrl.class);
 
     /**
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Resource
-    private PntLogSvc svc;
+    private PntIncomeLogSvc svc;
 
     /**
      * 有唯一约束的字段名称
@@ -47,13 +47,13 @@ public class PntLogCtrl {
     private String _uniqueFilesName = "某字段内容";
 
     /**
-     * 添加积分日志
+     * 添加收益日志
      *
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
-    @PostMapping("/pnt/log")
-    IdRo add(@RequestBody PntLogMo mo) throws Exception {
-        _log.info("add PntLogMo: {}", mo);
+    @PostMapping("/pnt/incomelog")
+    IdRo add(@RequestBody PntIncomeLogMo mo) throws Exception {
+        _log.info("add PntIncomeLogMo: {}", mo);
         IdRo ro = new IdRo();
         try {
             int result = svc.add(mo);
@@ -88,13 +88,13 @@ public class PntLogCtrl {
     }
 
     /**
-     * 修改积分日志
+     * 修改收益日志
      *
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
-    @PutMapping("/pnt/log")
-    Ro modify(@RequestBody PntLogMo mo) throws Exception {
-        _log.info("modify PntLogMo: {}", mo);
+    @PutMapping("/pnt/incomelog")
+    Ro modify(@RequestBody PntIncomeLogMo mo) throws Exception {
+        _log.info("modify PntIncomeLogMo: {}", mo);
         Ro ro = new Ro();
         try {
             if (svc.modify(mo) == 1) {
@@ -127,13 +127,13 @@ public class PntLogCtrl {
     }
 
     /**
-     * 删除积分日志
+     * 删除收益日志
      *
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
-    @DeleteMapping("/pnt/log")
+    @DeleteMapping("/pnt/incomelog")
     Ro del(@RequestParam("id") java.lang.Long id) {
-        _log.info("del PntLogMo by id: {}", id);
+        _log.info("del PntIncomeLogMo by id: {}", id);
         int result = svc.del(id);
         Ro ro = new Ro();
         if (result == 1) {
@@ -152,35 +152,35 @@ public class PntLogCtrl {
     }
 
     /**
-     * 查询积分日志
+     * 查询收益日志
      *
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
-    @GetMapping("/pnt/log")
-    PageInfo<PntLogMo> list(PntLogMo mo, @RequestParam(value = "pageNum", required = false) Integer pageNum, @RequestParam(value = "pageSize", required = false) Integer pageSize) {
+    @GetMapping("/pnt/incomelog")
+    PageInfo<PntIncomeLogMo> list(PntIncomeLogMo mo, @RequestParam(value = "pageNum", required = false) Integer pageNum, @RequestParam(value = "pageSize", required = false) Integer pageSize) {
         if (pageNum == null)
             pageNum = 1;
         if (pageSize == null)
             pageSize = 5;
-        _log.info("list PntLogMo:" + mo + ", pageNum = " + pageNum + ", pageSize = " + pageSize);
+        _log.info("list PntIncomeLogMo:" + mo + ", pageNum = " + pageNum + ", pageSize = " + pageSize);
         if (pageSize > 50) {
             String msg = "pageSize不能大于50";
             _log.error(msg);
             throw new IllegalArgumentException(msg);
         }
-        PageInfo<PntLogMo> result = svc.list(mo, pageNum, pageSize);
+        PageInfo<PntIncomeLogMo> result = svc.list(mo, pageNum, pageSize);
         _log.info("result: " + result);
         return result;
     }
 
     /**
-     * 获取单个积分日志
+     * 获取单个收益日志
      *
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
-    @GetMapping("/pnt/log/getbyid")
-    PntLogMo getById(@RequestParam("id") java.lang.Long id) {
-        _log.info("get PntLogMo by id: {}", id);
+    @GetMapping("/pnt/incomelog/getbyid")
+    PntIncomeLogMo getById(@RequestParam("id") java.lang.Long id) {
+        _log.info("get PntIncomeLogMo by id: {}", id);
         return svc.getById(id);
     }
 }

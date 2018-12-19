@@ -1,11 +1,9 @@
 package rebue.pnt.ctrl;
 
+import com.github.pagehelper.PageInfo;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
-
 import javax.annotation.Resource;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DuplicateKeyException;
@@ -16,33 +14,30 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.github.pagehelper.PageInfo;
-
-import rebue.pnt.mo.PntFlowMo;
-import rebue.pnt.svc.PntFlowSvc;
-
+import rebue.pnt.mo.PntPointsLogTypeMo;
+import rebue.pnt.svc.PntPointsLogTypeSvc;
 import rebue.robotech.dic.ResultDic;
 import rebue.robotech.ro.IdRo;
 import rebue.robotech.ro.Ro;
 
 /**
- * 积分账户流水(将账户每一次积分变更作个记录)
+ * 积分日志类型
  *
  * @mbg.generated 自动生成的注释，如需修改本注释，请删除本行
  */
 @RestController
-public class PntFlowCtrl {
+public class PntPointsLogTypeCtrl {
+
     /**
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
-    private final static Logger _log = LoggerFactory.getLogger(PntFlowCtrl.class);
+    private static final Logger _log = LoggerFactory.getLogger(PntPointsLogTypeCtrl.class);
 
     /**
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Resource
-    private PntFlowSvc svc;
+    private PntPointsLogTypeSvc svc;
 
     /**
      * 有唯一约束的字段名称
@@ -52,13 +47,13 @@ public class PntFlowCtrl {
     private String _uniqueFilesName = "某字段内容";
 
     /**
-     * 添加积分账户流水
+     * 添加积分日志类型
      *
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
-    @PostMapping("/pnt/flow")
-    IdRo add(@RequestBody PntFlowMo mo) throws Exception {
-        _log.info("add PntFlowMo: {}", mo);
+    @PostMapping("/pnt/pointslogtype")
+    IdRo add(@RequestBody PntPointsLogTypeMo mo) throws Exception {
+        _log.info("add PntPointsLogTypeMo: {}", mo);
         IdRo ro = new IdRo();
         try {
             int result = svc.add(mo);
@@ -93,13 +88,13 @@ public class PntFlowCtrl {
     }
 
     /**
-     * 修改积分账户流水
+     * 修改积分日志类型
      *
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
-    @PutMapping("/pnt/flow")
-    Ro modify(@RequestBody PntFlowMo mo) throws Exception {
-        _log.info("modify PntFlowMo: {}", mo);
+    @PutMapping("/pnt/pointslogtype")
+    Ro modify(@RequestBody PntPointsLogTypeMo mo) throws Exception {
+        _log.info("modify PntPointsLogTypeMo: {}", mo);
         Ro ro = new Ro();
         try {
             if (svc.modify(mo) == 1) {
@@ -132,12 +127,13 @@ public class PntFlowCtrl {
     }
 
     /**
-     * 删除积分账户流水
-     * 
+     * 删除积分日志类型
+     *
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
-    @DeleteMapping("/pnt/flow")
-    Ro del(@RequestParam("id") java.lang.Long id) {        _log.info("del PntFlowMo by id: {}", id);
+    @DeleteMapping("/pnt/pointslogtype")
+    Ro del(@RequestParam("id") java.lang.String id) {
+        _log.info("del PntPointsLogTypeMo by id: {}", id);
         int result = svc.del(id);
         Ro ro = new Ro();
         if (result == 1) {
@@ -156,36 +152,35 @@ public class PntFlowCtrl {
     }
 
     /**
-     * 查询积分账户流水
-     * 
+     * 查询积分日志类型
+     *
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
-    @GetMapping("/pnt/flow")
-    PageInfo<PntFlowMo> list(PntFlowMo mo, @RequestParam(value = "pageNum", required = false) Integer pageNum, @RequestParam(value = "pageSize", required = false) Integer pageSize) {
+    @GetMapping("/pnt/pointslogtype")
+    PageInfo<PntPointsLogTypeMo> list(PntPointsLogTypeMo mo, @RequestParam(value = "pageNum", required = false) Integer pageNum, @RequestParam(value = "pageSize", required = false) Integer pageSize) {
         if (pageNum == null)
             pageNum = 1;
         if (pageSize == null)
             pageSize = 5;
-        _log.info("list PntFlowMo:" + mo + ", pageNum = " + pageNum + ", pageSize = " + pageSize);
+        _log.info("list PntPointsLogTypeMo:" + mo + ", pageNum = " + pageNum + ", pageSize = " + pageSize);
         if (pageSize > 50) {
             String msg = "pageSize不能大于50";
             _log.error(msg);
             throw new IllegalArgumentException(msg);
         }
-        PageInfo<PntFlowMo> result = svc.list(mo, pageNum, pageSize);
+        PageInfo<PntPointsLogTypeMo> result = svc.list(mo, pageNum, pageSize);
         _log.info("result: " + result);
         return result;
     }
 
     /**
-     * 获取单个积分账户流水
-     * 
+     * 获取单个积分日志类型
+     *
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
-    @GetMapping("/pnt/flow/getbyid")
-    PntFlowMo getById(@RequestParam("id") java.lang.Long id) {
-        _log.info("get PntFlowMo by id: {}", id);
+    @GetMapping("/pnt/pointslogtype/getbyid")
+    PntPointsLogTypeMo getById(@RequestParam("id") java.lang.String id) {
+        _log.info("get PntPointsLogTypeMo by id: {}", id);
         return svc.getById(id);
     }
-
 }

@@ -26,5 +26,19 @@
 		"targetFile": "${entityName}Tests.java",
 		"isGenTargetOnMiddleTable": false,
 		"backup": false
+	},
+	{
+		"templateName": "dao.btl",
+		"targetDir": "../pnt-bll/src/main/java/${modulePath}/dao/",
+		"targetFile": "${entityName}Dao.java",
+		"isGenTargetOnMiddleTable": false,
+		"backup": false
+	},
+	{
+		"templateName": "jo.btl",
+		"targetDir": "../pnt-api/src/main/java/${modulePath}/jo/",
+		"targetFile": "${entityName}Jo.java",
+		"isGenTargetOnMiddleTable": false,
+		"backup": false
 	}
 ]

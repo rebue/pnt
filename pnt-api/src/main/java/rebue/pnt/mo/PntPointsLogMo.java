@@ -7,17 +7,17 @@ import java.io.Serializable;
 /**
  * 积分日志
  *
- * 数据库表: PNT_LOG
+ * 数据库表: PNT_POINTS_LOG
  *
  * @mbg.generated 自动生成的注释，如需修改本注释，请删除本行
  */
 @JsonInclude(Include.NON_NULL)
-public class PntLogMo implements Serializable {
+public class PntPointsLogMo implements Serializable {
 
     /**
      *    积分日志ID
      *
-     *    数据库字段: PNT_LOG.ID
+     *    数据库字段: PNT_POINTS_LOG.ID
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
@@ -26,7 +26,7 @@ public class PntLogMo implements Serializable {
     /**
      *    积分账户ID(等于SUC的用户ID)
      *
-     *    数据库字段: PNT_LOG.ACCOUNT_ID
+     *    数据库字段: PNT_POINTS_LOG.ACCOUNT_ID
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
@@ -35,25 +35,43 @@ public class PntLogMo implements Serializable {
     /**
      *    积分日志类型ID
      *
-     *    数据库字段: PNT_LOG.LOG_TYPE_ID
+     *    数据库字段: PNT_POINTS_LOG.POINTS_LOG_TYPE_ID
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
-    private String logTypeId;
+    private String pointsLogTypeId;
 
     /**
-     *    改变积分的数量
+     *    改变前的积分
      *
-     *    数据库字段: PNT_LOG.CHANGED_POINTS
+     *    数据库字段: PNT_POINTS_LOG.POINTS_BEFORE_CHANGED
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
+    private Long pointsBeforeChanged;
+
+    /**
+     *    改变的积分
+     *
+     *    数据库字段: PNT_POINTS_LOG.CHANGED_POINTS
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
     private Long changedPoints;
 
     /**
+     *    改变后的积分(改变后的积分=改变前的积分+改变的积分)
+     *
+     *    数据库字段: PNT_POINTS_LOG.POINTS_AFTER_CHANGED
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
+    private Long pointsAfterChanged;
+
+    /**
      *    改变积分的标题
      *
-     *    数据库字段: PNT_LOG.CHANGED_TITILE
+     *    数据库字段: PNT_POINTS_LOG.CHANGED_TITILE
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
@@ -62,7 +80,7 @@ public class PntLogMo implements Serializable {
     /**
      *    改变积分的详情
      *
-     *    数据库字段: PNT_LOG.CHANGED_DETAIL
+     *    数据库字段: PNT_POINTS_LOG.CHANGED_DETAIL
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
@@ -71,7 +89,7 @@ public class PntLogMo implements Serializable {
     /**
      *    订单ID
      *
-     *    数据库字段: PNT_LOG.ORDER_ID
+     *    数据库字段: PNT_POINTS_LOG.ORDER_ID
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
@@ -80,20 +98,29 @@ public class PntLogMo implements Serializable {
     /**
      *    订单详情ID
      *
-     *    数据库字段: PNT_LOG.ORDER_DETAIL_ID
+     *    数据库字段: PNT_POINTS_LOG.ORDER_DETAIL_ID
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
     private Long orderDetailId;
 
     /**
-     *    改变积分的时间戳
+     *    修改时间戳
      *
-     *    数据库字段: PNT_LOG.CHANGED_TIMESTAMP
+     *    数据库字段: PNT_POINTS_LOG.MODIFIED_TIMESTAMP
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
-    private Long changedTimestamp;
+    private Long modifiedTimestamp;
+
+    /**
+     *    旧修改时间戳
+     *
+     *    数据库字段: PNT_POINTS_LOG.OLD_MODIFIED_TIMESTAMP
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
+    private Long oldModifiedTimestamp;
 
     /**
      *    @mbg.generated 自动生成，如需修改，请删除本行
@@ -103,7 +130,7 @@ public class PntLogMo implements Serializable {
     /**
      *    积分日志ID
      *
-     *    数据库字段: PNT_LOG.ID
+     *    数据库字段: PNT_POINTS_LOG.ID
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
@@ -114,7 +141,7 @@ public class PntLogMo implements Serializable {
     /**
      *    积分日志ID
      *
-     *    数据库字段: PNT_LOG.ID
+     *    数据库字段: PNT_POINTS_LOG.ID
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
@@ -125,7 +152,7 @@ public class PntLogMo implements Serializable {
     /**
      *    积分账户ID(等于SUC的用户ID)
      *
-     *    数据库字段: PNT_LOG.ACCOUNT_ID
+     *    数据库字段: PNT_POINTS_LOG.ACCOUNT_ID
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
@@ -136,7 +163,7 @@ public class PntLogMo implements Serializable {
     /**
      *    积分账户ID(等于SUC的用户ID)
      *
-     *    数据库字段: PNT_LOG.ACCOUNT_ID
+     *    数据库字段: PNT_POINTS_LOG.ACCOUNT_ID
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
@@ -147,29 +174,51 @@ public class PntLogMo implements Serializable {
     /**
      *    积分日志类型ID
      *
-     *    数据库字段: PNT_LOG.LOG_TYPE_ID
+     *    数据库字段: PNT_POINTS_LOG.POINTS_LOG_TYPE_ID
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
-    public String getLogTypeId() {
-        return logTypeId;
+    public String getPointsLogTypeId() {
+        return pointsLogTypeId;
     }
 
     /**
      *    积分日志类型ID
      *
-     *    数据库字段: PNT_LOG.LOG_TYPE_ID
+     *    数据库字段: PNT_POINTS_LOG.POINTS_LOG_TYPE_ID
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
-    public void setLogTypeId(String logTypeId) {
-        this.logTypeId = logTypeId;
+    public void setPointsLogTypeId(String pointsLogTypeId) {
+        this.pointsLogTypeId = pointsLogTypeId;
     }
 
     /**
-     *    改变积分的数量
+     *    改变前的积分
      *
-     *    数据库字段: PNT_LOG.CHANGED_POINTS
+     *    数据库字段: PNT_POINTS_LOG.POINTS_BEFORE_CHANGED
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
+    public Long getPointsBeforeChanged() {
+        return pointsBeforeChanged;
+    }
+
+    /**
+     *    改变前的积分
+     *
+     *    数据库字段: PNT_POINTS_LOG.POINTS_BEFORE_CHANGED
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
+    public void setPointsBeforeChanged(Long pointsBeforeChanged) {
+        this.pointsBeforeChanged = pointsBeforeChanged;
+    }
+
+    /**
+     *    改变的积分
+     *
+     *    数据库字段: PNT_POINTS_LOG.CHANGED_POINTS
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
@@ -178,9 +227,9 @@ public class PntLogMo implements Serializable {
     }
 
     /**
-     *    改变积分的数量
+     *    改变的积分
      *
-     *    数据库字段: PNT_LOG.CHANGED_POINTS
+     *    数据库字段: PNT_POINTS_LOG.CHANGED_POINTS
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
@@ -189,9 +238,31 @@ public class PntLogMo implements Serializable {
     }
 
     /**
+     *    改变后的积分(改变后的积分=改变前的积分+改变的积分)
+     *
+     *    数据库字段: PNT_POINTS_LOG.POINTS_AFTER_CHANGED
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
+    public Long getPointsAfterChanged() {
+        return pointsAfterChanged;
+    }
+
+    /**
+     *    改变后的积分(改变后的积分=改变前的积分+改变的积分)
+     *
+     *    数据库字段: PNT_POINTS_LOG.POINTS_AFTER_CHANGED
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
+    public void setPointsAfterChanged(Long pointsAfterChanged) {
+        this.pointsAfterChanged = pointsAfterChanged;
+    }
+
+    /**
      *    改变积分的标题
      *
-     *    数据库字段: PNT_LOG.CHANGED_TITILE
+     *    数据库字段: PNT_POINTS_LOG.CHANGED_TITILE
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
@@ -202,7 +273,7 @@ public class PntLogMo implements Serializable {
     /**
      *    改变积分的标题
      *
-     *    数据库字段: PNT_LOG.CHANGED_TITILE
+     *    数据库字段: PNT_POINTS_LOG.CHANGED_TITILE
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
@@ -213,7 +284,7 @@ public class PntLogMo implements Serializable {
     /**
      *    改变积分的详情
      *
-     *    数据库字段: PNT_LOG.CHANGED_DETAIL
+     *    数据库字段: PNT_POINTS_LOG.CHANGED_DETAIL
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
@@ -224,7 +295,7 @@ public class PntLogMo implements Serializable {
     /**
      *    改变积分的详情
      *
-     *    数据库字段: PNT_LOG.CHANGED_DETAIL
+     *    数据库字段: PNT_POINTS_LOG.CHANGED_DETAIL
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
@@ -235,7 +306,7 @@ public class PntLogMo implements Serializable {
     /**
      *    订单ID
      *
-     *    数据库字段: PNT_LOG.ORDER_ID
+     *    数据库字段: PNT_POINTS_LOG.ORDER_ID
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
@@ -246,7 +317,7 @@ public class PntLogMo implements Serializable {
     /**
      *    订单ID
      *
-     *    数据库字段: PNT_LOG.ORDER_ID
+     *    数据库字段: PNT_POINTS_LOG.ORDER_ID
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
@@ -257,7 +328,7 @@ public class PntLogMo implements Serializable {
     /**
      *    订单详情ID
      *
-     *    数据库字段: PNT_LOG.ORDER_DETAIL_ID
+     *    数据库字段: PNT_POINTS_LOG.ORDER_DETAIL_ID
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
@@ -268,7 +339,7 @@ public class PntLogMo implements Serializable {
     /**
      *    订单详情ID
      *
-     *    数据库字段: PNT_LOG.ORDER_DETAIL_ID
+     *    数据库字段: PNT_POINTS_LOG.ORDER_DETAIL_ID
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
@@ -277,25 +348,47 @@ public class PntLogMo implements Serializable {
     }
 
     /**
-     *    改变积分的时间戳
+     *    修改时间戳
      *
-     *    数据库字段: PNT_LOG.CHANGED_TIMESTAMP
+     *    数据库字段: PNT_POINTS_LOG.MODIFIED_TIMESTAMP
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
-    public Long getChangedTimestamp() {
-        return changedTimestamp;
+    public Long getModifiedTimestamp() {
+        return modifiedTimestamp;
     }
 
     /**
-     *    改变积分的时间戳
+     *    修改时间戳
      *
-     *    数据库字段: PNT_LOG.CHANGED_TIMESTAMP
+     *    数据库字段: PNT_POINTS_LOG.MODIFIED_TIMESTAMP
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
-    public void setChangedTimestamp(Long changedTimestamp) {
-        this.changedTimestamp = changedTimestamp;
+    public void setModifiedTimestamp(Long modifiedTimestamp) {
+        this.modifiedTimestamp = modifiedTimestamp;
+    }
+
+    /**
+     *    旧修改时间戳
+     *
+     *    数据库字段: PNT_POINTS_LOG.OLD_MODIFIED_TIMESTAMP
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
+    public Long getOldModifiedTimestamp() {
+        return oldModifiedTimestamp;
+    }
+
+    /**
+     *    旧修改时间戳
+     *
+     *    数据库字段: PNT_POINTS_LOG.OLD_MODIFIED_TIMESTAMP
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
+    public void setOldModifiedTimestamp(Long oldModifiedTimestamp) {
+        this.oldModifiedTimestamp = oldModifiedTimestamp;
     }
 
     /**
@@ -309,13 +402,16 @@ public class PntLogMo implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", accountId=").append(accountId);
-        sb.append(", logTypeId=").append(logTypeId);
+        sb.append(", pointsLogTypeId=").append(pointsLogTypeId);
+        sb.append(", pointsBeforeChanged=").append(pointsBeforeChanged);
         sb.append(", changedPoints=").append(changedPoints);
+        sb.append(", pointsAfterChanged=").append(pointsAfterChanged);
         sb.append(", changedTitile=").append(changedTitile);
         sb.append(", changedDetail=").append(changedDetail);
         sb.append(", orderId=").append(orderId);
         sb.append(", orderDetailId=").append(orderDetailId);
-        sb.append(", changedTimestamp=").append(changedTimestamp);
+        sb.append(", modifiedTimestamp=").append(modifiedTimestamp);
+        sb.append(", oldModifiedTimestamp=").append(oldModifiedTimestamp);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
@@ -335,7 +431,7 @@ public class PntLogMo implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        PntLogMo other = (PntLogMo) that;
+        PntPointsLogMo other = (PntPointsLogMo) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()));
     }
 

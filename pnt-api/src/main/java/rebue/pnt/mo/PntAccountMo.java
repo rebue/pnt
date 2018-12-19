@@ -3,6 +3,7 @@ package rebue.pnt.mo;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * 积分账户信息
@@ -24,13 +25,31 @@ public class PntAccountMo implements Serializable {
     private Long id;
 
     /**
-     *    当前积分数量
+     *    当前积分
      *
      *    数据库字段: PNT_ACCOUNT.POINTS
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
     private Long points;
+
+    /**
+     *    当前收益
+     *
+     *    数据库字段: PNT_ACCOUNT.INCOME
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
+    private BigDecimal income;
+
+    /**
+     *    历史总共收益
+     *
+     *    数据库字段: PNT_ACCOUNT.TOTAL_INCOME
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
+    private BigDecimal totalIncome;
 
     /**
      *    是否锁定
@@ -40,6 +59,15 @@ public class PntAccountMo implements Serializable {
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
     private Boolean isLocked;
+
+    /**
+     *    修改时间戳
+     *
+     *    数据库字段: PNT_ACCOUNT.MODIFIED_TIMESTAMP
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
+    private Long modifiedTimestamp;
 
     /**
      *    @mbg.generated 自动生成，如需修改，请删除本行
@@ -69,7 +97,7 @@ public class PntAccountMo implements Serializable {
     }
 
     /**
-     *    当前积分数量
+     *    当前积分
      *
      *    数据库字段: PNT_ACCOUNT.POINTS
      *
@@ -80,7 +108,7 @@ public class PntAccountMo implements Serializable {
     }
 
     /**
-     *    当前积分数量
+     *    当前积分
      *
      *    数据库字段: PNT_ACCOUNT.POINTS
      *
@@ -88,6 +116,50 @@ public class PntAccountMo implements Serializable {
      */
     public void setPoints(Long points) {
         this.points = points;
+    }
+
+    /**
+     *    当前收益
+     *
+     *    数据库字段: PNT_ACCOUNT.INCOME
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
+    public BigDecimal getIncome() {
+        return income;
+    }
+
+    /**
+     *    当前收益
+     *
+     *    数据库字段: PNT_ACCOUNT.INCOME
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
+    public void setIncome(BigDecimal income) {
+        this.income = income;
+    }
+
+    /**
+     *    历史总共收益
+     *
+     *    数据库字段: PNT_ACCOUNT.TOTAL_INCOME
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
+    public BigDecimal getTotalIncome() {
+        return totalIncome;
+    }
+
+    /**
+     *    历史总共收益
+     *
+     *    数据库字段: PNT_ACCOUNT.TOTAL_INCOME
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
+    public void setTotalIncome(BigDecimal totalIncome) {
+        this.totalIncome = totalIncome;
     }
 
     /**
@@ -113,6 +185,28 @@ public class PntAccountMo implements Serializable {
     }
 
     /**
+     *    修改时间戳
+     *
+     *    数据库字段: PNT_ACCOUNT.MODIFIED_TIMESTAMP
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
+    public Long getModifiedTimestamp() {
+        return modifiedTimestamp;
+    }
+
+    /**
+     *    修改时间戳
+     *
+     *    数据库字段: PNT_ACCOUNT.MODIFIED_TIMESTAMP
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
+    public void setModifiedTimestamp(Long modifiedTimestamp) {
+        this.modifiedTimestamp = modifiedTimestamp;
+    }
+
+    /**
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Override
@@ -123,7 +217,10 @@ public class PntAccountMo implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", points=").append(points);
+        sb.append(", income=").append(income);
+        sb.append(", totalIncome=").append(totalIncome);
         sb.append(", isLocked=").append(isLocked);
+        sb.append(", modifiedTimestamp=").append(modifiedTimestamp);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

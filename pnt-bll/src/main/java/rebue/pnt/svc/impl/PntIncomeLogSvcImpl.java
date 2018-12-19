@@ -1,22 +1,19 @@
 package rebue.pnt.svc.impl;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
-import rebue.pnt.dao.PntFlowDao;
-import rebue.pnt.jo.PntFlowJo;
-import rebue.pnt.mapper.PntFlowMapper;
-import rebue.pnt.mo.PntFlowMo;
-import rebue.pnt.svc.PntFlowSvc;
-
+import rebue.pnt.dao.PntIncomeLogDao;
+import rebue.pnt.jo.PntIncomeLogJo;
+import rebue.pnt.mapper.PntIncomeLogMapper;
+import rebue.pnt.mo.PntIncomeLogMo;
+import rebue.pnt.svc.PntIncomeLogSvc;
 import rebue.robotech.svc.impl.BaseSvcImpl;
 
 /**
- * 积分账户流水(将账户每一次积分变更作个记录)
+ * 收益日志
  *
  * 在单独使用不带任何参数的 @Transactional 注释时，
  * propagation(传播模式)=REQUIRED，readOnly=false，
@@ -31,25 +28,24 @@ import rebue.robotech.svc.impl.BaseSvcImpl;
  */
 @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 @Service
-public class PntFlowSvcImpl extends BaseSvcImpl<java.lang.Long, PntFlowJo, PntFlowDao, PntFlowMo, PntFlowMapper> implements PntFlowSvc {
-	
+public class PntIncomeLogSvcImpl extends BaseSvcImpl<java.lang.Long, PntIncomeLogJo, PntIncomeLogDao, PntIncomeLogMo, PntIncomeLogMapper> implements PntIncomeLogSvc {
+
     /**
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
-	private static final Logger _log = LoggerFactory.getLogger(PntFlowSvcImpl.class);
+    private static final Logger _log = LoggerFactory.getLogger(PntIncomeLogSvcImpl.class);
 
     /**
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Override
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    public int add(PntFlowMo mo) {
-    	_log.info("添加积分账户流水");
+    public int add(PntIncomeLogMo mo) {
+        _log.info("添加收益日志");
         // 如果id为空那么自动生成分布式id
         if (mo.getId() == null || mo.getId() == 0) {
             mo.setId(_idWorker.getId());
         }
         return super.add(mo);
     }
-
 }

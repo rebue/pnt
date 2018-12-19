@@ -5,11 +5,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import rebue.pnt.dao.PntLogDao;
-import rebue.pnt.jo.PntLogJo;
-import rebue.pnt.mapper.PntLogMapper;
-import rebue.pnt.mo.PntLogMo;
-import rebue.pnt.svc.PntLogSvc;
+import rebue.pnt.dao.PntPointsLogDao;
+import rebue.pnt.jo.PntPointsLogJo;
+import rebue.pnt.mapper.PntPointsLogMapper;
+import rebue.pnt.mo.PntPointsLogMo;
+import rebue.pnt.svc.PntPointsLogSvc;
 import rebue.robotech.svc.impl.BaseSvcImpl;
 
 /**
@@ -28,19 +28,19 @@ import rebue.robotech.svc.impl.BaseSvcImpl;
  */
 @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 @Service
-public class PntLogSvcImpl extends BaseSvcImpl<java.lang.Long, PntLogJo, PntLogDao, PntLogMo, PntLogMapper> implements PntLogSvc {
+public class PntPointsLogSvcImpl extends BaseSvcImpl<java.lang.Long, PntPointsLogJo, PntPointsLogDao, PntPointsLogMo, PntPointsLogMapper> implements PntPointsLogSvc {
 
     /**
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
-    private static final Logger _log = LoggerFactory.getLogger(PntLogSvcImpl.class);
+    private static final Logger _log = LoggerFactory.getLogger(PntPointsLogSvcImpl.class);
 
     /**
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Override
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    public int add(PntLogMo mo) {
+    public int add(PntPointsLogMo mo) {
         _log.info("添加积分日志");
         // 如果id为空那么自动生成分布式id
         if (mo.getId() == null || mo.getId() == 0) {

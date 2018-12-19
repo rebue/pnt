@@ -2,11 +2,11 @@ package rebue.pnt.mapper;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
-import rebue.pnt.mo.PntLogMo;
+import rebue.pnt.mo.PntPointsLogMo;
 import rebue.robotech.mapper.MybatisBaseMapper;
 
 @Mapper
-public interface PntLogMapper extends MybatisBaseMapper<PntLogMo, Long> {
+public interface PntPointsLogMapper extends MybatisBaseMapper<PntPointsLogMo, Long> {
 
     /**
      *    @mbg.generated 自动生成，如需修改，请删除本行
@@ -16,37 +16,37 @@ public interface PntLogMapper extends MybatisBaseMapper<PntLogMo, Long> {
     /**
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
-    int insert(PntLogMo record);
+    int insert(PntPointsLogMo record);
 
     /**
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
-    int insertSelective(PntLogMo record);
+    int insertSelective(PntPointsLogMo record);
 
     /**
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
-    PntLogMo selectByPrimaryKey(Long id);
+    PntPointsLogMo selectByPrimaryKey(Long id);
 
     /**
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
-    int updateByPrimaryKeySelective(PntLogMo record);
+    int updateByPrimaryKeySelective(PntPointsLogMo record);
 
     /**
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
-    int updateByPrimaryKey(PntLogMo record);
+    int updateByPrimaryKey(PntPointsLogMo record);
 
     /**
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
-    List<PntLogMo> selectAll();
+    List<PntPointsLogMo> selectAll();
 
     /**
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
-    List<PntLogMo> selectSelective(PntLogMo record);
+    List<PntPointsLogMo> selectSelective(PntPointsLogMo record);
 
     /**
      *    @mbg.generated 自动生成，如需修改，请删除本行
@@ -56,10 +56,10 @@ public interface PntLogMapper extends MybatisBaseMapper<PntLogMo, Long> {
     /**
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
-    boolean existSelective(PntLogMo record);
+    boolean existSelective(PntPointsLogMo record);
 
     /**
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
-    int countSelective(PntLogMo record);
+    int countSelective(PntPointsLogMo record);
 }

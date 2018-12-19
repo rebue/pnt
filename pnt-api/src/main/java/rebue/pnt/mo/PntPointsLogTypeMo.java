@@ -7,17 +7,17 @@ import java.io.Serializable;
 /**
  * 积分日志类型
  *
- * 数据库表: PNT_LOG_TYPE
+ * 数据库表: PNT_POINTS_LOG_TYPE
  *
  * @mbg.generated 自动生成的注释，如需修改本注释，请删除本行
  */
 @JsonInclude(Include.NON_NULL)
-public class PntLogTypeMo implements Serializable {
+public class PntPointsLogTypeMo implements Serializable {
 
     /**
      *    积分日志类型ID
      *
-     *    数据库字段: PNT_LOG_TYPE.ID
+     *    数据库字段: PNT_POINTS_LOG_TYPE.ID
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
@@ -26,7 +26,7 @@ public class PntLogTypeMo implements Serializable {
     /**
      *    积分日志类型名称
      *
-     *    数据库字段: PNT_LOG_TYPE.TYPE_NAME
+     *    数据库字段: PNT_POINTS_LOG_TYPE.TYPE_NAME
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
@@ -35,7 +35,7 @@ public class PntLogTypeMo implements Serializable {
     /**
      *    积分日志类型备注
      *
-     *    数据库字段: PNT_LOG_TYPE.REMARK
+     *    数据库字段: PNT_POINTS_LOG_TYPE.REMARK
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
@@ -49,7 +49,7 @@ public class PntLogTypeMo implements Serializable {
     /**
      *    积分日志类型ID
      *
-     *    数据库字段: PNT_LOG_TYPE.ID
+     *    数据库字段: PNT_POINTS_LOG_TYPE.ID
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
@@ -60,7 +60,7 @@ public class PntLogTypeMo implements Serializable {
     /**
      *    积分日志类型ID
      *
-     *    数据库字段: PNT_LOG_TYPE.ID
+     *    数据库字段: PNT_POINTS_LOG_TYPE.ID
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
@@ -71,7 +71,7 @@ public class PntLogTypeMo implements Serializable {
     /**
      *    积分日志类型名称
      *
-     *    数据库字段: PNT_LOG_TYPE.TYPE_NAME
+     *    数据库字段: PNT_POINTS_LOG_TYPE.TYPE_NAME
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
@@ -82,7 +82,7 @@ public class PntLogTypeMo implements Serializable {
     /**
      *    积分日志类型名称
      *
-     *    数据库字段: PNT_LOG_TYPE.TYPE_NAME
+     *    数据库字段: PNT_POINTS_LOG_TYPE.TYPE_NAME
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
@@ -93,7 +93,7 @@ public class PntLogTypeMo implements Serializable {
     /**
      *    积分日志类型备注
      *
-     *    数据库字段: PNT_LOG_TYPE.REMARK
+     *    数据库字段: PNT_POINTS_LOG_TYPE.REMARK
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
@@ -104,7 +104,7 @@ public class PntLogTypeMo implements Serializable {
     /**
      *    积分日志类型备注
      *
-     *    数据库字段: PNT_LOG_TYPE.REMARK
+     *    数据库字段: PNT_POINTS_LOG_TYPE.REMARK
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
@@ -143,7 +143,7 @@ public class PntLogTypeMo implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        PntLogTypeMo other = (PntLogTypeMo) that;
+        PntPointsLogTypeMo other = (PntPointsLogTypeMo) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()));
     }
 

@@ -1,19 +1,16 @@
 package rebue.pnt.svc.impl;
 
-import java.util.List;
 import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import rebue.pnt.dao.PntLogTypeDao;
-import rebue.pnt.jo.PntLogTypeJo;
-import rebue.pnt.mapper.PntLogTypeMapper;
-import rebue.pnt.mo.PntLogTypeMo;
-import rebue.pnt.svc.PntLogTypeSvc;
-import rebue.robotech.dic.ResultDic;
-import rebue.robotech.ro.Ro;
+import rebue.pnt.dao.PntPointsLogTypeDao;
+import rebue.pnt.jo.PntPointsLogTypeJo;
+import rebue.pnt.mapper.PntPointsLogTypeMapper;
+import rebue.pnt.mo.PntPointsLogTypeMo;
+import rebue.pnt.svc.PntPointsLogTypeSvc;
 import rebue.robotech.svc.impl.BaseSvcImpl;
 
 /**
@@ -32,35 +29,24 @@ import rebue.robotech.svc.impl.BaseSvcImpl;
  */
 @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 @Service
-public class PntLogTypeSvcImpl extends BaseSvcImpl<java.lang.String, PntLogTypeJo, PntLogTypeDao, PntLogTypeMo, PntLogTypeMapper> implements PntLogTypeSvc {
+public class PntPointsLogTypeSvcImpl extends BaseSvcImpl<java.lang.String, PntPointsLogTypeJo, PntPointsLogTypeDao, PntPointsLogTypeMo, PntPointsLogTypeMapper> implements PntPointsLogTypeSvc {
 
     /**
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
-    private static final Logger _log = LoggerFactory.getLogger(PntLogTypeSvcImpl.class);
+    private static final Logger _log = LoggerFactory.getLogger(PntPointsLogTypeSvcImpl.class);
 
     /**
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Override
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    public int add(PntLogTypeMo mo) {
+    public int add(PntPointsLogTypeMo mo) {
         _log.info("添加积分日志类型");
         // 如果id为空那么自动生成分布式id
         if (mo.getId() == null || mo.getId().trim().isEmpty()) {
             mo.setId(UUID.randomUUID().toString().replaceAll("-", ""));
         }
         return super.add(mo);
-    }
-
-    @Override
-    public Ro testJpa() {
-        _log.info("测试JPA");
-        final Ro ro = new Ro();
-        final List<PntLogTypeJo> list = _dao.findAll();
-        _log.debug("返回列表: {}", list);
-        ro.setResult(ResultDic.SUCCESS);
-        ro.setMsg("测试JPA成功");
-        return ro;
     }
 }

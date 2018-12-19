@@ -14,30 +14,30 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import rebue.pnt.mo.PntLogTypeMo;
-import rebue.pnt.svc.PntLogTypeSvc;
+import rebue.pnt.mo.PntPointsLogMo;
+import rebue.pnt.svc.PntPointsLogSvc;
 import rebue.robotech.dic.ResultDic;
 import rebue.robotech.ro.IdRo;
 import rebue.robotech.ro.Ro;
 
 /**
- * 积分日志类型
+ * 积分日志
  *
  * @mbg.generated 自动生成的注释，如需修改本注释，请删除本行
  */
 @RestController
-public class PntLogTypeCtrl {
+public class PntPointsLogCtrl {
 
     /**
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
-    private static final Logger _log = LoggerFactory.getLogger(PntLogTypeCtrl.class);
+    private static final Logger _log = LoggerFactory.getLogger(PntPointsLogCtrl.class);
 
     /**
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Resource
-    private PntLogTypeSvc svc;
+    private PntPointsLogSvc svc;
 
     /**
      * 有唯一约束的字段名称
@@ -47,13 +47,13 @@ public class PntLogTypeCtrl {
     private String _uniqueFilesName = "某字段内容";
 
     /**
-     * 添加积分日志类型
+     * 添加积分日志
      *
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
-    @PostMapping("/pnt/logtype")
-    IdRo add(@RequestBody PntLogTypeMo mo) throws Exception {
-        _log.info("add PntLogTypeMo: {}", mo);
+    @PostMapping("/pnt/pointslog")
+    IdRo add(@RequestBody PntPointsLogMo mo) throws Exception {
+        _log.info("add PntPointsLogMo: {}", mo);
         IdRo ro = new IdRo();
         try {
             int result = svc.add(mo);
@@ -88,13 +88,13 @@ public class PntLogTypeCtrl {
     }
 
     /**
-     * 修改积分日志类型
+     * 修改积分日志
      *
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
-    @PutMapping("/pnt/logtype")
-    Ro modify(@RequestBody PntLogTypeMo mo) throws Exception {
-        _log.info("modify PntLogTypeMo: {}", mo);
+    @PutMapping("/pnt/pointslog")
+    Ro modify(@RequestBody PntPointsLogMo mo) throws Exception {
+        _log.info("modify PntPointsLogMo: {}", mo);
         Ro ro = new Ro();
         try {
             if (svc.modify(mo) == 1) {
@@ -127,13 +127,13 @@ public class PntLogTypeCtrl {
     }
 
     /**
-     * 删除积分日志类型
+     * 删除积分日志
      *
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
-    @DeleteMapping("/pnt/logtype")
-    Ro del(@RequestParam("id") java.lang.String id) {
-        _log.info("del PntLogTypeMo by id: {}", id);
+    @DeleteMapping("/pnt/pointslog")
+    Ro del(@RequestParam("id") java.lang.Long id) {
+        _log.info("del PntPointsLogMo by id: {}", id);
         int result = svc.del(id);
         Ro ro = new Ro();
         if (result == 1) {
@@ -152,35 +152,35 @@ public class PntLogTypeCtrl {
     }
 
     /**
-     * 查询积分日志类型
+     * 查询积分日志
      *
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
-    @GetMapping("/pnt/logtype")
-    PageInfo<PntLogTypeMo> list(PntLogTypeMo mo, @RequestParam(value = "pageNum", required = false) Integer pageNum, @RequestParam(value = "pageSize", required = false) Integer pageSize) {
+    @GetMapping("/pnt/pointslog")
+    PageInfo<PntPointsLogMo> list(PntPointsLogMo mo, @RequestParam(value = "pageNum", required = false) Integer pageNum, @RequestParam(value = "pageSize", required = false) Integer pageSize) {
         if (pageNum == null)
             pageNum = 1;
         if (pageSize == null)
             pageSize = 5;
-        _log.info("list PntLogTypeMo:" + mo + ", pageNum = " + pageNum + ", pageSize = " + pageSize);
+        _log.info("list PntPointsLogMo:" + mo + ", pageNum = " + pageNum + ", pageSize = " + pageSize);
         if (pageSize > 50) {
             String msg = "pageSize不能大于50";
             _log.error(msg);
             throw new IllegalArgumentException(msg);
         }
-        PageInfo<PntLogTypeMo> result = svc.list(mo, pageNum, pageSize);
+        PageInfo<PntPointsLogMo> result = svc.list(mo, pageNum, pageSize);
         _log.info("result: " + result);
         return result;
     }
 
     /**
-     * 获取单个积分日志类型
+     * 获取单个积分日志
      *
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
-    @GetMapping("/pnt/logtype/getbyid")
-    PntLogTypeMo getById(@RequestParam("id") java.lang.String id) {
-        _log.info("get PntLogTypeMo by id: {}", id);
+    @GetMapping("/pnt/pointslog/getbyid")
+    PntPointsLogMo getById(@RequestParam("id") java.lang.Long id) {
+        _log.info("get PntPointsLogMo by id: {}", id);
         return svc.getById(id);
     }
 }

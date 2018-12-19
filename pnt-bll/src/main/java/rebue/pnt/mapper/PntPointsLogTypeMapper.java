@@ -2,11 +2,11 @@ package rebue.pnt.mapper;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
-import rebue.pnt.mo.PntLogTypeMo;
+import rebue.pnt.mo.PntPointsLogTypeMo;
 import rebue.robotech.mapper.MybatisBaseMapper;
 
 @Mapper
-public interface PntLogTypeMapper extends MybatisBaseMapper<PntLogTypeMo, String> {
+public interface PntPointsLogTypeMapper extends MybatisBaseMapper<PntPointsLogTypeMo, String> {
 
     /**
      *    @mbg.generated 自动生成，如需修改，请删除本行
@@ -16,37 +16,37 @@ public interface PntLogTypeMapper extends MybatisBaseMapper<PntLogTypeMo, String
     /**
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
-    int insert(PntLogTypeMo record);
+    int insert(PntPointsLogTypeMo record);
 
     /**
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
-    int insertSelective(PntLogTypeMo record);
+    int insertSelective(PntPointsLogTypeMo record);
 
     /**
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
-    PntLogTypeMo selectByPrimaryKey(String id);
+    PntPointsLogTypeMo selectByPrimaryKey(String id);
 
     /**
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
-    int updateByPrimaryKeySelective(PntLogTypeMo record);
+    int updateByPrimaryKeySelective(PntPointsLogTypeMo record);
 
     /**
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
-    int updateByPrimaryKey(PntLogTypeMo record);
+    int updateByPrimaryKey(PntPointsLogTypeMo record);
 
     /**
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
-    List<PntLogTypeMo> selectAll();
+    List<PntPointsLogTypeMo> selectAll();
 
     /**
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
-    List<PntLogTypeMo> selectSelective(PntLogTypeMo record);
+    List<PntPointsLogTypeMo> selectSelective(PntPointsLogTypeMo record);
 
     /**
      *    @mbg.generated 自动生成，如需修改，请删除本行
@@ -56,10 +56,10 @@ public interface PntLogTypeMapper extends MybatisBaseMapper<PntLogTypeMo, String
     /**
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
-    boolean existSelective(PntLogTypeMo record);
+    boolean existSelective(PntPointsLogTypeMo record);
 
     /**
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
-    int countSelective(PntLogTypeMo record);
+    int countSelective(PntPointsLogTypeMo record);
 }
