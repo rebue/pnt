@@ -2,8 +2,14 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="com.github.rebue.pnt_pnt-api_jar_1.0.0PU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>rebue.pnt.jo.PntLog</class>
+    <class>rebue.pnt.jo.PntLogType</class>
+    <class>rebue.pnt.jo.PntAccountJo</class>
+    <class>rebue.pnt.jo.PntPointsLogJo</class>
+    <class>rebue.pnt.jo.PntIncomeLogJo</class>
+    <class>rebue.pnt.jo.PntPointsLogTypeJo</class>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://192.168.1.201:3306/pnt?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/pnt?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="pnt"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.password" value="pnt"/>
