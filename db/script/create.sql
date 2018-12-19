@@ -1,16 +1,16 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2018/12/18 10:34:36                          */
+/* Created on:     2018/12/19 14:44:20                          */
 /*==============================================================*/
 
 
-drop table if exists PNT_POINTS_LOG;
+drop table if exists PNT_ACCOUNT;
 
 drop table if exists PNT_INCOME_LOG;
 
-drop table if exists PNT_ACCOUNT;
+drop table if exists PNT_POINTS_LOG;
 
-drop table if exists PNT_LOG_TYPE;
+drop table if exists PNT_POINTS_LOG_TYPE;
 
 /*==============================================================*/
 /* Table: PNT_ACCOUNT                                           */
@@ -52,20 +52,6 @@ create table PNT_INCOME_LOG
 alter table PNT_INCOME_LOG comment '收益日志';
 
 /*==============================================================*/
-/* Table: PNT_LOG_TYPE                                          */
-/*==============================================================*/
-create table PNT_LOG_TYPE
-(
-   ID                   varchar(30) not null comment '积分日志类型ID',
-   TYPE_NAME            varchar(30) not null comment '积分日志类型名称',
-   REMARK               varchar(120) comment '积分日志类型备注',
-   primary key (ID),
-   unique key AK_NAME (TYPE_NAME)
-);
-
-alter table PNT_LOG_TYPE comment '积分日志类型';
-
-/*==============================================================*/
 /* Table: PNT_POINTS_LOG                                        */
 /*==============================================================*/
 create table PNT_POINTS_LOG
@@ -88,6 +74,20 @@ create table PNT_POINTS_LOG
 
 alter table PNT_POINTS_LOG comment '积分日志';
 
+/*==============================================================*/
+/* Table: PNT_POINTS_LOG_TYPE                                   */
+/*==============================================================*/
+create table PNT_POINTS_LOG_TYPE
+(
+   ID                   varchar(30) not null comment '积分日志类型ID',
+   TYPE_NAME            varchar(30) not null comment '积分日志类型名称',
+   REMARK               varchar(120) comment '积分日志类型备注',
+   primary key (ID),
+   unique key AK_NAME (TYPE_NAME)
+);
+
+alter table PNT_POINTS_LOG_TYPE comment '积分日志类型';
+
 alter table PNT_INCOME_LOG add constraint FK_RELATIONSHIP_4 foreign key (ACCOUNT_ID)
       references PNT_ACCOUNT (ID) on delete restrict on update restrict;
 
@@ -95,5 +95,5 @@ alter table PNT_POINTS_LOG add constraint FK_RELATIONSHIP_1 foreign key (ACCOUNT
       references PNT_ACCOUNT (ID) on delete restrict on update restrict;
 
 alter table PNT_POINTS_LOG add constraint FK_RELATIONSHIP_2 foreign key (POINTS_LOG_TYPE_ID)
-      references PNT_LOG_TYPE (ID) on delete restrict on update restrict;
+      references PNT_POINTS_LOG_TYPE (ID) on delete restrict on update restrict;
 
