@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2018/12/19 14:44:20                          */
+/* Created on:     2018/12/19 16:16:28                          */
 /*==============================================================*/
 
 
@@ -9,8 +9,6 @@ drop table if exists PNT_ACCOUNT;
 drop table if exists PNT_INCOME_LOG;
 
 drop table if exists PNT_POINTS_LOG;
-
-drop table if exists PNT_POINTS_LOG_TYPE;
 
 /*==============================================================*/
 /* Table: PNT_ACCOUNT                                           */
@@ -58,7 +56,7 @@ create table PNT_POINTS_LOG
 (
    ID                   bigint not null comment '积分日志ID',
    ACCOUNT_ID           bigint not null comment '积分账户ID(等于SUC的用户ID)',
-   POINTS_LOG_TYPE_ID   varchar(30) not null comment '积分日志类型ID',
+   POINTS_LOG_TYPE      tinyint not null comment '积分日志类型',
    POINTS_BEFORE_CHANGED bigint not null comment '改变前的积分',
    CHANGED_POINTS       bigint not null comment '改变的积分',
    POINTS_AFTER_CHANGED bigint not null comment '改变后的积分(改变后的积分=改变前的积分+改变的积分)',
@@ -69,31 +67,14 @@ create table PNT_POINTS_LOG
    MODIFIED_TIMESTAMP   bigint not null comment '修改时间戳',
    OLD_MODIFIED_TIMESTAMP bigint not null comment '旧修改时间戳',
    primary key (ID),
-   unique key AK_ACCOUNT_AND_LOG_TYPE_AND_ORDER (ACCOUNT_ID, POINTS_LOG_TYPE_ID, ORDER_ID, ORDER_DETAIL_ID)
+   unique key AK_ACCOUNT_AND_LOG_TYPE_AND_ORDER (ACCOUNT_ID, ORDER_ID, ORDER_DETAIL_ID, POINTS_LOG_TYPE)
 );
 
 alter table PNT_POINTS_LOG comment '积分日志';
-
-/*==============================================================*/
-/* Table: PNT_POINTS_LOG_TYPE                                   */
-/*==============================================================*/
-create table PNT_POINTS_LOG_TYPE
-(
-   ID                   varchar(30) not null comment '积分日志类型ID',
-   TYPE_NAME            varchar(30) not null comment '积分日志类型名称',
-   REMARK               varchar(120) comment '积分日志类型备注',
-   primary key (ID),
-   unique key AK_NAME (TYPE_NAME)
-);
-
-alter table PNT_POINTS_LOG_TYPE comment '积分日志类型';
 
 alter table PNT_INCOME_LOG add constraint FK_RELATIONSHIP_4 foreign key (ACCOUNT_ID)
       references PNT_ACCOUNT (ID) on delete restrict on update restrict;
 
 alter table PNT_POINTS_LOG add constraint FK_RELATIONSHIP_1 foreign key (ACCOUNT_ID)
       references PNT_ACCOUNT (ID) on delete restrict on update restrict;
-
-alter table PNT_POINTS_LOG add constraint FK_RELATIONSHIP_2 foreign key (POINTS_LOG_TYPE_ID)
-      references PNT_POINTS_LOG_TYPE (ID) on delete restrict on update restrict;
 
