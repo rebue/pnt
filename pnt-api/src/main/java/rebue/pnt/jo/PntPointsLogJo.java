@@ -39,6 +39,13 @@ public class PntPointsLogJo implements Serializable {
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Basic(optional = false)
+    @Column(name = "POINTS_LOG_TYPE", nullable = false, length = 3)
+    private Byte pointsLogType;
+
+    /**
+     * @mbg.generated 自动生成，如需修改，请删除本行
+     */
+    @Basic(optional = false)
     @Column(name = "POINTS_BEFORE_CHANGED", nullable = false, length = 19)
     private Long pointsBeforeChanged;
 
@@ -132,8 +139,4 @@ public class PntPointsLogJo implements Serializable {
     @JoinColumn(name = "ACCOUNT_ID", referencedColumnName = "ID", nullable = false)
     @ManyToOne(optional = false)
     private PntAccountJo accountId;
-
-    @JoinColumn(name = "POINTS_LOG_TYPE_ID", referencedColumnName = "ID", nullable = false)
-    @ManyToOne(optional = false)
-    private PntPointsLogTypeJo pointsLogTypeId;
 }

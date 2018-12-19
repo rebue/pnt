@@ -33,13 +33,13 @@ public class PntPointsLogMo implements Serializable {
     private Long accountId;
 
     /**
-     *    积分日志类型ID
+     *    积分日志类型
      *
-     *    数据库字段: PNT_POINTS_LOG.POINTS_LOG_TYPE_ID
+     *    数据库字段: PNT_POINTS_LOG.POINTS_LOG_TYPE
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
-    private String pointsLogTypeId;
+    private Byte pointsLogType;
 
     /**
      *    改变前的积分
@@ -172,25 +172,25 @@ public class PntPointsLogMo implements Serializable {
     }
 
     /**
-     *    积分日志类型ID
+     *    积分日志类型
      *
-     *    数据库字段: PNT_POINTS_LOG.POINTS_LOG_TYPE_ID
+     *    数据库字段: PNT_POINTS_LOG.POINTS_LOG_TYPE
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
-    public String getPointsLogTypeId() {
-        return pointsLogTypeId;
+    public Byte getPointsLogType() {
+        return pointsLogType;
     }
 
     /**
-     *    积分日志类型ID
+     *    积分日志类型
      *
-     *    数据库字段: PNT_POINTS_LOG.POINTS_LOG_TYPE_ID
+     *    数据库字段: PNT_POINTS_LOG.POINTS_LOG_TYPE
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
-    public void setPointsLogTypeId(String pointsLogTypeId) {
-        this.pointsLogTypeId = pointsLogTypeId;
+    public void setPointsLogType(Byte pointsLogType) {
+        this.pointsLogType = pointsLogType;
     }
 
     /**
@@ -402,7 +402,7 @@ public class PntPointsLogMo implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", accountId=").append(accountId);
-        sb.append(", pointsLogTypeId=").append(pointsLogTypeId);
+        sb.append(", pointsLogType=").append(pointsLogType);
         sb.append(", pointsBeforeChanged=").append(pointsBeforeChanged);
         sb.append(", changedPoints=").append(changedPoints);
         sb.append(", pointsAfterChanged=").append(pointsAfterChanged);

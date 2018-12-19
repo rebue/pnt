@@ -3,7 +3,6 @@
 	<persistence-unit name="pnt-bll">
 		<class>rebue.pnt.jo.PntAccountJo</class>
 		<class>rebue.pnt.jo.PntPointsLogJo</class>
-		<class>rebue.pnt.jo.PntPointsLogTypeJo</class>
 	</persistence-unit>
 	<persistence-unit name="persistenceUnit"/>
 </persistence>
