@@ -1,12 +1,12 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2018/12/19 16:16:28                          */
+/* Created on:     2018/12/20 14:15:19                          */
 /*==============================================================*/
 
 
-drop table if exists PNT_INCOME_LOG;
-
 drop table if exists PNT_POINTS_LOG;
+
+drop table if exists PNT_INCOME_LOG;
 
 drop table if exists PNT_ACCOUNT;
 
@@ -16,7 +16,7 @@ drop table if exists PNT_ACCOUNT;
 create table PNT_ACCOUNT
 (
    ID                   bigint not null comment '积分账户ID(等于SUC的用户ID)',
-   POINTS               bigint not null comment '当前积分',
+   POINTS               decimal(18,4) not null comment '当前积分',
    INCOME               numeric(20,10) not null comment '当前收益',
    TOTAL_INCOME         numeric(20,10) not null comment '历史总共收益',
    IS_LOCKED            bool not null default false comment '是否锁定',
@@ -57,9 +57,9 @@ create table PNT_POINTS_LOG
    ID                   bigint not null comment '积分日志ID',
    ACCOUNT_ID           bigint not null comment '积分账户ID(等于SUC的用户ID)',
    POINTS_LOG_TYPE      tinyint not null comment '积分日志类型',
-   POINTS_BEFORE_CHANGED bigint not null comment '改变前的积分',
-   CHANGED_POINTS       bigint not null comment '改变的积分',
-   POINTS_AFTER_CHANGED bigint not null comment '改变后的积分(改变后的积分=改变前的积分+改变的积分)',
+   POINTS_BEFORE_CHANGED decimal(18,4) not null comment '改变前的积分',
+   CHANGED_POINTS       decimal(18,4) not null comment '改变的积分',
+   POINTS_AFTER_CHANGED decimal(18,4) not null comment '改变后的积分(改变后的积分=改变前的积分+改变的积分)',
    CHANGED_TITILE       varchar(30) not null comment '改变积分的标题',
    CHANGED_DETAIL       varchar(200) comment '改变积分的详情',
    ORDER_ID             bigint not null comment '订单ID',
@@ -67,7 +67,7 @@ create table PNT_POINTS_LOG
    MODIFIED_TIMESTAMP   bigint not null comment '修改时间戳',
    OLD_MODIFIED_TIMESTAMP bigint not null comment '旧修改时间戳',
    primary key (ID),
-   unique key AK_ACCOUNT_AND_LOG_TYPE_AND_ORDER (ACCOUNT_ID, ORDER_ID, ORDER_DETAIL_ID, POINTS_LOG_TYPE)
+   unique key AK_ACCOUNT_AND_LOG_TYPE_AND_ORDER (ACCOUNT_ID, POINTS_LOG_TYPE, ORDER_ID, ORDER_DETAIL_ID)
 );
 
 alter table PNT_POINTS_LOG comment '积分日志';
