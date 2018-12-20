@@ -191,7 +191,7 @@ public class PntIncomeLogCtrl {
 	 * @return
 	 */
     @PostMapping("/pnt/incometrade")
-	Ro addIncomeTrade(AddIncomeTradeTo to) {
+	Ro addIncomeTrade(@RequestBody AddIncomeTradeTo to) {
 		_log.info("添加一笔收益交易的请求参数为：{}", to);
 		try {
 			return svc.addIncomeTrade(to);

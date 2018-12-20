@@ -2,9 +2,15 @@ package rebue.pnt.test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.Date;
+
 import org.junit.Assert;
 import org.junit.Test;
+
+import rebue.pnt.dic.IncomeLogTypeDic;
 import rebue.pnt.mo.PntIncomeLogMo;
+import rebue.pnt.to.AddIncomeTradeTo;
 import rebue.robotech.dic.ResultDic;
 import rebue.robotech.ro.IdRo;
 import rebue.robotech.ro.Ro;
@@ -28,7 +34,7 @@ public class PntIncomeLogTests {
      *
      *  @mbg.generated 自动生成，如需修改，请删除本行
      */
-    @Test
+//    @Test
     public void testCrud() throws IOException, ReflectiveOperationException {
         PntIncomeLogMo mo = null;
         for (int i = 0; i < 20; i++) {
@@ -61,5 +67,30 @@ public class PntIncomeLogTests {
         Assert.assertEquals(ResultDic.SUCCESS, deleteRo.getResult());
     }
 
-    private final String hostUrl = "http://127.0.0.1:9009";
+    private final String hostUrl = "http://127.0.0.1:9010";
+    
+    @Test
+    public void addIncomeTradeTest() throws IOException {
+    	AddIncomeTradeTo to = new AddIncomeTradeTo();
+    	to.setAccountId(520391209198288896L);
+    	to.setIncomeLogType((byte) IncomeLogTypeDic.DAY_INCOME.getCode());
+    	to.setChangedIncome(BigDecimal.valueOf(8));
+    	to.setChangedTitile("大卖网络-积分日收益");
+    	to.setChangedDetail("测试积分日收益");
+    	to.setModifiedTimestamp(System.currentTimeMillis());
+    	to.setStatDate(new Date());
+    	String string = OkhttpUtils.postByJsonParams(hostUrl + "/pnt/incometrade", to);
+    	System.out.println(string);
+    	
+    	to = new AddIncomeTradeTo();
+    	to.setAccountId(520391209198288896L);
+    	to.setIncomeLogType((byte) IncomeLogTypeDic.TRANSFER_OUT_INCOME.getCode());
+    	to.setChangedIncome(BigDecimal.valueOf(2));
+    	to.setChangedTitile("大卖网络-收益转出");
+    	to.setChangedDetail("测试收益转出");
+    	to.setModifiedTimestamp(System.currentTimeMillis());
+    	to.setStatDate(new Date());
+    	String strings = OkhttpUtils.postByJsonParams(hostUrl + "/pnt/incometrade", to);
+    	System.out.println(strings);
+    }
 }
