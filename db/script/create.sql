@@ -4,11 +4,11 @@
 /*==============================================================*/
 
 
-drop table if exists PNT_ACCOUNT;
-
 drop table if exists PNT_INCOME_LOG;
 
 drop table if exists PNT_POINTS_LOG;
+
+drop table if exists PNT_ACCOUNT;
 
 /*==============================================================*/
 /* Table: PNT_ACCOUNT                                           */
