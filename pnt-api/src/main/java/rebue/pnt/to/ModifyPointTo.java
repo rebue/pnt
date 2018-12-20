@@ -5,12 +5,12 @@ import java.math.BigDecimal;
 import lombok.Data;
 
 /**
- * 修改积分账号信息请求参数
+ * 修改积分信息请求参数
  * @author lbl
  * 2018年12月19日17:17:17
  */
 @Data
-public class ModifyPointAccountTo {
+public class ModifyPointTo {
 
 	/**
 	 * 账号id

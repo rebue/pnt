@@ -1,7 +1,8 @@
 package rebue.pnt.svc;
 
 import rebue.pnt.mo.PntAccountMo;
-import rebue.pnt.to.ModifyPointAccountTo;
+import rebue.pnt.to.ModifyIncomeTo;
+import rebue.pnt.to.ModifyPointTo;
 import rebue.robotech.ro.Ro;
 import rebue.robotech.svc.MybatisBaseSvc;
 
@@ -17,5 +18,12 @@ public interface PntAccountSvc extends MybatisBaseSvc<PntAccountMo, java.lang.Lo
      *  @param to
      *  @return
      */
-    Ro modifyPointAccount(ModifyPointAccountTo to);
+    Ro modifyPoint(ModifyPointTo to);
+
+    /**
+     * 修改收益信息
+     * @param to
+     * @return
+     */
+	Ro modifyIncome(ModifyIncomeTo to);
 }

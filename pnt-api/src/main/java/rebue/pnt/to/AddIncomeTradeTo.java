@@ -1,6 +1,11 @@
 package rebue.pnt.to;
 
 import java.math.BigDecimal;
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 
@@ -47,6 +52,15 @@ public class AddIncomeTradeTo {
 	 * 数据库字段: PNT_INCOME_LOG.CHANGED_DETAIL
 	 */
 	private String changedDetail;
+
+	/**
+	 * 统计日期(日收益的日期)
+	 *
+	 * 数据库字段: PNT_INCOME_LOG.STAT_DATE
+	 */
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "GMT+8")
+	private Date statDate;
 
 	/**
 	 * 修改时间戳
