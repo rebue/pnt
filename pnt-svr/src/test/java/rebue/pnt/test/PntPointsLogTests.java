@@ -2,9 +2,10 @@ package rebue.pnt.test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
+import java.math.BigDecimal;
+
 import org.junit.Assert;
 import org.junit.Test;
-
 import rebue.pnt.dic.PointLogTypeDic;
 import rebue.pnt.mo.PntPointsLogMo;
 import rebue.pnt.to.AddPointTradeTo;
@@ -26,12 +27,7 @@ public class PntPointsLogTests {
      */
     private final ObjectMapper _objectMapper = new ObjectMapper();
 
-    /**
-     *  测试基本的增删改查
-     *
-     *  @mbg.generated 自动生成，如需修改，请删除本行
-     */
-//    @Test
+    // @Test
     public void testCrud() throws IOException, ReflectiveOperationException {
         PntPointsLogMo mo = null;
         for (int i = 0; i < 20; i++) {
@@ -65,19 +61,39 @@ public class PntPointsLogTests {
     }
 
     private final String hostUrl = "http://127.0.0.1:9010";
-    
+
     @Test
     public void addPointTest() throws IOException {
-    	AddPointTradeTo to = new AddPointTradeTo();
-    	to.setAccountId(520391209198288896L);
-    	to.setPointsLogType((byte) PointLogTypeDic.ORDER_SETTLE.getCode());
-    	to.setChangedTitile("大卖网络-购买商品添加积分");
-    	to.setChangedDetail("测试商品");
-    	to.setOrderId(1234564567L);
-    	to.setOrderDetailId(7894561237L);
-    	to.setModifiedTimestamp(System.currentTimeMillis());
-    	to.setChangedPoints(2L);
-    	String results = OkhttpUtils.postByJsonParams(hostUrl + "/pnt/points/add", to);
-    	System.out.println(results);
+        AddPointTradeTo to = new AddPointTradeTo();
+        to.setAccountId(520391209198288896L);
+        to.setPointsLogType((byte) PointLogTypeDic.ORDER_SETTLE.getCode());
+        to.setChangedTitile("大卖网络-购买商品添加积分");
+        to.setChangedDetail("测试商品");
+        to.setOrderId(123456456710L);
+        to.setOrderDetailId(7894561237L);
+        to.setModifiedTimestamp(System.currentTimeMillis());
+        to.setChangedPoints(BigDecimal.valueOf(6));
+        String results = OkhttpUtils.postByJsonParams(hostUrl + "/pnt/pointstrade", to);
+        System.out.println(results);
+        to = new AddPointTradeTo();
+        to.setAccountId(520391209198288896L);
+        to.setPointsLogType((byte) PointLogTypeDic.ORDER_RETURN.getCode());
+        to.setChangedTitile("大卖网络-商品退货扣减积分");
+        to.setChangedDetail("测试商品");
+        to.setOrderId(123456456710L);
+        to.setOrderDetailId(7894561237L);
+        to.setModifiedTimestamp(System.currentTimeMillis());
+        to.setChangedPoints(BigDecimal.valueOf(2));
+        String resultss = OkhttpUtils.postByJsonParams(hostUrl + "/pnt/pointstrade", to);
+        System.out.println(resultss);
+        to = new AddPointTradeTo();
+        to.setAccountId(520391209198288896L);
+        to.setPointsLogType((byte) PointLogTypeDic.VPAY_WITHDRAW.getCode());
+        to.setChangedTitile("大卖网络-v支付提现扣减积分");
+        to.setOrderId(123456456711L);
+        to.setModifiedTimestamp(System.currentTimeMillis());
+        to.setChangedPoints(BigDecimal.valueOf(2));
+        String resultsss = OkhttpUtils.postByJsonParams(hostUrl + "/pnt/pointstrade", to);
+        System.out.println(resultsss);
     }
 }

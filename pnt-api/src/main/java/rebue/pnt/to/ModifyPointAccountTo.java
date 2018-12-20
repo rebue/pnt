@@ -1,5 +1,7 @@
 package rebue.pnt.to;
 
+import java.math.BigDecimal;
+
 import lombok.Data;
 
 /**
@@ -18,12 +20,12 @@ public class ModifyPointAccountTo {
 	/**
 	 * 新的当前积分
 	 */
-	private Long newPoints;
+	private BigDecimal newPoints;
 	
 	/**
 	 * 旧的当前积分
 	 */
-	private Long oldPoints;
+	private BigDecimal oldPoints;
 	
 	/**
 	 * 新修改时间戳

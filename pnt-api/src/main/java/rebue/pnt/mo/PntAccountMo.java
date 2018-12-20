@@ -31,7 +31,7 @@ public class PntAccountMo implements Serializable {
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
-    private Long points;
+    private BigDecimal points;
 
     /**
      *    当前收益
@@ -103,7 +103,7 @@ public class PntAccountMo implements Serializable {
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
-    public Long getPoints() {
+    public BigDecimal getPoints() {
         return points;
     }
 
@@ -114,7 +114,7 @@ public class PntAccountMo implements Serializable {
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
-    public void setPoints(Long points) {
+    public void setPoints(BigDecimal points) {
         this.points = points;
     }
 

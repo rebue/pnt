@@ -12,10 +12,10 @@ import rebue.robotech.svc.MybatisBaseSvc;
  */
 public interface PntAccountSvc extends MybatisBaseSvc<PntAccountMo, java.lang.Long> {
 
-	/**
-	 * 修改积分账号信息
-	 * @param to
-	 * @return
-	 */
-	Ro modifyPointAccount(ModifyPointAccountTo to);
+    /**
+     *  修改积分账号信息
+     *  @param to
+     *  @return
+     */
+    Ro modifyPointAccount(ModifyPointAccountTo to);
 }

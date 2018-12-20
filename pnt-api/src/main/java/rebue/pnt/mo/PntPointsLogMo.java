@@ -3,6 +3,7 @@ package rebue.pnt.mo;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * 积分日志
@@ -48,7 +49,7 @@ public class PntPointsLogMo implements Serializable {
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
-    private Long pointsBeforeChanged;
+    private BigDecimal pointsBeforeChanged;
 
     /**
      *    改变的积分
@@ -57,7 +58,7 @@ public class PntPointsLogMo implements Serializable {
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
-    private Long changedPoints;
+    private BigDecimal changedPoints;
 
     /**
      *    改变后的积分(改变后的积分=改变前的积分+改变的积分)
@@ -66,7 +67,7 @@ public class PntPointsLogMo implements Serializable {
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
-    private Long pointsAfterChanged;
+    private BigDecimal pointsAfterChanged;
 
     /**
      *    改变积分的标题
@@ -200,7 +201,7 @@ public class PntPointsLogMo implements Serializable {
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
-    public Long getPointsBeforeChanged() {
+    public BigDecimal getPointsBeforeChanged() {
         return pointsBeforeChanged;
     }
 
@@ -211,7 +212,7 @@ public class PntPointsLogMo implements Serializable {
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
-    public void setPointsBeforeChanged(Long pointsBeforeChanged) {
+    public void setPointsBeforeChanged(BigDecimal pointsBeforeChanged) {
         this.pointsBeforeChanged = pointsBeforeChanged;
     }
 
@@ -222,7 +223,7 @@ public class PntPointsLogMo implements Serializable {
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
-    public Long getChangedPoints() {
+    public BigDecimal getChangedPoints() {
         return changedPoints;
     }
 
@@ -233,7 +234,7 @@ public class PntPointsLogMo implements Serializable {
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
-    public void setChangedPoints(Long changedPoints) {
+    public void setChangedPoints(BigDecimal changedPoints) {
         this.changedPoints = changedPoints;
     }
 
@@ -244,7 +245,7 @@ public class PntPointsLogMo implements Serializable {
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
-    public Long getPointsAfterChanged() {
+    public BigDecimal getPointsAfterChanged() {
         return pointsAfterChanged;
     }
 
@@ -255,7 +256,7 @@ public class PntPointsLogMo implements Serializable {
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
-    public void setPointsAfterChanged(Long pointsAfterChanged) {
+    public void setPointsAfterChanged(BigDecimal pointsAfterChanged) {
         this.pointsAfterChanged = pointsAfterChanged;
     }
 

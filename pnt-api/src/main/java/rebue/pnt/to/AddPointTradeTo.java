@@ -1,9 +1,11 @@
 package rebue.pnt.to;
 
+import java.math.BigDecimal;
+
 import lombok.Data;
 
 /**
- * 添加积分请求参数
+ * 添加积分交易请求参数
  * @author lbl
  * @version1.0.9
  */
@@ -60,7 +62,7 @@ public class AddPointTradeTo {
 	private Long modifiedTimestamp;
 	
 	/**
-	 * 添加的积分
+	 * 改变的积分
 	 */
-	private Long changedPoints;
+	private BigDecimal changedPoints;
 }

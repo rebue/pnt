@@ -8,26 +8,21 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import rebue.wheel.baseintf.EnumBase;
 
 /**
- * 积分日志类型字典
+ * 收益日志类型字典
  * @author lbl
- * @version 1.0.9
+ * 2018年12月20日10:17:39
  */
-public enum PointLogTypeDic implements EnumBase {
+public enum IncomeLogTypeDic implements EnumBase {
 
 	/**
-	 * 订单结算（积分+）
+	 * 日收益（收益+）
 	 */
-	ORDER_SETTLE(1),
+	DAY_INCOME(1),
 	
 	/**
-	 * 订单退货（积分-）
+	 * 转出收益（收益-）
 	 */
-	ORDER_RETURN(2),
-	
-	/**
-	 * v支付提现（积分-）
-	 */
-	VPAY_WITHDRAW(3);
+	TRANSFER_OUT_INCOME(2);
 	
 	/**
 	 * 枚举的所有项，注意这个变量是静态单例的
@@ -46,12 +41,12 @@ public enum PointLogTypeDic implements EnumBase {
 	 * 否则jackson将调用默认的反序列化方法，而不会调用本方法
 	 */
 	@JsonCreator
-	public static PointLogTypeDic getItem(int code) {
+	public static IncomeLogTypeDic getItem(int code) {
 		EnumBase result = valueMap.get(code);
 		if (result == null) {
 			throw new IllegalArgumentException("输入的code" + code + "不在枚举的取值范围内");
 		}
-		return (PointLogTypeDic) result;
+		return (IncomeLogTypeDic) result;
 	}
 
 	private int code;
@@ -59,7 +54,7 @@ public enum PointLogTypeDic implements EnumBase {
 	/**
 	 * 构造器，传入code
 	 */
-	PointLogTypeDic(int code) {
+	IncomeLogTypeDic(int code) {
 		this.code = code;
 	}
 

@@ -12,10 +12,10 @@ import rebue.robotech.svc.MybatisBaseSvc;
  */
 public interface PntPointsLogSvc extends MybatisBaseSvc<PntPointsLogMo, java.lang.Long> {
 
-	/**
-	 * 添加积分交易
-	 * @param to
-	 * @return
-	 */
-	Ro addPointTrade(AddPointTradeTo to);
+    /**
+     *  添加积分交易
+     *  @param to
+     *  @return
+     */
+    Ro addPointTrade(AddPointTradeTo to);
 }
