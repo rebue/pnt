@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import rebue.pnt.mo.PntPointsLogMo;
 import rebue.pnt.svc.PntPointsLogSvc;
+import rebue.pnt.to.AddPointTradeTo;
 import rebue.robotech.dic.ResultDic;
 import rebue.robotech.ro.IdRo;
 import rebue.robotech.ro.Ro;
@@ -182,5 +183,24 @@ public class PntPointsLogCtrl {
     PntPointsLogMo getById(@RequestParam("id") java.lang.Long id) {
         _log.info("get PntPointsLogMo by id: {}", id);
         return svc.getById(id);
+    }
+    
+    /**
+     * 添加积分交易
+     * @param to
+     * @return
+     */
+    @PostMapping("/pnt/pointstrade")
+    Ro addPointTrade(@RequestBody AddPointTradeTo to) {
+    	_log.info("添加积分交易的参数为：{}", to);
+    	try {
+			return svc.addPointTrade(to);
+		} catch (Exception e) {
+			_log.info("添加积分交易出现错误，请求的参数为：{}, 错误信息为：{}", to, e);
+			Ro ro = new Ro();
+			ro.setResult(ResultDic.FAIL);
+			ro.setMsg("添加出错");
+			return ro;
+		}
     }
 }

@@ -4,7 +4,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import org.junit.Assert;
 import org.junit.Test;
+
+import rebue.pnt.dic.PointLogTypeDic;
 import rebue.pnt.mo.PntPointsLogMo;
+import rebue.pnt.to.AddPointTradeTo;
 import rebue.robotech.dic.ResultDic;
 import rebue.robotech.ro.IdRo;
 import rebue.robotech.ro.Ro;
@@ -28,7 +31,7 @@ public class PntPointsLogTests {
      *
      *  @mbg.generated 自动生成，如需修改，请删除本行
      */
-    @Test
+//    @Test
     public void testCrud() throws IOException, ReflectiveOperationException {
         PntPointsLogMo mo = null;
         for (int i = 0; i < 20; i++) {
@@ -61,5 +64,20 @@ public class PntPointsLogTests {
         Assert.assertEquals(ResultDic.SUCCESS, deleteRo.getResult());
     }
 
-    private final String hostUrl = "http://127.0.0.1:9009";
+    private final String hostUrl = "http://127.0.0.1:9010";
+    
+    @Test
+    public void addPointTest() throws IOException {
+    	AddPointTradeTo to = new AddPointTradeTo();
+    	to.setAccountId(520391209198288896L);
+    	to.setPointsLogType((byte) PointLogTypeDic.ORDER_SETTLE.getCode());
+    	to.setChangedTitile("大卖网络-购买商品添加积分");
+    	to.setChangedDetail("测试商品");
+    	to.setOrderId(1234564567L);
+    	to.setOrderDetailId(7894561237L);
+    	to.setModifiedTimestamp(System.currentTimeMillis());
+    	to.setChangedPoints(2L);
+    	String results = OkhttpUtils.postByJsonParams(hostUrl + "/pnt/points/add", to);
+    	System.out.println(results);
+    }
 }
