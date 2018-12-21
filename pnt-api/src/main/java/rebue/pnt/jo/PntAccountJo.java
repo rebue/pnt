@@ -15,7 +15,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * @author zbz
+ * The persistent class for the PNT_ACCOUNT database table.
+ * @mbg.generated 自动生成，如需修改，请删除本行
  */
 @Entity
 @Table(name = "PNT_ACCOUNT")
@@ -30,7 +31,9 @@ public class PntAccountJo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * @mbg.generated 自动生成，如需修改，请删除本行
+     *  积分账户ID
+     *
+     *  @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Id
     @Basic(optional = false)
@@ -38,39 +41,65 @@ public class PntAccountJo implements Serializable {
     private Long id;
 
     /**
-     * @mbg.generated 自动生成，如需修改，请删除本行
+     *  当前积分
+     *
+     *  @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Basic(optional = false)
     @Column(name = "POINTS", nullable = false, precision = 18, scale = 4)
     private BigDecimal points;
 
     /**
-     * @mbg.generated 自动生成，如需修改，请删除本行
+     *  当前收益
+     *
+     *  @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Basic(optional = false)
     @Column(name = "INCOME", nullable = false, precision = 20, scale = 10)
     private BigDecimal income;
 
     /**
-     * @mbg.generated 自动生成，如需修改，请删除本行
+     *  历史总共收益
+     *
+     *  @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Basic(optional = false)
     @Column(name = "TOTAL_INCOME", nullable = false, precision = 20, scale = 10)
     private BigDecimal totalIncome;
 
     /**
-     * @mbg.generated 自动生成，如需修改，请删除本行
+     *  是否锁定
+     *
+     *  @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Basic(optional = false)
     @Column(name = "IS_LOCKED", nullable = false, length = 3)
     private Boolean isLocked;
 
     /**
-     * @mbg.generated 自动生成，如需修改，请删除本行
+     *  修改时间戳
+     *
+     *  @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Basic(optional = false)
     @Column(name = "MODIFIED_TIMESTAMP", nullable = false, length = 19)
     private Long modifiedTimestamp;
+
+    /**
+     *  积分账户ID列表
+     *
+     *  @mbg.generated 自动生成，如需修改，请删除本行
+     */
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
+    private List<PntIncomeLogJo> pntIncomeLogList;
+
+    /**
+     *  列表
+     *
+     *  @mbg.generated 自动生成，如需修改，请删除本行
+     */
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
+    private List<PntPointsLogJo> pntPointsLogList;
 
     /**
      * @mbg.generated 自动生成，如需修改，请删除本行
@@ -102,10 +131,4 @@ public class PntAccountJo implements Serializable {
             return false;
         return true;
     }
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountId")
-    private List<PntIncomeLogJo> pntIncomeLogList;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountId")
-    private List<PntPointsLogJo> pntPointsLogList;
 }

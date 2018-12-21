@@ -14,7 +14,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * @author zbz
+ * The persistent class for the PNT_POINTS_LOG database table.
+ * @mbg.generated 自动生成，如需修改，请删除本行
  */
 @Entity
 @Table(name = "PNT_POINTS_LOG")
@@ -29,7 +30,9 @@ public class PntPointsLogJo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * @mbg.generated 自动生成，如需修改，请删除本行
+     *  积分日志ID
+     *
+     *  @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Id
     @Basic(optional = false)
@@ -37,74 +40,112 @@ public class PntPointsLogJo implements Serializable {
     private Long id;
 
     /**
-     * @mbg.generated 自动生成，如需修改，请删除本行
+     *  积分账户ID
+     *
+     *  @mbg.generated 自动生成，如需修改，请删除本行
+     */
+    @Basic(optional = false)
+    @Column(name = "ACCOUNT_ID", nullable = false, length = 19)
+    private Long accountId;
+
+    /**
+     *  积分日志类型
+     *
+     *  @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Basic(optional = false)
     @Column(name = "POINTS_LOG_TYPE", nullable = false, length = 3)
     private Byte pointsLogType;
 
     /**
-     * @mbg.generated 自动生成，如需修改，请删除本行
+     *  改变前的积分
+     *
+     *  @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Basic(optional = false)
     @Column(name = "POINTS_BEFORE_CHANGED", nullable = false, precision = 18, scale = 4)
     private BigDecimal pointsBeforeChanged;
 
     /**
-     * @mbg.generated 自动生成，如需修改，请删除本行
+     *  改变的积分
+     *
+     *  @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Basic(optional = false)
     @Column(name = "CHANGED_POINTS", nullable = false, precision = 18, scale = 4)
     private BigDecimal changedPoints;
 
     /**
-     * @mbg.generated 自动生成，如需修改，请删除本行
+     *  改变后的积分
+     *
+     *  @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Basic(optional = false)
     @Column(name = "POINTS_AFTER_CHANGED", nullable = false, precision = 18, scale = 4)
     private BigDecimal pointsAfterChanged;
 
     /**
-     * @mbg.generated 自动生成，如需修改，请删除本行
+     *  改变积分的标题
+     *
+     *  @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Basic(optional = false)
     @Column(name = "CHANGED_TITILE", nullable = false, length = 30)
     private String changedTitile;
 
     /**
-     * @mbg.generated 自动生成，如需修改，请删除本行
+     *  改变积分的详情
+     *
+     *  @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Basic(optional = true)
     @Column(name = "CHANGED_DETAIL", nullable = true, length = 200)
     private String changedDetail;
 
     /**
-     * @mbg.generated 自动生成，如需修改，请删除本行
+     *  订单ID
+     *
+     *  @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Basic(optional = false)
     @Column(name = "ORDER_ID", nullable = false, length = 19)
     private Long orderId;
 
     /**
-     * @mbg.generated 自动生成，如需修改，请删除本行
+     *  订单详情ID
+     *
+     *  @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Basic(optional = true)
     @Column(name = "ORDER_DETAIL_ID", nullable = true, length = 19)
     private Long orderDetailId;
 
     /**
-     * @mbg.generated 自动生成，如需修改，请删除本行
+     *  修改时间戳
+     *
+     *  @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Basic(optional = false)
     @Column(name = "MODIFIED_TIMESTAMP", nullable = false, length = 19)
     private Long modifiedTimestamp;
 
     /**
-     * @mbg.generated 自动生成，如需修改，请删除本行
+     *  旧修改时间戳
+     *
+     *  @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Basic(optional = false)
     @Column(name = "OLD_MODIFIED_TIMESTAMP", nullable = false, length = 19)
     private Long oldModifiedTimestamp;
+
+    /**
+     *  积分账户ID
+     *
+     *  @mbg.generated 自动生成，如需修改，请删除本行
+     */
+    @JoinColumn(name = "ACCOUNT_ID", referencedColumnName = "ID", nullable = false)
+    @ManyToOne(optional = false)
+    private PntAccountJo account;
 
     /**
      * @mbg.generated 自动生成，如需修改，请删除本行
@@ -136,8 +177,4 @@ public class PntPointsLogJo implements Serializable {
             return false;
         return true;
     }
-
-    @JoinColumn(name = "ACCOUNT_ID", referencedColumnName = "ID", nullable = false)
-    @ManyToOne(optional = false)
-    private PntAccountJo accountId;
 }

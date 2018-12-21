@@ -15,7 +15,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * @author zbz
+ * The persistent class for the PNT_INCOME_LOG database table.
+ * @mbg.generated 自动生成，如需修改，请删除本行
  */
 @Entity
 @Table(name = "PNT_INCOME_LOG")
@@ -30,7 +31,9 @@ public class PntIncomeLogJo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * @mbg.generated 自动生成，如需修改，请删除本行
+     *  收益日志ID
+     *
+     *  @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Id
     @Basic(optional = false)
@@ -38,67 +41,103 @@ public class PntIncomeLogJo implements Serializable {
     private Long id;
 
     /**
-     * @mbg.generated 自动生成，如需修改，请删除本行
+     *  积分账户ID
+     *
+     *  @mbg.generated 自动生成，如需修改，请删除本行
+     */
+    @Basic(optional = false)
+    @Column(name = "ACCOUNT_ID", nullable = false, length = 19)
+    private Long accountId;
+
+    /**
+     *  收益日志类型
+     *
+     *  @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Basic(optional = false)
     @Column(name = "INCOME_LOG_TYPE", nullable = false, length = 3)
     private Byte incomeLogType;
 
     /**
-     * @mbg.generated 自动生成，如需修改，请删除本行
+     *  改变前的收益
+     *
+     *  @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Basic(optional = false)
     @Column(name = "INCOME_BEFORE_CHANGED", nullable = false, precision = 20, scale = 10)
     private BigDecimal incomeBeforeChanged;
 
     /**
-     * @mbg.generated 自动生成，如需修改，请删除本行
+     *  改变的收益
+     *
+     *  @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Basic(optional = false)
     @Column(name = "CHANGED_INCOME", nullable = false, precision = 20, scale = 10)
     private BigDecimal changedIncome;
 
     /**
-     * @mbg.generated 自动生成，如需修改，请删除本行
+     *  改变后的收益
+     *
+     *  @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Basic(optional = false)
     @Column(name = "INCOME_AFTER_CHANGED", nullable = false, precision = 20, scale = 10)
     private BigDecimal incomeAfterChanged;
 
     /**
-     * @mbg.generated 自动生成，如需修改，请删除本行
+     *  改变收益的标题
+     *
+     *  @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Basic(optional = false)
     @Column(name = "CHANGED_TITILE", nullable = false, length = 30)
     private String changedTitile;
 
     /**
-     * @mbg.generated 自动生成，如需修改，请删除本行
+     *  改变收益的详情
+     *
+     *  @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Basic(optional = false)
     @Column(name = "CHANGED_DETAIL", nullable = false, length = 200)
     private String changedDetail;
 
     /**
-     * @mbg.generated 自动生成，如需修改，请删除本行
+     *  统计日期
+     *
+     *  @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Basic(optional = true)
     @Column(name = "STAT_DATE", nullable = true, length = 10)
     private Date statDate;
 
     /**
-     * @mbg.generated 自动生成，如需修改，请删除本行
+     *  修改时间戳
+     *
+     *  @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Basic(optional = false)
     @Column(name = "MODIFIED_TIMESTAMP", nullable = false, length = 19)
     private Long modifiedTimestamp;
 
     /**
-     * @mbg.generated 自动生成，如需修改，请删除本行
+     *  旧修改时间戳
+     *
+     *  @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Basic(optional = false)
     @Column(name = "OLD_MODIFIED_TIMESTAMP", nullable = false, length = 19)
     private Long oldModifiedTimestamp;
+
+    /**
+     *  积分账户ID
+     *
+     *  @mbg.generated 自动生成，如需修改，请删除本行
+     */
+    @JoinColumn(name = "ACCOUNT_ID", referencedColumnName = "ID", nullable = false)
+    @ManyToOne(optional = false)
+    private PntAccountJo account;
 
     /**
      * @mbg.generated 自动生成，如需修改，请删除本行
@@ -130,8 +169,4 @@ public class PntIncomeLogJo implements Serializable {
             return false;
         return true;
     }
-
-    @JoinColumn(name = "ACCOUNT_ID", referencedColumnName = "ID", nullable = false)
-    @ManyToOne(optional = false)
-    private PntAccountJo accountId;
 }
