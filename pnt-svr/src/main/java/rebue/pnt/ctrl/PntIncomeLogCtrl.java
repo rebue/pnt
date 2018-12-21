@@ -184,23 +184,23 @@ public class PntIncomeLogCtrl {
         _log.info("get PntIncomeLogMo by id: {}", id);
         return svc.getById(id);
     }
-    
+
     /**
-	 * 添加一笔收益交易
-	 * @param to
-	 * @return
-	 */
+     *  添加一笔收益交易
+     *  @param to
+     *  @return
+     */
     @PostMapping("/pnt/incometrade")
-	Ro addIncomeTrade(@RequestBody AddIncomeTradeTo to) {
-		_log.info("添加一笔收益交易的请求参数为：{}", to);
-		try {
-			return svc.addIncomeTrade(to);
-		} catch (Exception e) {
-			_log.error("添加一笔收益交易时出现错误，请求的参数为：{}，错误信息为：{}", to, e);
-			Ro ro = new Ro();
-			ro.setResult(ResultDic.FAIL);
-			ro.setMsg("添加出错");
-			return ro;
-		}
-	}
+    Ro addIncomeTrade(@RequestBody AddIncomeTradeTo to) {
+        _log.info("添加一笔收益交易的请求参数为：{}", to);
+        try {
+            return svc.addIncomeTrade(to);
+        } catch (Exception e) {
+            _log.error("添加一笔收益交易时出现错误，请求的参数为：{}，错误信息为：{}", to, e);
+            Ro ro = new Ro();
+            ro.setResult(ResultDic.FAIL);
+            ro.setMsg("添加出错");
+            return ro;
+        }
+    }
 }

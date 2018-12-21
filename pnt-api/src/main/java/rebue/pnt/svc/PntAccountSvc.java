@@ -25,5 +25,5 @@ public interface PntAccountSvc extends MybatisBaseSvc<PntAccountMo, java.lang.Lo
      * @param to
      * @return
      */
-	Ro modifyIncome(ModifyIncomeTo to);
+    Ro modifyIncome(ModifyIncomeTo to);
 }

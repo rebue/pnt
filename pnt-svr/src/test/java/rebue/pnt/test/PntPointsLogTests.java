@@ -3,10 +3,8 @@ package rebue.pnt.test;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.math.BigDecimal;
-
 import org.junit.Assert;
 import org.junit.Test;
-import rebue.pnt.dic.PointLogTypeDic;
 import rebue.pnt.mo.PntPointsLogMo;
 import rebue.pnt.to.AddPointTradeTo;
 import rebue.robotech.dic.ResultDic;
@@ -66,7 +64,7 @@ public class PntPointsLogTests {
     public void addPointTest() throws IOException {
         AddPointTradeTo to = new AddPointTradeTo();
         to.setAccountId(520391209198288896L);
-        to.setPointsLogType((byte) PointLogTypeDic.ORDER_SETTLE.getCode());
+        to.setPointsLogType((byte) 1);
         to.setChangedTitile("大卖网络-购买商品添加积分");
         to.setChangedDetail("测试商品");
         to.setOrderId(123456456710L);
@@ -77,7 +75,7 @@ public class PntPointsLogTests {
         System.out.println(results);
         to = new AddPointTradeTo();
         to.setAccountId(520391209198288896L);
-        to.setPointsLogType((byte) PointLogTypeDic.ORDER_RETURN.getCode());
+        to.setPointsLogType((byte) 2);
         to.setChangedTitile("大卖网络-商品退货扣减积分");
         to.setChangedDetail("测试商品");
         to.setOrderId(123456456710L);
@@ -88,7 +86,7 @@ public class PntPointsLogTests {
         System.out.println(resultss);
         to = new AddPointTradeTo();
         to.setAccountId(520391209198288896L);
-        to.setPointsLogType((byte) PointLogTypeDic.VPAY_WITHDRAW.getCode());
+        to.setPointsLogType((byte) 3);
         to.setChangedTitile("大卖网络-v支付提现扣减积分");
         to.setOrderId(123456456711L);
         to.setModifiedTimestamp(System.currentTimeMillis());

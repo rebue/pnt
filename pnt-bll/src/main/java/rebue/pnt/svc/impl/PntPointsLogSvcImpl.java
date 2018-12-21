@@ -1,7 +1,6 @@
 package rebue.pnt.svc.impl;
 
 import java.math.BigDecimal;
-
 import javax.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,10 +64,10 @@ public class PntPointsLogSvcImpl extends BaseSvcImpl<java.lang.Long, PntPointsLo
     private PntPointsLogSvc thisSvc;
 
     /**
-     *  添加积分 2018年12月19日17:12:15 
-     *  流程： 
-     *  1、查询积分账号信息并判断账号是否存在和是否已锁定 
-     *  2、修改积分账号信息 
+     *  添加积分 2018年12月19日17:12:15
+     *  流程：
+     *  1、查询积分账号信息并判断账号是否存在和是否已锁定
+     *  2、修改积分账号信息
      *  3、添加积分日志
      */
     @Override
@@ -100,7 +99,6 @@ public class PntPointsLogSvcImpl extends BaseSvcImpl<java.lang.Long, PntPointsLo
         }
         // 新当前积分 = 修改的积分 + 旧的当前积分
         BigDecimal newPoints = to.getChangedPoints().add(accountMo.getPoints());
-        
         _log.info("添加积分交易第二步开始，请求的参数为：{}", to);
         ModifyPointTo modifyPointTo = new ModifyPointTo();
         modifyPointTo.setAccountId(to.getAccountId());
@@ -117,7 +115,6 @@ public class PntPointsLogSvcImpl extends BaseSvcImpl<java.lang.Long, PntPointsLo
             ro.setMsg("修改积分账号信息失败");
             return ro;
         }
-        
         _log.info("添加积分交易三步开始，请求的参数为：{}", to);
         PntPointsLogMo pointsLogMo = new PntPointsLogMo();
         pointsLogMo.setAccountId(to.getAccountId());

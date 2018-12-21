@@ -12,10 +12,10 @@ import rebue.robotech.svc.MybatisBaseSvc;
  */
 public interface PntIncomeLogSvc extends MybatisBaseSvc<PntIncomeLogMo, java.lang.Long> {
 
-	/**
-	 * 添加一笔收益交易
-	 * @param to
-	 * @return
-	 */
-	Ro addIncomeTrade(AddIncomeTradeTo to);
+    /**
+     *  添加一笔收益交易
+     *  @param to
+     *  @return
+     */
+    Ro addIncomeTrade(AddIncomeTradeTo to);
 }
