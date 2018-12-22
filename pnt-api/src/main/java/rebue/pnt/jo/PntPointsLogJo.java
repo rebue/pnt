@@ -1,6 +1,7 @@
 package rebue.pnt.jo;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -53,8 +54,8 @@ public class PntPointsLogJo implements Serializable {
      *  @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Basic(optional = false)
-    @Column(name = "POINTS_BEFORE_CHANGED", nullable = false, length = 19)
-    private Long pointsBeforeChanged;
+    @Column(name = "POINTS_BEFORE_CHANGED", nullable = false, precision = 18, scale = 4)
+    private BigDecimal pointsBeforeChanged;
 
     /**
      *  改变的积分
@@ -62,8 +63,8 @@ public class PntPointsLogJo implements Serializable {
      *  @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Basic(optional = false)
-    @Column(name = "CHANGED_POINTS", nullable = false, length = 19)
-    private Long changedPoints;
+    @Column(name = "CHANGED_POINTS", nullable = false, precision = 18, scale = 4)
+    private BigDecimal changedPoints;
 
     /**
      *  改变后的积分
@@ -71,8 +72,8 @@ public class PntPointsLogJo implements Serializable {
      *  @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Basic(optional = false)
-    @Column(name = "POINTS_AFTER_CHANGED", nullable = false, length = 19)
-    private Long pointsAfterChanged;
+    @Column(name = "POINTS_AFTER_CHANGED", nullable = false, precision = 18, scale = 4)
+    private BigDecimal pointsAfterChanged;
 
     /**
      *  改变积分的标题

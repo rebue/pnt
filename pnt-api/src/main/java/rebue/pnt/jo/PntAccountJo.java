@@ -46,8 +46,8 @@ public class PntAccountJo implements Serializable {
      *  @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Basic(optional = false)
-    @Column(name = "POINTS", nullable = false, length = 19)
-    private Long points;
+    @Column(name = "POINTS", nullable = false, precision = 18, scale = 4)
+    private BigDecimal points;
 
     /**
      *  当前收益
