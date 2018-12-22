@@ -122,7 +122,7 @@ public class PntIncomeLogJo implements Serializable {
     private Long oldModifiedTimestamp;
 
     /**
-     *  积分账户ID
+     *  积分账户
      *
      *  @mbg.generated 自动生成，如需修改，请删除本行
      */
