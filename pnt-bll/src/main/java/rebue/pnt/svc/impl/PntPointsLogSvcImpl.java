@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import rebue.pnt.dao.PntPointsLogDao;
+import rebue.pnt.dic.PointLogTypeDic;
 import rebue.pnt.jo.PntPointsLogJo;
 import rebue.pnt.mapper.PntPointsLogMapper;
 import rebue.pnt.mo.PntAccountMo;
@@ -64,11 +65,7 @@ public class PntPointsLogSvcImpl extends BaseSvcImpl<java.lang.Long, PntPointsLo
     private PntPointsLogSvc thisSvc;
 
     /**
-     *  添加积分 2018年12月19日17:12:15
-     *  流程：
-     *  1、查询积分账号信息并判断账号是否存在和是否已锁定
-     *  2、修改积分账号信息
-     *  3、添加积分日志
+     *  添加积分 2018年12月19日17:12:15 流程： 1、查询积分账号信息并判断账号是否存在和是否已锁定 2、修改积分账号信息 3、添加积分日志
      */
     @Override
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
@@ -99,6 +96,21 @@ public class PntPointsLogSvcImpl extends BaseSvcImpl<java.lang.Long, PntPointsLo
         }
         // 新当前积分 = 修改的积分 + 旧的当前积分
         BigDecimal newPoints = to.getChangedPoints().add(accountMo.getPoints());
+        if (to.getPointsLogType() == PointLogTypeDic.VPAY_WITHDRAW.getCode()) {
+            if (newPoints.compareTo(BigDecimal.ZERO) < 0) {
+                _log.error("添加积分交易时发现积分不足，请求的参数为：{}", to);
+                ro.setResult(ResultDic.FAIL);
+                ro.setMsg("积分不足");
+                return ro;
+            }
+        } else if (to.getPointsLogType() == PointLogTypeDic.ORDER_RETURN.getCode()) {
+            if (accountMo.getPoints().compareTo(BigDecimal.ZERO) == 0) {
+                _log.warn("添加积分交易，积分日志类型为退货时发现该账号积分为0，请求的参数为：{}", to);
+                ro.setResult(ResultDic.SUCCESS);
+                ro.setMsg("该账号积分为0");
+                return ro;
+            }
+        }
         _log.info("添加积分交易第二步开始，请求的参数为：{}", to);
         ModifyPointTo modifyPointTo = new ModifyPointTo();
         modifyPointTo.setAccountId(to.getAccountId());

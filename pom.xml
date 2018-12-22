@@ -18,6 +18,7 @@
 		<module>pnt-bll</module>
 		<module>pnt-svr</module>
 		<module>pnt-damai</module>
+		<module>pnt-svr-feign</module>
 	</modules>
 
 	<dependencyManagement>
@@ -30,6 +31,12 @@
 			<dependency>
 				<groupId>com.github.rebue.pnt</groupId>
 				<artifactId>pnt-bll</artifactId>
+				<version>1.0.9</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>com.github.rebue.pnt</groupId>
+				<artifactId>pnt-damai</artifactId>
 				<version>1.0.9</version>
 			</dependency>
 		</dependencies>

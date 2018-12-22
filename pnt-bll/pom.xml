@@ -15,6 +15,11 @@
 			<groupId>com.github.rebue.pnt</groupId>
 			<artifactId>pnt-api</artifactId>
 		</dependency>
+		
+		<dependency>
+			<groupId>com.github.rebue.pnt</groupId>
+			<artifactId>pnt-damai</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>com.github.rebue.robotech</groupId>

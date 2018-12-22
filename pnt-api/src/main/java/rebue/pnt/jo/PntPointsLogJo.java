@@ -40,15 +40,6 @@ public class PntPointsLogJo implements Serializable {
     private Long id;
 
     /**
-     *  积分账户ID
-     *
-     *  @mbg.generated 自动生成，如需修改，请删除本行
-     */
-    @Basic(optional = false)
-    @Column(name = "ACCOUNT_ID", nullable = false, length = 19)
-    private Long accountId;
-
-    /**
      *  积分日志类型
      *
      *  @mbg.generated 自动生成，如需修改，请删除本行
