@@ -1,10 +1,13 @@
 package rebue.pnt.test;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.math.BigDecimal;
+
 import org.junit.Assert;
 import org.junit.Test;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import rebue.pnt.mo.PntPointLogMo;
 import rebue.pnt.to.AddPointTradeTo;
 import rebue.robotech.dic.ResultDic;
@@ -64,34 +67,31 @@ public class PntPointLogTests {
     public void addPointTest() throws IOException {
         AddPointTradeTo to = new AddPointTradeTo();
         to.setAccountId(520391209198288896L);
-        to.setPointsLogType((byte) 1);
+        to.setPointLogType((byte) 1);
         to.setChangedTitile("大卖网络-购买商品添加积分");
         to.setChangedDetail("测试商品");
         to.setOrderId(123456456710L);
         to.setOrderDetailId(7894561237L);
-        to.setModifiedTimestamp(System.currentTimeMillis());
         to.setChangedPoint(BigDecimal.valueOf(6));
-        String results = OkhttpUtils.postByJsonParams(hostUrl + "/pnt/pointtrade", to);
+        final String results = OkhttpUtils.postByJsonParams(hostUrl + "/pnt/pointtrade", to);
         System.out.println(results);
         to = new AddPointTradeTo();
         to.setAccountId(520391209198288896L);
-        to.setPointsLogType((byte) 2);
+        to.setPointLogType((byte) 2);
         to.setChangedTitile("大卖网络-商品退货扣减积分");
         to.setChangedDetail("测试商品");
         to.setOrderId(123456456710L);
         to.setOrderDetailId(7894561237L);
-        to.setModifiedTimestamp(System.currentTimeMillis());
         to.setChangedPoint(BigDecimal.valueOf(2));
-        String resultss = OkhttpUtils.postByJsonParams(hostUrl + "/pnt/pointtrade", to);
+        final String resultss = OkhttpUtils.postByJsonParams(hostUrl + "/pnt/pointtrade", to);
         System.out.println(resultss);
         to = new AddPointTradeTo();
         to.setAccountId(520391209198288896L);
-        to.setPointsLogType((byte) 3);
+        to.setPointLogType((byte) 3);
         to.setChangedTitile("大卖网络-v支付提现扣减积分");
         to.setOrderId(123456456711L);
-        to.setModifiedTimestamp(System.currentTimeMillis());
         to.setChangedPoint(BigDecimal.valueOf(2));
-        String resultsss = OkhttpUtils.postByJsonParams(hostUrl + "/pnt/pointtrade", to);
+        final String resultsss = OkhttpUtils.postByJsonParams(hostUrl + "/pnt/pointtrade", to);
         System.out.println(resultsss);
     }
 }
