@@ -76,7 +76,7 @@ public interface PntAccountMapper extends MybatisBaseMapper<PntAccountMo, Long> 
      *  @param oldModifiedTimestamp 旧的修改时间戳
      *  @return
      */
-    @Update("update PNT_ACCOUNT set POINTS=#{newPoint,jdbcType=DECIMAL}, MODIFIED_TIMESTAMP=#{newModifiedTimestamp,jdbcType=BIGINT} where ID=#{id,jdbcType=BIGINT} and POINTS=#{oldPoint,jdbcType=DECIMAL} and MODIFIED_TIMESTAMP=#{oldModifiedTimestamp,jdbcType=BIGINT}")
+    @Update("update PNT_ACCOUNT set POINT=#{newPoint,jdbcType=DECIMAL}, MODIFIED_TIMESTAMP=#{newModifiedTimestamp,jdbcType=BIGINT} where ID=#{id,jdbcType=BIGINT} and POINT=#{oldPoint,jdbcType=DECIMAL} and MODIFIED_TIMESTAMP=#{oldModifiedTimestamp,jdbcType=BIGINT}")
     int updatePoint(@Param("id") Long id, @Param("newPoint") BigDecimal newPoint, @Param("oldPoint") BigDecimal oldPoint, @Param("newModifiedTimestamp") Long newModifiedTimestamp, @Param("oldModifiedTimestamp") Long oldModifiedTimestamp);
 
     /**

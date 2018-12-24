@@ -10,9 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 import rebue.pnt.dao.PntPointLogDao;
 import rebue.pnt.dic.PointLogTypeDic;
 import rebue.pnt.jo.PntPointLogJo;
-import rebue.pnt.mapper.PntPointsLogMapper;
+import rebue.pnt.mapper.PntPointLogMapper;
 import rebue.pnt.mo.PntAccountMo;
-import rebue.pnt.mo.PntPointsLogMo;
+import rebue.pnt.mo.PntPointLogMo;
 import rebue.pnt.svc.PntAccountSvc;
 import rebue.pnt.svc.PntPointLogSvc;
 import rebue.pnt.to.AddPointTradeTo;
@@ -37,7 +37,7 @@ import rebue.robotech.svc.impl.BaseSvcImpl;
  */
 @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 @Service
-public class PntPointLogSvcImpl extends BaseSvcImpl<java.lang.Long, PntPointLogJo, PntPointLogDao, PntPointsLogMo, PntPointsLogMapper> implements PntPointLogSvc {
+public class PntPointLogSvcImpl extends BaseSvcImpl<java.lang.Long, PntPointLogJo, PntPointLogDao, PntPointLogMo, PntPointLogMapper> implements PntPointLogSvc {
 
     /**
      * @mbg.generated 自动生成，如需修改，请删除本行
@@ -49,7 +49,7 @@ public class PntPointLogSvcImpl extends BaseSvcImpl<java.lang.Long, PntPointLogJ
      */
     @Override
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    public int add(PntPointsLogMo mo) {
+    public int add(PntPointLogMo mo) {
         _log.info("添加积分日志");
         // 如果id为空那么自动生成分布式id
         if (mo.getId() == null || mo.getId() == 0) {
@@ -72,7 +72,7 @@ public class PntPointLogSvcImpl extends BaseSvcImpl<java.lang.Long, PntPointLogJ
     public Ro addPointTrade(AddPointTradeTo to) {
         _log.info("添加积分交易的请求参数为：{}", to);
         Ro ro = new Ro();
-        if (to.getAccountId() == null || to.getOrderId() == null || to.getPointsLogType() == null || to.getChangedPoints() == null || to.getChangedTitile() == null || to.getModifiedTimestamp() == null) {
+        if (to.getAccountId() == null || to.getOrderId() == null || to.getPointsLogType() == null || to.getChangedPoint() == null || to.getChangedTitile() == null || to.getModifiedTimestamp() == null) {
             _log.error("添加积分交易时出现参数错误，请求的参数为：{}", to);
             ro.setResult(ResultDic.PARAM_ERROR);
             ro.setMsg("参数错误");
@@ -95,7 +95,7 @@ public class PntPointLogSvcImpl extends BaseSvcImpl<java.lang.Long, PntPointLogJ
             return ro;
         }
         // 新当前积分 = 修改的积分 + 旧的当前积分
-        BigDecimal newPoint = to.getChangedPoints().add(accountMo.getPoint());
+        BigDecimal newPoint = to.getChangedPoint().add(accountMo.getPoint());
         if (to.getPointsLogType() == PointLogTypeDic.VPAY_WITHDRAW.getCode()) {
             if (newPoint.compareTo(BigDecimal.ZERO) < 0) {
                 _log.error("添加积分交易时发现积分不足，请求的参数为：{}", to);
@@ -128,23 +128,23 @@ public class PntPointLogSvcImpl extends BaseSvcImpl<java.lang.Long, PntPointLogJ
             return ro;
         }
         _log.info("添加积分交易三步开始，请求的参数为：{}", to);
-        PntPointsLogMo pointsLogMo = new PntPointsLogMo();
-        pointsLogMo.setAccountId(to.getAccountId());
-        pointsLogMo.setPointsLogType(to.getPointsLogType());
-        pointsLogMo.setPointsBeforeChanged(accountMo.getPoint());
-        pointsLogMo.setChangedPoints(to.getChangedPoints());
-        pointsLogMo.setPointsAfterChanged(newPoint);
-        pointsLogMo.setChangedTitile(to.getChangedTitile());
-        pointsLogMo.setChangedDetail(to.getChangedDetail());
-        pointsLogMo.setOrderId(to.getOrderId());
-        pointsLogMo.setOrderDetailId(to.getOrderDetailId());
-        pointsLogMo.setModifiedTimestamp(to.getModifiedTimestamp());
-        pointsLogMo.setOldModifiedTimestamp(accountMo.getModifiedTimestamp());
-        _log.info("添加积分交易添加积分日志的参数为：{}", pointsLogMo);
-        int addPointLogResult = thisSvc.add(pointsLogMo);
+        PntPointLogMo pointLogMo = new PntPointLogMo();
+        pointLogMo.setAccountId(to.getAccountId());
+        pointLogMo.setPointLogType(to.getPointsLogType());
+        pointLogMo.setPointBeforeChanged(accountMo.getPoint());
+        pointLogMo.setChangedPoint(to.getChangedPoint());
+        pointLogMo.setPointAfterChanged(newPoint);
+        pointLogMo.setChangedTitile(to.getChangedTitile());
+        pointLogMo.setChangedDetail(to.getChangedDetail());
+        pointLogMo.setOrderId(to.getOrderId());
+        pointLogMo.setOrderDetailId(to.getOrderDetailId());
+        pointLogMo.setModifiedTimestamp(to.getModifiedTimestamp());
+        pointLogMo.setOldModifiedTimestamp(accountMo.getModifiedTimestamp());
+        _log.info("添加积分交易添加积分日志的参数为：{}", pointLogMo);
+        int addPointLogResult = thisSvc.add(pointLogMo);
         _log.info("添加积分交易添加积分日志的返回值为：{}", addPointLogResult);
         if (addPointLogResult != 1) {
-            _log.error("添加积分交易添加积分日志出现错误，请求的参数为：{}", pointsLogMo);
+            _log.error("添加积分交易添加积分日志出现错误，请求的参数为：{}", pointLogMo);
             throw new RuntimeException("添加日志出错");
         }
         _log.info("添加积分交易成功，请求的参数为：{}", to);

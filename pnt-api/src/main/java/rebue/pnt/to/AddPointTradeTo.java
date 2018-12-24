@@ -64,5 +64,5 @@ public class AddPointTradeTo {
 	/**
 	 * 改变的积分
 	 */
-	private BigDecimal changedPoints;
+	private BigDecimal changedPoint;
 }

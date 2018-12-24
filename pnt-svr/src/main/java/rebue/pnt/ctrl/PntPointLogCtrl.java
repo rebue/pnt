@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import rebue.pnt.mo.PntPointsLogMo;
+import rebue.pnt.mo.PntPointLogMo;
 import rebue.pnt.svc.PntPointLogSvc;
 import rebue.pnt.to.AddPointTradeTo;
 import rebue.robotech.dic.ResultDic;
@@ -52,9 +52,9 @@ public class PntPointLogCtrl {
      *
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
-    @PostMapping("/pnt/pointslog")
-    IdRo add(@RequestBody PntPointsLogMo mo) throws Exception {
-        _log.info("add PntPointsLogMo: {}", mo);
+    @PostMapping("/pnt/pointlog")
+    IdRo add(@RequestBody PntPointLogMo mo) throws Exception {
+        _log.info("add PntPointLogMo: {}", mo);
         IdRo ro = new IdRo();
         try {
             int result = svc.add(mo);
@@ -93,9 +93,9 @@ public class PntPointLogCtrl {
      *
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
-    @PutMapping("/pnt/pointslog")
-    Ro modify(@RequestBody PntPointsLogMo mo) throws Exception {
-        _log.info("modify PntPointsLogMo: {}", mo);
+    @PutMapping("/pnt/pointlog")
+    Ro modify(@RequestBody PntPointLogMo mo) throws Exception {
+        _log.info("modify PntPointLogMo: {}", mo);
         Ro ro = new Ro();
         try {
             if (svc.modify(mo) == 1) {
@@ -132,9 +132,9 @@ public class PntPointLogCtrl {
      *
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
-    @DeleteMapping("/pnt/pointslog")
+    @DeleteMapping("/pnt/pointlog")
     Ro del(@RequestParam("id") java.lang.Long id) {
-        _log.info("del PntPointsLogMo by id: {}", id);
+        _log.info("del PntPointLogMo by id: {}", id);
         int result = svc.del(id);
         Ro ro = new Ro();
         if (result == 1) {
@@ -157,19 +157,19 @@ public class PntPointLogCtrl {
      *
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
-    @GetMapping("/pnt/pointslog")
-    PageInfo<PntPointsLogMo> list(PntPointsLogMo mo, @RequestParam(value = "pageNum", required = false) Integer pageNum, @RequestParam(value = "pageSize", required = false) Integer pageSize) {
+    @GetMapping("/pnt/pointlog")
+    PageInfo<PntPointLogMo> list(PntPointLogMo mo, @RequestParam(value = "pageNum", required = false) Integer pageNum, @RequestParam(value = "pageSize", required = false) Integer pageSize) {
         if (pageNum == null)
             pageNum = 1;
         if (pageSize == null)
             pageSize = 5;
-        _log.info("list PntPointsLogMo:" + mo + ", pageNum = " + pageNum + ", pageSize = " + pageSize);
+        _log.info("list PntPointLogMo:" + mo + ", pageNum = " + pageNum + ", pageSize = " + pageSize);
         if (pageSize > 50) {
             String msg = "pageSize不能大于50";
             _log.error(msg);
             throw new IllegalArgumentException(msg);
         }
-        PageInfo<PntPointsLogMo> result = svc.list(mo, pageNum, pageSize);
+        PageInfo<PntPointLogMo> result = svc.list(mo, pageNum, pageSize);
         _log.info("result: " + result);
         return result;
     }
@@ -179,9 +179,9 @@ public class PntPointLogCtrl {
      *
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
-    @GetMapping("/pnt/pointslog/getbyid")
-    PntPointsLogMo getById(@RequestParam("id") java.lang.Long id) {
-        _log.info("get PntPointsLogMo by id: {}", id);
+    @GetMapping("/pnt/pointlog/getbyid")
+    PntPointLogMo getById(@RequestParam("id") java.lang.Long id) {
+        _log.info("get PntPointLogMo by id: {}", id);
         return svc.getById(id);
     }
 
@@ -190,7 +190,7 @@ public class PntPointLogCtrl {
      * @param to
      * @return
      */
-    @PostMapping("/pnt/pointstrade")
+    @PostMapping("/pnt/pointtrade")
     Ro addPointTrade(@RequestBody AddPointTradeTo to) {
         _log.info("添加积分交易的参数为：{}", to);
         try {
