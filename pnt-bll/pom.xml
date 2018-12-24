@@ -20,6 +20,11 @@
 			<groupId>com.github.rebue.pnt</groupId>
 			<artifactId>pnt-damai</artifactId>
 		</dependency>
+		
+		<dependency>
+			<groupId>com.github.rebue.suc</groupId>
+			<artifactId>suc-api</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>com.github.rebue.robotech</groupId>
