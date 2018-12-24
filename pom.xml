@@ -18,7 +18,6 @@
 		<module>pnt-api</module>
 		<module>pnt-bll</module>
 		<module>pnt-svr</module>
-		<module>pnt-damai</module>
 		<module>pnt-svr-feign</module>
 	</modules>
 

@@ -16,11 +16,6 @@
 		</dependency>
 		
 		<dependency>
-			<groupId>com.github.rebue.pnt</groupId>
-			<artifactId>pnt-damai</artifactId>
-		</dependency>
-
-		<dependency>
 			<groupId>com.github.rebue.sbs</groupId>
 			<artifactId>feign-spring-boot-starter</artifactId>
 		</dependency>
