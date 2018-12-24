@@ -7,14 +7,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import rebue.pnt.dao.PntPointsLogDao;
+import rebue.pnt.dao.PntPointLogDao;
 import rebue.pnt.dic.PointLogTypeDic;
-import rebue.pnt.jo.PntPointsLogJo;
+import rebue.pnt.jo.PntPointLogJo;
 import rebue.pnt.mapper.PntPointsLogMapper;
 import rebue.pnt.mo.PntAccountMo;
 import rebue.pnt.mo.PntPointsLogMo;
 import rebue.pnt.svc.PntAccountSvc;
-import rebue.pnt.svc.PntPointsLogSvc;
+import rebue.pnt.svc.PntPointLogSvc;
 import rebue.pnt.to.AddPointTradeTo;
 import rebue.pnt.to.ModifyPointTo;
 import rebue.robotech.dic.ResultDic;
@@ -37,12 +37,12 @@ import rebue.robotech.svc.impl.BaseSvcImpl;
  */
 @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 @Service
-public class PntPointsLogSvcImpl extends BaseSvcImpl<java.lang.Long, PntPointsLogJo, PntPointsLogDao, PntPointsLogMo, PntPointsLogMapper> implements PntPointsLogSvc {
+public class PntPointLogSvcImpl extends BaseSvcImpl<java.lang.Long, PntPointLogJo, PntPointLogDao, PntPointsLogMo, PntPointsLogMapper> implements PntPointLogSvc {
 
     /**
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
-    private static final Logger _log = LoggerFactory.getLogger(PntPointsLogSvcImpl.class);
+    private static final Logger _log = LoggerFactory.getLogger(PntPointLogSvcImpl.class);
 
     /**
      * @mbg.generated 自动生成，如需修改，请删除本行
@@ -62,7 +62,7 @@ public class PntPointsLogSvcImpl extends BaseSvcImpl<java.lang.Long, PntPointsLo
     private PntAccountSvc pntAccountSvc;
 
     @Resource
-    private PntPointsLogSvc thisSvc;
+    private PntPointLogSvc thisSvc;
 
     /**
      *  添加积分 2018年12月19日17:12:15 流程： 1、查询积分账号信息并判断账号是否存在和是否已锁定 2、修改积分账号信息 3、添加积分日志
@@ -95,16 +95,16 @@ public class PntPointsLogSvcImpl extends BaseSvcImpl<java.lang.Long, PntPointsLo
             return ro;
         }
         // 新当前积分 = 修改的积分 + 旧的当前积分
-        BigDecimal newPoints = to.getChangedPoints().add(accountMo.getPoints());
+        BigDecimal newPoint = to.getChangedPoints().add(accountMo.getPoint());
         if (to.getPointsLogType() == PointLogTypeDic.VPAY_WITHDRAW.getCode()) {
-            if (newPoints.compareTo(BigDecimal.ZERO) < 0) {
+            if (newPoint.compareTo(BigDecimal.ZERO) < 0) {
                 _log.error("添加积分交易时发现积分不足，请求的参数为：{}", to);
                 ro.setResult(ResultDic.FAIL);
                 ro.setMsg("积分不足");
                 return ro;
             }
         } else if (to.getPointsLogType() == PointLogTypeDic.ORDER_RETURN.getCode()) {
-            if (accountMo.getPoints().compareTo(BigDecimal.ZERO) == 0) {
+            if (accountMo.getPoint().compareTo(BigDecimal.ZERO) == 0) {
                 _log.warn("添加积分交易，积分日志类型为退货时发现该账号积分为0，请求的参数为：{}", to);
                 ro.setResult(ResultDic.SUCCESS);
                 ro.setMsg("该账号积分为0");
@@ -114,8 +114,8 @@ public class PntPointsLogSvcImpl extends BaseSvcImpl<java.lang.Long, PntPointsLo
         _log.info("添加积分交易第二步开始，请求的参数为：{}", to);
         ModifyPointTo modifyPointTo = new ModifyPointTo();
         modifyPointTo.setAccountId(to.getAccountId());
-        modifyPointTo.setNewPoints(newPoints);
-        modifyPointTo.setOldPoints(accountMo.getPoints());
+        modifyPointTo.setNewPoint(newPoint);
+        modifyPointTo.setOldPoint(accountMo.getPoint());
         modifyPointTo.setNewModifiedTimestamp(to.getModifiedTimestamp());
         modifyPointTo.setOldModifiedTimestamp(accountMo.getModifiedTimestamp());
         _log.info("添加积分交易修改积分账号信息的参数为：{}", modifyPointTo);
@@ -131,9 +131,9 @@ public class PntPointsLogSvcImpl extends BaseSvcImpl<java.lang.Long, PntPointsLo
         PntPointsLogMo pointsLogMo = new PntPointsLogMo();
         pointsLogMo.setAccountId(to.getAccountId());
         pointsLogMo.setPointsLogType(to.getPointsLogType());
-        pointsLogMo.setPointsBeforeChanged(accountMo.getPoints());
+        pointsLogMo.setPointsBeforeChanged(accountMo.getPoint());
         pointsLogMo.setChangedPoints(to.getChangedPoints());
-        pointsLogMo.setPointsAfterChanged(newPoints);
+        pointsLogMo.setPointsAfterChanged(newPoint);
         pointsLogMo.setChangedTitile(to.getChangedTitile());
         pointsLogMo.setChangedDetail(to.getChangedDetail());
         pointsLogMo.setOrderId(to.getOrderId());

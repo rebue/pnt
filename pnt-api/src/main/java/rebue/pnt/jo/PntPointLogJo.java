@@ -14,15 +14,15 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * The persistent class for the PNT_POINTS_LOG database table.
+ * The persistent class for the PNT_POINT_LOG database table.
  * @mbg.generated 自动生成，如需修改，请删除本行
  */
 @Entity
-@Table(name = "PNT_POINTS_LOG")
+@Table(name = "PNT_POINT_LOG")
 @Getter
 @Setter
 @ToString
-public class PntPointsLogJo implements Serializable {
+public class PntPointLogJo implements Serializable {
 
     /**
      * @mbg.generated 自动生成，如需修改，请删除本行
@@ -45,8 +45,8 @@ public class PntPointsLogJo implements Serializable {
      *  @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Basic(optional = false)
-    @Column(name = "POINTS_LOG_TYPE", nullable = false, length = 3)
-    private Byte pointsLogType;
+    @Column(name = "POINT_LOG_TYPE", nullable = false, length = 3)
+    private Byte pointLogType;
 
     /**
      *  改变前的积分
@@ -54,8 +54,8 @@ public class PntPointsLogJo implements Serializable {
      *  @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Basic(optional = false)
-    @Column(name = "POINTS_BEFORE_CHANGED", nullable = false, precision = 18, scale = 4)
-    private BigDecimal pointsBeforeChanged;
+    @Column(name = "POINT_BEFORE_CHANGED", nullable = false, precision = 18, scale = 4)
+    private BigDecimal pointBeforeChanged;
 
     /**
      *  改变的积分
@@ -63,8 +63,8 @@ public class PntPointsLogJo implements Serializable {
      *  @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Basic(optional = false)
-    @Column(name = "CHANGED_POINTS", nullable = false, precision = 18, scale = 4)
-    private BigDecimal changedPoints;
+    @Column(name = "CHANGED_POINT", nullable = false, precision = 18, scale = 4)
+    private BigDecimal changedPoint;
 
     /**
      *  改变后的积分
@@ -72,8 +72,8 @@ public class PntPointsLogJo implements Serializable {
      *  @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Basic(optional = false)
-    @Column(name = "POINTS_AFTER_CHANGED", nullable = false, precision = 18, scale = 4)
-    private BigDecimal pointsAfterChanged;
+    @Column(name = "POINT_AFTER_CHANGED", nullable = false, precision = 18, scale = 4)
+    private BigDecimal pointAfterChanged;
 
     /**
      *  改变积分的标题
@@ -160,7 +160,7 @@ public class PntPointsLogJo implements Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        PntPointsLogJo other = (PntPointsLogJo) obj;
+        PntPointLogJo other = (PntPointLogJo) obj;
         if (id == null) {
             if (other.id != null)
                 return false;

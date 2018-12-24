@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import rebue.pnt.mo.PntPointsLogMo;
-import rebue.pnt.svc.PntPointsLogSvc;
+import rebue.pnt.svc.PntPointLogSvc;
 import rebue.pnt.to.AddPointTradeTo;
 import rebue.robotech.dic.ResultDic;
 import rebue.robotech.ro.IdRo;
@@ -27,18 +27,18 @@ import rebue.robotech.ro.Ro;
  * @mbg.generated 自动生成的注释，如需修改本注释，请删除本行
  */
 @RestController
-public class PntPointsLogCtrl {
+public class PntPointLogCtrl {
 
     /**
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
-    private static final Logger _log = LoggerFactory.getLogger(PntPointsLogCtrl.class);
+    private static final Logger _log = LoggerFactory.getLogger(PntPointLogCtrl.class);
 
     /**
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Resource
-    private PntPointsLogSvc svc;
+    private PntPointLogSvc svc;
 
     /**
      * 有唯一约束的字段名称

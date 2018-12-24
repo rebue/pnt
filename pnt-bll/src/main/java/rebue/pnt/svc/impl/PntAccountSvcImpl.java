@@ -64,14 +64,14 @@ public class PntAccountSvcImpl extends BaseSvcImpl<java.lang.Long, PntAccountJo,
     public Ro modifyPoint(ModifyPointTo to) {
         _log.info("修改积分账号信息的请求参数为：{}", to);
         Ro ro = new Ro();
-        if (to.getAccountId() == null || to.getNewPoints() == null || to.getOldPoints() == null || to.getNewModifiedTimestamp() == null || to.getOldModifiedTimestamp() == null) {
+        if (to.getAccountId() == null || to.getNewPoint() == null || to.getOldPoint() == null || to.getNewModifiedTimestamp() == null || to.getOldModifiedTimestamp() == null) {
             _log.error("修改积分信息时出现参数错误，请求的参数为：{}", to);
             ro.setResult(ResultDic.PARAM_ERROR);
             ro.setMsg("参数错误");
             return ro;
         }
         _log.info("修改积分信息的参数为：{}", to);
-        int modifyAccountResult = _mapper.updatePoints(to.getAccountId(), to.getNewPoints(), to.getOldPoints(), to.getNewModifiedTimestamp(), to.getOldModifiedTimestamp());
+        int modifyAccountResult = _mapper.updatePoint(to.getAccountId(), to.getNewPoint(), to.getOldPoint(), to.getNewModifiedTimestamp(), to.getOldModifiedTimestamp());
         _log.info("修改积分信息的返回值为：{}", modifyAccountResult);
         if (modifyAccountResult != 1) {
             _log.error("修改积分信息 出现错误，请求的参数为：{}", to);

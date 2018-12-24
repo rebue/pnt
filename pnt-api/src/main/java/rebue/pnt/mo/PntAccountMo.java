@@ -27,11 +27,11 @@ public class PntAccountMo implements Serializable {
     /**
      *    当前积分
      *
-     *    数据库字段: PNT_ACCOUNT.POINTS
+     *    数据库字段: PNT_ACCOUNT.POINT
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
-    private BigDecimal points;
+    private BigDecimal point;
 
     /**
      *    当前收益
@@ -99,23 +99,23 @@ public class PntAccountMo implements Serializable {
     /**
      *    当前积分
      *
-     *    数据库字段: PNT_ACCOUNT.POINTS
+     *    数据库字段: PNT_ACCOUNT.POINT
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
-    public BigDecimal getPoints() {
-        return points;
+    public BigDecimal getPoint() {
+        return point;
     }
 
     /**
      *    当前积分
      *
-     *    数据库字段: PNT_ACCOUNT.POINTS
+     *    数据库字段: PNT_ACCOUNT.POINT
      *
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
-    public void setPoints(BigDecimal points) {
-        this.points = points;
+    public void setPoint(BigDecimal point) {
+        this.point = point;
     }
 
     /**
@@ -216,7 +216,7 @@ public class PntAccountMo implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", points=").append(points);
+        sb.append(", point=").append(point);
         sb.append(", income=").append(income);
         sb.append(", totalIncome=").append(totalIncome);
         sb.append(", isLocked=").append(isLocked);

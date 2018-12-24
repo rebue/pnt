@@ -46,8 +46,8 @@ public class PntAccountJo implements Serializable {
      *  @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Basic(optional = false)
-    @Column(name = "POINTS", nullable = false, precision = 18, scale = 4)
-    private BigDecimal points;
+    @Column(name = "POINT", nullable = false, precision = 18, scale = 4)
+    private BigDecimal point;
 
     /**
      *  当前收益
@@ -99,7 +99,7 @@ public class PntAccountJo implements Serializable {
      *  @mbg.generated 自动生成，如需修改，请删除本行
      */
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
-    private List<PntPointsLogJo> pntPointsLogList;
+    private List<PntPointLogJo> pntPointLogList;
 
     /**
      * @mbg.generated 自动生成，如需修改，请删除本行

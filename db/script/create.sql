@@ -3,12 +3,11 @@
 /* Created on:     2018/12/24 16:48:02                          */
 /*==============================================================*/
 
-
-drop table if exists PNT_ACCOUNT;
+drop table if exists PNT_POINT_LOG;
 
 drop table if exists PNT_INCOME_LOG;
 
-drop table if exists PNT_POINT_LOG;
+drop table if exists PNT_ACCOUNT;
 
 /*==============================================================*/
 /* Table: PNT_ACCOUNT                                           */

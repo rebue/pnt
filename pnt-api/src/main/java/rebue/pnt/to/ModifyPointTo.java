@@ -20,12 +20,12 @@ public class ModifyPointTo {
 	/**
 	 * 新的当前积分
 	 */
-	private BigDecimal newPoints;
+	private BigDecimal newPoint;
 	
 	/**
 	 * 旧的当前积分
 	 */
-	private BigDecimal oldPoints;
+	private BigDecimal oldPoint;
 	
 	/**
 	 * 新修改时间戳

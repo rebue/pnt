@@ -9,7 +9,7 @@ import rebue.robotech.ro.Ro;
 import rebue.sbs.feign.FeignConfig;
 
 @FeignClient(name = "pnt-svr", configuration = FeignConfig.class)
-public interface PntPointsSvc {
+public interface PntPointSvc {
 
 	/**
      * 添加积分交易
