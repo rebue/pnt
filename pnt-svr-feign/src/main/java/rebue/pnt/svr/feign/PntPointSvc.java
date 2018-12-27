@@ -16,6 +16,6 @@ public interface PntPointSvc {
      * @param to
      * @return
      */
-    @PostMapping("/pnt/pointstrade")
+	@PostMapping("/pnt/pointtrade")
     Ro addPointTrade(@RequestBody AddPointTradeTo to);
 }
