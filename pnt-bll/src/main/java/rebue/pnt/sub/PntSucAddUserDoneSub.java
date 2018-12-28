@@ -1,5 +1,6 @@
 package rebue.pnt.sub;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.annotation.Resource;
@@ -54,6 +55,7 @@ public class PntSucAddUserDoneSub implements ApplicationListener<ContextRefreshe
 						accountMo.setId(msg.getId());
 						final Date now = new Date();
 						accountMo.setModifiedTimestamp(now.getTime());
+						accountMo.setPoint(BigDecimal.TEN);
 						pntAccountSvc.add(accountMo);
 						return true;
 					} catch (final DuplicateKeyException e) {
