@@ -1,5 +1,11 @@
 package rebue.pnt.svc;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.github.pagehelper.PageInfo;
+
 import rebue.pnt.jo.PntPointLogJo;
 import rebue.pnt.mo.PntPointLogMo;
 import rebue.pnt.to.AddPointTradeTo;
@@ -19,4 +25,11 @@ public interface PntPointLogSvc extends BaseSvc<java.lang.Long, PntPointLogMo, P
      *  @return
      */
     Ro addPointTrade(AddPointTradeTo to);
+    
+    /**
+     * 根据用户id查询积分日志
+     * @param accountId
+     * @return
+     */
+    PageInfo<PntPointLogMo> listByAccountId(Long accountId,int pageNum, int pageSize);
 }

@@ -3,7 +3,11 @@ package rebue.pnt.ctrl;
 import com.github.pagehelper.PageInfo;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+
 import javax.annotation.Resource;
+
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DuplicateKeyException;
@@ -202,5 +206,22 @@ public class PntPointLogCtrl {
             ro.setMsg("添加出错");
             return ro;
         }
+    }
+    /**
+     * 根据用户id查询积分日志
+     * @param accountId
+     * @return
+     */
+    @GetMapping("/pnt/listByAccountId")
+    PageInfo<PntPointLogMo> listByAccountId(Long accountId,@RequestParam(value = "pageNum", required = false)Integer pageNum, 
+    		@RequestParam(value = "pageSize", required = false)Integer pageSize){
+    	if (pageNum == null) {
+            pageNum = 1;
+        }
+        if (pageSize == null) {
+            pageSize = 5;
+        }
+    	 _log.info("list PntPointLogMo by AccountId: {}:"+ accountId+ ", pageNum = " + pageNum + ", pageSize = " + pageSize);
+    	return svc.listByAccountId(accountId,pageSize,pageSize);
     }
 }

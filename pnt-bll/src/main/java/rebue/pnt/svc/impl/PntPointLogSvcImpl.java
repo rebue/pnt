@@ -1,6 +1,7 @@
 package rebue.pnt.svc.impl;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -9,6 +10,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 import rebue.pnt.dao.PntPointLogDao;
 import rebue.pnt.jo.PntPointLogJo;
@@ -149,4 +153,15 @@ public class PntPointLogSvcImpl extends BaseSvcImpl<java.lang.Long, PntPointLogJ
         ro.setMsg("添加成功");
         return ro;
     }
+
+    /**
+     * 根据用户积分查询日志
+     */
+	@Override
+	public PageInfo<PntPointLogMo> listByAccountId(Long accountId,final int pageNum, final int pageSize) {
+		_log.info("查询用户积分日志，请求的参数为：accountId：{}", accountId);
+		PageInfo<PntPointLogMo> result = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> _mapper.listByAccountId(accountId));
+		_log.info("返回的用户积分日志参数为：List<PntPointLogMo>：{}", result);
+		return result;
+	}
 }
