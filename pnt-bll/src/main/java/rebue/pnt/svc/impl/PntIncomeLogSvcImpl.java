@@ -154,4 +154,15 @@ public class PntIncomeLogSvcImpl extends BaseSvcImpl<java.lang.Long, PntIncomeLo
         ro.setMsg("添加成功");
         return ro;
     }
+    
+    /**
+     * 统计昨日收益
+     * @param accountId
+     * @return
+     */
+    @Override
+    public BigDecimal countYesterdayIncome(Long accountId) {
+    	_log.info("统计昨日收益的参数为：{}", accountId);
+    	return _mapper.countYesterdayIncome(accountId);
+    }
 }

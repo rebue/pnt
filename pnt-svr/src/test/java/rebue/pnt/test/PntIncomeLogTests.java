@@ -65,7 +65,7 @@ public class PntIncomeLogTests {
     @Test
     public void addIncomeTradeTest() throws IOException {
         AddIncomeTradeTo to = new AddIncomeTradeTo();
-        to.setAccountId(520391209198288896L);
+        to.setAccountId(525616558689484801L);
         to.setIncomeLogType((byte) IncomeLogTypeDic.DAY_INCOME.getCode());
         to.setChangedIncome(BigDecimal.valueOf(8));
         to.setChangedTitile("大卖网络-积分日收益");
@@ -75,7 +75,7 @@ public class PntIncomeLogTests {
         String string = OkhttpUtils.postByJsonParams(hostUrl + "/pnt/incometrade", to);
         System.out.println(string);
         to = new AddIncomeTradeTo();
-        to.setAccountId(520391209198288896L);
+        to.setAccountId(525616558689484801L);
         to.setIncomeLogType((byte) IncomeLogTypeDic.TRANSFER_OUT_INCOME.getCode());
         to.setChangedIncome(BigDecimal.valueOf(2));
         to.setChangedTitile("大卖网络-收益转出");

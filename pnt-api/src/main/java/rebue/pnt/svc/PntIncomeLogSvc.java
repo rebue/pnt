@@ -1,5 +1,7 @@
 package rebue.pnt.svc;
 
+import java.math.BigDecimal;
+
 import rebue.pnt.jo.PntIncomeLogJo;
 import rebue.pnt.mo.PntIncomeLogMo;
 import rebue.pnt.to.AddIncomeTradeTo;
@@ -19,4 +21,11 @@ public interface PntIncomeLogSvc extends BaseSvc<java.lang.Long, PntIncomeLogMo,
      *  @return
      */
     Ro addIncomeTrade(AddIncomeTradeTo to);
+
+    /**
+     * 统计昨日收益
+     * @param accountId
+     * @return
+     */
+	BigDecimal countYesterdayIncome(Long accountId);
 }

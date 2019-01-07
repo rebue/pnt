@@ -335,4 +335,16 @@
       </if>
     </where>
   </select>
+  
+  <!-- 统计昨日收益 -->
+  <select id="countYesterdayIncome" parameterType="java.lang.Long" resultType="java.math.BigDecimal">
+  	SELECT 
+		SUM(CHANGED_INCOME) AS changeIncomeTotal
+	FROM
+		PNT_INCOME_LOG
+	WHERE
+		ACCOUNT_ID = #{accountId,jdbcType=BIGINT}
+			AND DATEDIFF(STAT_DATE, NOW()) = - 1 <!-- -1表示昨日，这里可修改为配置式（如：统计15天前的，旧直接填-15即可） -->
+			AND INCOME_LOG_TYPE = 1 <!-- 1：日收益；可改为配置式，填入相应的类型即可 -->
+  </select>
 </mapper>

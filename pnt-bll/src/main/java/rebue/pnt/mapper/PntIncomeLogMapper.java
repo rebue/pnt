@@ -1,5 +1,6 @@
 package rebue.pnt.mapper;
 
+import java.math.BigDecimal;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import rebue.pnt.mo.PntIncomeLogMo;
@@ -62,4 +63,11 @@ public interface PntIncomeLogMapper extends MybatisBaseMapper<PntIncomeLogMo, Lo
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
     int countSelective(PntIncomeLogMo record);
+    
+    /**
+     * 统计收益（目前只统计昨日收益，以后可调整为统计多天的收益）
+     * @param accountId
+     * @return
+     */
+    BigDecimal countYesterdayIncome(Long accountId);
 }

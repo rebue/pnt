@@ -1,6 +1,8 @@
 package rebue.pnt.ctrl;
 
 import com.github.pagehelper.PageInfo;
+
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.annotation.Resource;
@@ -202,5 +204,16 @@ public class PntIncomeLogCtrl {
             ro.setMsg("添加出错");
             return ro;
         }
+    }
+    
+    /**
+     * 统计昨日收益
+     * @param accountId
+     * @return
+     */
+    @GetMapping("/pnt/income/yesterday")
+    BigDecimal countYesterdayIncome(@RequestParam("accountId") Long accountId) {
+    	_log.info("统计昨日收益的请求参数为：" + accountId);
+    	return svc.countYesterdayIncome(accountId);
     }
 }
