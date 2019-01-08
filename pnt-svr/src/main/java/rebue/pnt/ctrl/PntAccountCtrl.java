@@ -3,6 +3,8 @@ package rebue.pnt.ctrl;
 import com.github.pagehelper.PageInfo;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+
 import javax.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -182,5 +184,14 @@ public class PntAccountCtrl {
     PntAccountMo getById(@RequestParam("id") java.lang.Long id) {
         _log.info("get PntAccountMo by id: {}", id);
         return svc.getById(id);
+    }
+    
+    /**
+     * 获取所有积分账号信息
+     * @return
+     */
+    @GetMapping("/pnt/account/all")
+    List<PntAccountMo> listAll() {
+    	return svc.listAll();
     }
 }

@@ -55,8 +55,10 @@ public class PntSucAddUserDoneSub implements ApplicationListener<ContextRefreshe
 						accountMo.setId(msg.getId());
 						final Date now = new Date();
 						accountMo.setModifiedTimestamp(now.getTime());
-						accountMo.setPoint(BigDecimal.TEN);
-						pntAccountSvc.add(accountMo);
+						int addResult = pntAccountSvc.add(accountMo);
+						if (addResult != 1) {
+							return false;
+						}
 						return true;
 					} catch (final DuplicateKeyException e) {
 						_log.warn("收到重复的消息: " + msg, e);

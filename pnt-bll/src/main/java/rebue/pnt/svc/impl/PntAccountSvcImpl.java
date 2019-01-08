@@ -1,5 +1,9 @@
 package rebue.pnt.svc.impl;
 
+import java.math.BigDecimal;
+
+import javax.annotation.Resource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -10,6 +14,8 @@ import rebue.pnt.jo.PntAccountJo;
 import rebue.pnt.mapper.PntAccountMapper;
 import rebue.pnt.mo.PntAccountMo;
 import rebue.pnt.svc.PntAccountSvc;
+import rebue.pnt.svc.PntPointLogSvc;
+import rebue.pnt.to.AddPointTradeTo;
 import rebue.pnt.to.ModifyIncomeTo;
 import rebue.pnt.to.ModifyPointTo;
 import rebue.robotech.dic.ResultDic;
@@ -38,19 +44,40 @@ public class PntAccountSvcImpl extends BaseSvcImpl<java.lang.Long, PntAccountJo,
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
     private static final Logger _log = LoggerFactory.getLogger(PntAccountSvcImpl.class);
+    
+    @Resource
+    private PntPointLogSvc pntPointLogSvc;
 
     /**
-     * @mbg.generated 自动生成，如需修改，请删除本行
+     * 添加积分账号信息
      */
     @Override
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
     public int add(PntAccountMo mo) {
         _log.info("添加积分账户信息");
+        Long accountId = mo.getId();
         // 如果id为空那么自动生成分布式id
         if (mo.getId() == null || mo.getId() == 0) {
-            mo.setId(_idWorker.getId());
+        	accountId = _idWorker.getId();
+            mo.setId(accountId);
         }
-        return super.add(mo);
+        
+        int addResult = super.add(mo);
+        if (addResult == 1) {
+        	AddPointTradeTo to = new AddPointTradeTo();
+    		to.setAccountId(accountId);
+    		to.setPointLogType((byte) 5);
+    		to.setChangedTitile("大卖网络-新用户奖励积分");
+    		to.setOrderId(_idWorker.getId());
+    		to.setChangedPoint(BigDecimal.valueOf(10));
+    		Ro addPointTradeRo = pntPointLogSvc.addPointTrade(to);
+    		if (addPointTradeRo.getResult() != ResultDic.SUCCESS) {
+    			_log.error("添加积分账号信息添加一笔积分交易出现错误，请求的参数为：{}", mo);
+    			return -1;
+    		}
+            return 1;
+		}
+        return -1;
     }
 
     /**
