@@ -1,0 +1,1 @@
+alter table PNT_INCOME_LOG					modify CHANGED_DETAIL       varchar(200) null comment '改变收益的详情';
