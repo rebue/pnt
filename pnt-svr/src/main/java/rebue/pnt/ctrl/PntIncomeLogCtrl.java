@@ -216,4 +216,13 @@ public class PntIncomeLogCtrl {
     	_log.info("统计昨日收益的请求参数为：" + accountId);
     	return svc.countYesterdayIncome(accountId);
     }
+    
+    /**
+	 * 执行积分收益任务 
+	 */
+    @PostMapping("/pnt/income/executetask")
+	void executePointIncomeTask() {
+		_log.info("开始执行积分收益任务");
+		svc.executePointIncomeTask();
+	}
 }

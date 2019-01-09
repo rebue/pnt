@@ -1,5 +1,6 @@
 package rebue.pnt.svc;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -32,4 +33,11 @@ public interface PntPointLogSvc extends BaseSvc<java.lang.Long, PntPointLogMo, P
      * @return
      */
     PageInfo<PntPointLogMo> listByAccountId(Long accountId,int pageNum, int pageSize);
+
+    /**
+     * 根据账号id获取今天00:00:00之前最后一个修改后的积分
+     * @param accountId
+     * @return
+     */
+	BigDecimal getPointAfterChangedByAccountId(Long accountId);
 }

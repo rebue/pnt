@@ -164,4 +164,15 @@ public class PntPointLogSvcImpl extends BaseSvcImpl<java.lang.Long, PntPointLogJ
 		_log.info("返回的用户积分日志参数为：List<PntPointLogMo>：{}", result);
 		return result;
 	}
+	
+	/**
+	 * 根据账号id获取今天00:00:00之前最后一个修改后的积分
+	 * @param accountId
+	 * @return
+	 */
+	@Override
+	public BigDecimal getPointAfterChangedByAccountId(Long accountId) {
+		_log.info("根据账号id获取昨天最后一个修改后的积分的参数为：{}", accountId);
+		return _mapper.selectPointAfterChangedByAccountId(accountId);
+	}
 }

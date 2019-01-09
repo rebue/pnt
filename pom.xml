@@ -19,6 +19,7 @@
 		<module>pnt-bll</module>
 		<module>pnt-svr</module>
 		<module>pnt-svr-feign</module>
+		<module>pnt-scheduler-svr</module>
 	</modules>
 
 	<dependencyManagement>
@@ -28,9 +29,16 @@
 				<artifactId>pnt-api</artifactId>
 				<version>1.0.9</version>
 			</dependency>
+
 			<dependency>
 				<groupId>com.github.rebue.pnt</groupId>
 				<artifactId>pnt-bll</artifactId>
+				<version>1.0.9</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.github.rebue.pnt</groupId>
+				<artifactId>pnt-svr-feign</artifactId>
 				<version>1.0.9</version>
 			</dependency>
 

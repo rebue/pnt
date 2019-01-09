@@ -357,4 +357,17 @@
       </if>
     </where>
   </select>
+  
+  <!-- 根据账号id获取昨天最后一个修改后的积分 -->
+  <select id="selectPointAfterChangedByAccountId" parameterType="java.lang.Long" resultType="java.math.BigDecimal">
+  	SELECT 
+	    POINT_AFTER_CHANGED as pointAfterChanged
+	FROM
+	    pnt.PNT_POINT_LOG
+	WHERE
+	    ACCOUNT_ID = #{accountId,jdbcType=BIGINT}
+	        AND MODIFIED_TIMESTAMP &lt; UNIX_TIMESTAMP(CAST(SYSDATE() AS DATE)) * 1000
+	ORDER BY MODIFIED_TIMESTAMP DESC
+	LIMIT 1;
+  </select>
 </mapper>

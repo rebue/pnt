@@ -1,5 +1,6 @@
 package rebue.pnt.mapper;
 
+import java.math.BigDecimal;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -72,4 +73,11 @@ public interface PntPointLogMapper extends MybatisBaseMapper<PntPointLogMo, Long
      */
     @Select("SELECT * FROM PNT_POINT_LOG where account_id =#{accountId,jdbcType=BIGINT} order by modified_timestamp")
     List<PntPointLogMo> listByAccountId(@Param("accountId")Long accountId);
+    
+    /**
+     * 根据账号id获取昨天最后一个修改后的积分
+     * @param accountId
+     * @return
+     */
+    BigDecimal selectPointAfterChangedByAccountId(Long accountId);
 }
