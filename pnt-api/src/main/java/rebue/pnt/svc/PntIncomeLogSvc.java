@@ -1,7 +1,6 @@
 package rebue.pnt.svc;
 
 import java.math.BigDecimal;
-
 import rebue.pnt.jo.PntIncomeLogJo;
 import rebue.pnt.mo.PntIncomeLogMo;
 import rebue.pnt.to.AddIncomeTradeTo;
@@ -17,7 +16,7 @@ public interface PntIncomeLogSvc extends BaseSvc<java.lang.Long, PntIncomeLogMo,
 
     /**
      * 添加一笔收益交易
-     * 
+     *
      * @param to
      * @return
      */
@@ -25,7 +24,7 @@ public interface PntIncomeLogSvc extends BaseSvc<java.lang.Long, PntIncomeLogMo,
 
     /**
      * 获取昨日收益
-     * 
+     *
      * @param accountId
      *            用户积分账户
      * @return 昨日的收益

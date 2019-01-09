@@ -1,6 +1,11 @@
 package rebue.pnt.to;
 
 import java.math.BigDecimal;
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 
@@ -46,4 +51,11 @@ public class ModifyIncomeTo {
 	 * 旧修改时间戳
 	 */
 	private Long oldModifiedTimestamp;
+
+	/**
+	 * 日收益统计日期
+	 */
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "GMT+8")
+	private Date dayIncomeStatDate;
 }

@@ -1,11 +1,8 @@
 package rebue.pnt.ctrl;
 
+import com.github.pagehelper.PageInfo;
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import javax.annotation.Resource;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DuplicateKeyException;
@@ -16,9 +13,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.github.pagehelper.PageInfo;
-
 import rebue.pnt.mo.PntIncomeLogMo;
 import rebue.pnt.svc.PntIncomeLogSvc;
 import rebue.pnt.to.AddIncomeTradeTo;
@@ -37,20 +31,20 @@ public class PntIncomeLogCtrl {
     /**
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
-    private static final Logger _log             = LoggerFactory.getLogger(PntIncomeLogCtrl.class);
+    private static final Logger _log = LoggerFactory.getLogger(PntIncomeLogCtrl.class);
 
     /**
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Resource
-    private PntIncomeLogSvc     svc;
+    private PntIncomeLogSvc svc;
 
     /**
      * 有唯一约束的字段名称
      *
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
-    private final String        _uniqueFilesName = "某字段内容";
+    private String _uniqueFilesName = "某字段内容";
 
     /**
      * 添加收益日志
@@ -58,35 +52,34 @@ public class PntIncomeLogCtrl {
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
     @PostMapping("/pnt/incomelog")
-    IdRo add(@RequestBody final PntIncomeLogMo mo) throws Exception {
+    IdRo add(@RequestBody PntIncomeLogMo mo) throws Exception {
         _log.info("add PntIncomeLogMo: {}", mo);
-        final IdRo ro = new IdRo();
+        IdRo ro = new IdRo();
         try {
-            final int result = svc.add(mo);
+            int result = svc.add(mo);
             if (result == 1) {
-                final String msg = "添加成功";
+                String msg = "添加成功";
                 _log.info("{}: mo-{}", msg, mo);
                 ro.setMsg(msg);
                 ro.setResult(ResultDic.SUCCESS);
                 ro.setId(mo.getId().toString());
                 return ro;
             } else {
-                final String msg = "添加失败";
+                String msg = "添加失败";
                 _log.error("{}: mo-{}", msg, mo);
                 ro.setMsg(msg);
                 ro.setResult(ResultDic.FAIL);
                 return ro;
             }
-        } catch (final DuplicateKeyException e) {
-            final String msg = "添加失败，" + _uniqueFilesName + "已存在，不允许出现重复";
-            _log.error("{}: mo-{}", msg, mo);
+        } catch (DuplicateKeyException e) {
+            String msg = "添加失败，" + _uniqueFilesName + "已存在，不允许出现重复";
+            _log.error(msg + ": mo-" + mo, e);
             ro.setMsg(msg);
             ro.setResult(ResultDic.FAIL);
             return ro;
-        } catch (final RuntimeException e) {
-            final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            final String msg = "添加失败，出现运行时异常(" + sdf.format(new Date()) + ")";
-            _log.error(msg + ": mo=" + mo, e);
+        } catch (RuntimeException e) {
+            String msg = "添加失败，出现运行时异常";
+            _log.error(msg + ": mo-" + mo, e);
             ro.setMsg(msg);
             ro.setResult(ResultDic.FAIL);
             return ro;
@@ -99,33 +92,32 @@ public class PntIncomeLogCtrl {
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
     @PutMapping("/pnt/incomelog")
-    Ro modify(@RequestBody final PntIncomeLogMo mo) throws Exception {
+    Ro modify(@RequestBody PntIncomeLogMo mo) throws Exception {
         _log.info("modify PntIncomeLogMo: {}", mo);
-        final Ro ro = new Ro();
+        Ro ro = new Ro();
         try {
             if (svc.modify(mo) == 1) {
-                final String msg = "修改成功";
+                String msg = "修改成功";
                 _log.info("{}: mo-{}", msg, mo);
                 ro.setMsg(msg);
                 ro.setResult(ResultDic.SUCCESS);
                 return ro;
             } else {
-                final String msg = "修改失败";
+                String msg = "修改失败";
                 _log.error("{}: mo-{}", msg, mo);
                 ro.setMsg(msg);
                 ro.setResult(ResultDic.FAIL);
                 return ro;
             }
-        } catch (final DuplicateKeyException e) {
-            final String msg = "修改失败，" + _uniqueFilesName + "已存在，不允许出现重复";
+        } catch (DuplicateKeyException e) {
+            String msg = "修改失败，" + _uniqueFilesName + "已存在，不允许出现重复";
             _log.error(msg + ": mo=" + mo, e);
             ro.setMsg(msg);
             ro.setResult(ResultDic.FAIL);
             return ro;
-        } catch (final RuntimeException e) {
-            final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            final String msg = "修改失败，出现运行时异常(" + sdf.format(new Date()) + ")";
-            _log.error("{}: mo-{}", msg, mo);
+        } catch (RuntimeException e) {
+            String msg = "修改失败，出现运行时异常";
+            _log.error(msg + ": mo-" + mo, e);
             ro.setMsg(msg);
             ro.setResult(ResultDic.FAIL);
             return ro;
@@ -138,18 +130,18 @@ public class PntIncomeLogCtrl {
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
     @DeleteMapping("/pnt/incomelog")
-    Ro del(@RequestParam("id") final java.lang.Long id) {
+    Ro del(@RequestParam("id") java.lang.Long id) {
         _log.info("del PntIncomeLogMo by id: {}", id);
-        final int result = svc.del(id);
-        final Ro ro = new Ro();
+        int result = svc.del(id);
+        Ro ro = new Ro();
         if (result == 1) {
-            final String msg = "删除成功";
+            String msg = "删除成功";
             _log.info("{}: id-{}", msg, id);
             ro.setMsg(msg);
             ro.setResult(ResultDic.SUCCESS);
             return ro;
         } else {
-            final String msg = "删除失败，找不到该记录";
+            String msg = "删除失败，找不到该记录";
             _log.error("{}: id-{}", msg, id);
             ro.setMsg(msg);
             ro.setResult(ResultDic.FAIL);
@@ -163,21 +155,18 @@ public class PntIncomeLogCtrl {
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
     @GetMapping("/pnt/incomelog")
-    PageInfo<PntIncomeLogMo> list(final PntIncomeLogMo mo, @RequestParam(value = "pageNum", required = false) Integer pageNum,
-            @RequestParam(value = "pageSize", required = false) Integer pageSize) {
-        if (pageNum == null) {
+    PageInfo<PntIncomeLogMo> list(PntIncomeLogMo mo, @RequestParam(value = "pageNum", required = false) Integer pageNum, @RequestParam(value = "pageSize", required = false) Integer pageSize) {
+        if (pageNum == null)
             pageNum = 1;
-        }
-        if (pageSize == null) {
+        if (pageSize == null)
             pageSize = 5;
-        }
         _log.info("list PntIncomeLogMo:" + mo + ", pageNum = " + pageNum + ", pageSize = " + pageSize);
         if (pageSize > 50) {
-            final String msg = "pageSize不能大于50";
+            String msg = "pageSize不能大于50";
             _log.error(msg);
             throw new IllegalArgumentException(msg);
         }
-        final PageInfo<PntIncomeLogMo> result = svc.list(mo, pageNum, pageSize);
+        PageInfo<PntIncomeLogMo> result = svc.list(mo, pageNum, pageSize);
         _log.info("result: " + result);
         return result;
     }
@@ -188,14 +177,14 @@ public class PntIncomeLogCtrl {
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
     @GetMapping("/pnt/incomelog/getbyid")
-    PntIncomeLogMo getById(@RequestParam("id") final java.lang.Long id) {
+    PntIncomeLogMo getById(@RequestParam("id") java.lang.Long id) {
         _log.info("get PntIncomeLogMo by id: {}", id);
         return svc.getById(id);
     }
 
     /**
      * 添加一笔收益交易
-     * 
+     *
      * @param to
      * @return
      */
@@ -215,7 +204,7 @@ public class PntIncomeLogCtrl {
 
     /**
      * 获取昨日收益
-     * 
+     *
      * @param accountId
      *            用户积分账户
      * @return 昨日的收益

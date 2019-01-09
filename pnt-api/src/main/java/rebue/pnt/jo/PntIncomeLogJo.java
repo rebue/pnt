@@ -86,15 +86,6 @@ public class PntIncomeLogJo implements Serializable {
     private String changedTitile;
 
     /**
-     *  改变收益的详情
-     *
-     *  @mbg.generated 自动生成，如需修改，请删除本行
-     */
-    @Basic(optional = false)
-    @Column(name = "CHANGED_DETAIL", nullable = false, length = 200)
-    private String changedDetail;
-
-    /**
      *  统计日期
      *
      *  @mbg.generated 自动生成，如需修改，请删除本行
@@ -111,15 +102,6 @@ public class PntIncomeLogJo implements Serializable {
     @Basic(optional = false)
     @Column(name = "MODIFIED_TIMESTAMP", nullable = false, length = 19)
     private Long modifiedTimestamp;
-
-    /**
-     *  旧修改时间戳
-     *
-     *  @mbg.generated 自动生成，如需修改，请删除本行
-     */
-    @Basic(optional = false)
-    @Column(name = "OLD_MODIFIED_TIMESTAMP", nullable = false, length = 19)
-    private Long oldModifiedTimestamp;
 
     /**
      *  积分账户

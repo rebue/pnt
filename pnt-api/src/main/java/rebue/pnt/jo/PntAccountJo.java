@@ -2,6 +2,7 @@ package rebue.pnt.jo;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -68,15 +69,6 @@ public class PntAccountJo implements Serializable {
     private BigDecimal totalIncome;
 
     /**
-     *  是否锁定
-     *
-     *  @mbg.generated 自动生成，如需修改，请删除本行
-     */
-    @Basic(optional = false)
-    @Column(name = "IS_LOCKED", nullable = false, length = 3)
-    private Boolean isLocked;
-
-    /**
      *  修改时间戳
      *
      *  @mbg.generated 自动生成，如需修改，请删除本行
@@ -86,7 +78,16 @@ public class PntAccountJo implements Serializable {
     private Long modifiedTimestamp;
 
     /**
-     *  积分账户列表
+     *  日收益统计日期
+     *
+     *  @mbg.generated 自动生成，如需修改，请删除本行
+     */
+    @Basic(optional = true)
+    @Column(name = "DAY_INCOME_STAT_DATE", nullable = true, length = 10)
+    private Date dayIncomeStatDate;
+
+    /**
+     *  列表
      *
      *  @mbg.generated 自动生成，如需修改，请删除本行
      */

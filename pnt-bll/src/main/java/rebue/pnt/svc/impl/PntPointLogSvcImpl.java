@@ -1,8 +1,6 @@
 package rebue.pnt.svc.impl;
 
 import java.math.BigDecimal;
-import java.util.List;
-
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
@@ -95,12 +93,6 @@ public class PntPointLogSvcImpl extends BaseSvcImpl<java.lang.Long, PntPointLogJ
             _log.error("添加积分交易查询积分账号信息时发现没有该积分账号信息，请求的参数为：{}", to);
             ro.setResult(ResultDic.FAIL);
             ro.setMsg("没有发现该积分账号");
-            return ro;
-        }
-        if (accountMo.getIsLocked()) {
-            _log.error("添加积分交易时发现该账号已被锁定，请求的参数为：{}", to);
-            ro.setResult(ResultDic.FAIL);
-            ro.setMsg("该账号已被锁定");
             return ro;
         }
         // 新当前积分 = 修改的积分 + 旧的当前积分

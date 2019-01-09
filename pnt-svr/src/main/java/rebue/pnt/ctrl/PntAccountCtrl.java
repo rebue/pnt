@@ -1,10 +1,7 @@
 package rebue.pnt.ctrl;
 
 import com.github.pagehelper.PageInfo;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-
 import javax.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -75,14 +72,13 @@ public class PntAccountCtrl {
             }
         } catch (DuplicateKeyException e) {
             String msg = "添加失败，" + _uniqueFilesName + "已存在，不允许出现重复";
-            _log.error("{}: mo-{}", msg, mo);
+            _log.error(msg + ": mo-" + mo, e);
             ro.setMsg(msg);
             ro.setResult(ResultDic.FAIL);
             return ro;
         } catch (RuntimeException e) {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            String msg = "添加失败，出现运行时异常(" + sdf.format(new Date()) + ")";
-            _log.error(msg + ": mo=" + mo, e);
+            String msg = "添加失败，出现运行时异常";
+            _log.error(msg + ": mo-" + mo, e);
             ro.setMsg(msg);
             ro.setResult(ResultDic.FAIL);
             return ro;
@@ -119,9 +115,8 @@ public class PntAccountCtrl {
             ro.setResult(ResultDic.FAIL);
             return ro;
         } catch (RuntimeException e) {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            String msg = "修改失败，出现运行时异常(" + sdf.format(new Date()) + ")";
-            _log.error("{}: mo-{}", msg, mo);
+            String msg = "修改失败，出现运行时异常";
+            _log.error(msg + ": mo-" + mo, e);
             ro.setMsg(msg);
             ro.setResult(ResultDic.FAIL);
             return ro;
@@ -185,13 +180,13 @@ public class PntAccountCtrl {
         _log.info("get PntAccountMo by id: {}", id);
         return svc.getById(id);
     }
-    
+
     /**
      * 获取所有积分账号信息
      * @return
      */
     @GetMapping("/pnt/account/all")
     List<PntAccountMo> listAll() {
-    	return svc.listAll();
+        return svc.listAll();
     }
 }

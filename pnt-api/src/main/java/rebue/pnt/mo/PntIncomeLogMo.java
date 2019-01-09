@@ -82,15 +82,6 @@ public class PntIncomeLogMo implements Serializable {
     private String changedTitile;
 
     /**
-     *    改变收益的详情
-     *
-     *    数据库字段: PNT_INCOME_LOG.CHANGED_DETAIL
-     *
-     *    @mbg.generated 自动生成，如需修改，请删除本行
-     */
-    private String changedDetail;
-
-    /**
      *    统计日期(日收益的日期)
      *
      *    数据库字段: PNT_INCOME_LOG.STAT_DATE
@@ -109,15 +100,6 @@ public class PntIncomeLogMo implements Serializable {
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
     private Long modifiedTimestamp;
-
-    /**
-     *    旧修改时间戳
-     *
-     *    数据库字段: PNT_INCOME_LOG.OLD_MODIFIED_TIMESTAMP
-     *
-     *    @mbg.generated 自动生成，如需修改，请删除本行
-     */
-    private Long oldModifiedTimestamp;
 
     /**
      *    @mbg.generated 自动生成，如需修改，请删除本行
@@ -279,28 +261,6 @@ public class PntIncomeLogMo implements Serializable {
     }
 
     /**
-     *    改变收益的详情
-     *
-     *    数据库字段: PNT_INCOME_LOG.CHANGED_DETAIL
-     *
-     *    @mbg.generated 自动生成，如需修改，请删除本行
-     */
-    public String getChangedDetail() {
-        return changedDetail;
-    }
-
-    /**
-     *    改变收益的详情
-     *
-     *    数据库字段: PNT_INCOME_LOG.CHANGED_DETAIL
-     *
-     *    @mbg.generated 自动生成，如需修改，请删除本行
-     */
-    public void setChangedDetail(String changedDetail) {
-        this.changedDetail = changedDetail;
-    }
-
-    /**
      *    统计日期(日收益的日期)
      *
      *    数据库字段: PNT_INCOME_LOG.STAT_DATE
@@ -345,28 +305,6 @@ public class PntIncomeLogMo implements Serializable {
     }
 
     /**
-     *    旧修改时间戳
-     *
-     *    数据库字段: PNT_INCOME_LOG.OLD_MODIFIED_TIMESTAMP
-     *
-     *    @mbg.generated 自动生成，如需修改，请删除本行
-     */
-    public Long getOldModifiedTimestamp() {
-        return oldModifiedTimestamp;
-    }
-
-    /**
-     *    旧修改时间戳
-     *
-     *    数据库字段: PNT_INCOME_LOG.OLD_MODIFIED_TIMESTAMP
-     *
-     *    @mbg.generated 自动生成，如需修改，请删除本行
-     */
-    public void setOldModifiedTimestamp(Long oldModifiedTimestamp) {
-        this.oldModifiedTimestamp = oldModifiedTimestamp;
-    }
-
-    /**
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Override
@@ -382,10 +320,8 @@ public class PntIncomeLogMo implements Serializable {
         sb.append(", changedIncome=").append(changedIncome);
         sb.append(", incomeAfterChanged=").append(incomeAfterChanged);
         sb.append(", changedTitile=").append(changedTitile);
-        sb.append(", changedDetail=").append(changedDetail);
         sb.append(", statDate=").append(statDate);
         sb.append(", modifiedTimestamp=").append(modifiedTimestamp);
-        sb.append(", oldModifiedTimestamp=").append(oldModifiedTimestamp);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

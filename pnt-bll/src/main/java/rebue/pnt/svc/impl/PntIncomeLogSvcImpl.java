@@ -3,16 +3,13 @@ package rebue.pnt.svc.impl;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
-
 import javax.annotation.Resource;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
 import rebue.pnt.dao.PntIncomeLogDao;
 import rebue.pnt.dic.IncomeLogTypeDic;
 import rebue.pnt.jo.PntIncomeLogJo;
@@ -31,10 +28,13 @@ import rebue.robotech.svc.impl.BaseSvcImpl;
 /**
  * 收益日志
  *
- * 在单独使用不带任何参数的 @Transactional 注释时， propagation(传播模式)=REQUIRED，readOnly=false，
- * isolation(事务隔离级别)=READ_COMMITTED， 而且事务不会针对受控异常（checked exception）回滚。
+ * 在单独使用不带任何参数的 @Transactional 注释时，
+ * propagation(传播模式)=REQUIRED，readOnly=false，
+ * isolation(事务隔离级别)=READ_COMMITTED，
+ * 而且事务不会针对受控异常（checked exception）回滚。
  *
- * 注意： 一般是查询的数据库操作，默认设置readOnly=true, propagation=Propagation.SUPPORTS
+ * 注意：
+ * 一般是查询的数据库操作，默认设置readOnly=true, propagation=Propagation.SUPPORTS
  * 而涉及到增删改的数据库操作的方法，要设置 readOnly=false, propagation=Propagation.REQUIRED
  *
  * @mbg.generated 自动生成的注释，如需修改本注释，请删除本行
@@ -53,7 +53,7 @@ public class PntIncomeLogSvcImpl extends BaseSvcImpl<java.lang.Long, PntIncomeLo
      */
     @Override
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    public int add(final PntIncomeLogMo mo) {
+    public int add(PntIncomeLogMo mo) {
         _log.info("添加收益日志");
         // 如果id为空那么自动生成分布式id
         if (mo.getId() == null || mo.getId() == 0) {
@@ -63,19 +63,19 @@ public class PntIncomeLogSvcImpl extends BaseSvcImpl<java.lang.Long, PntIncomeLo
     }
 
     @Resource
-    private PntAccountSvc   pntAccountSvc;
+    private PntAccountSvc pntAccountSvc;
 
     @Resource
     private PntIncomeLogSvc thisSvc;
 
     @Resource
-    private PntPointLogSvc  pntPointLogSvc;
+    private PntPointLogSvc pntPointLogSvc;
 
     /**
      * 每日利率 = 年化利率12% / 12个月 / 30天
      */
     @Value("${pnt.dailyInterestRate:0.000333}")
-    private BigDecimal      dailyInterestRate;
+    private BigDecimal dailyInterestRate;
 
     /**
      * 添加一笔收益交易
@@ -83,7 +83,7 @@ public class PntIncomeLogSvcImpl extends BaseSvcImpl<java.lang.Long, PntIncomeLo
      * 1、查询账号信息并判断账号是否为空和是否已被锁定
      * 2、修改收益信息
      * 3、添加收益日志
-     * 
+     *
      * @param to
      * @return
      */
@@ -107,28 +107,26 @@ public class PntIncomeLogSvcImpl extends BaseSvcImpl<java.lang.Long, PntIncomeLo
             ro.setMsg("没有发现该账号");
             return ro;
         }
-        if (accountMo.getIsLocked()) {
-            _log.error("添加一笔收益交易时发现该账号已被锁定，请求的参数为：{}", to);
-            ro.setResult(ResultDic.FAIL);
-            ro.setMsg("账号已被锁定");
-            return ro;
-        }
         // 新的当前收益
         BigDecimal newIncome = BigDecimal.ZERO;
         // 新的总收益
         BigDecimal newTotalIncome = accountMo.getTotalIncome();
-        switch (IncomeLogTypeDic.getItem(to.getIncomeLogType())) {
-        case DAY_INCOME:
-            // 新的当前收益 = 旧的当前收益 + 改变的收益
-            newIncome = accountMo.getIncome().add(to.getChangedIncome());
-            // 新的总收益 = 旧的总收益 + 改变的收益
-            newTotalIncome = accountMo.getTotalIncome().add(to.getChangedIncome());
-            break;
-        case TRANSFER_OUT_INCOME:
-            // 新的当前收益 = 旧的当前收益 - 改变的收益
-            newIncome = accountMo.getIncome().subtract(to.getChangedIncome());
-        default:
-            break;
+        // 当前时间
+        Date dayIncomeStatDate = null;
+        switch(IncomeLogTypeDic.getItem(to.getIncomeLogType())) {
+            case DAY_INCOME:
+                // 新的当前收益 = 旧的当前收益 + 改变的收益
+                newIncome = accountMo.getIncome().add(to.getChangedIncome());
+                // 新的总收益 = 旧的总收益 + 改变的收益
+                newTotalIncome = accountMo.getTotalIncome().add(to.getChangedIncome());
+                // 当前时间
+                dayIncomeStatDate = new Date();
+                break;
+            case TRANSFER_OUT_INCOME:
+                // 新的当前收益 = 旧的当前收益 - 改变的收益
+                newIncome = accountMo.getIncome().subtract(to.getChangedIncome());
+            default:
+                break;
         }
         final ModifyIncomeTo modifyIncomeTo = new ModifyIncomeTo();
         modifyIncomeTo.setAccountId(to.getAccountId());
@@ -138,6 +136,7 @@ public class PntIncomeLogSvcImpl extends BaseSvcImpl<java.lang.Long, PntIncomeLo
         modifyIncomeTo.setOldTotalIncome(accountMo.getTotalIncome());
         modifyIncomeTo.setNewModifiedTimestamp(to.getModifiedTimestamp());
         modifyIncomeTo.setOldModifiedTimestamp(accountMo.getModifiedTimestamp());
+        modifyIncomeTo.setDayIncomeStatDate(dayIncomeStatDate);
         _log.info("添加一笔收益交易修改收益信息的参数为：{}", modifyIncomeTo);
         final Ro modifyIncomeRo = pntAccountSvc.modifyIncome(modifyIncomeTo);
         _log.info("添加一笔收益交易修改收益信息的返回值为：{}", modifyIncomeRo);
@@ -152,10 +151,8 @@ public class PntIncomeLogSvcImpl extends BaseSvcImpl<java.lang.Long, PntIncomeLo
         incomeLogMo.setChangedIncome(to.getChangedIncome());
         incomeLogMo.setIncomeAfterChanged(newIncome);
         incomeLogMo.setChangedTitile(to.getChangedTitile());
-        incomeLogMo.setChangedDetail(to.getChangedDetail());
         incomeLogMo.setStatDate(to.getStatDate());
         incomeLogMo.setModifiedTimestamp(to.getModifiedTimestamp());
-        incomeLogMo.setOldModifiedTimestamp(accountMo.getModifiedTimestamp());
         _log.info("添加一笔收益交易添加收益日志的参数为：{}", incomeLogMo);
         final int addResult = thisSvc.add(incomeLogMo);
         _log.info("添加一笔收益交易添加收益日志的返回值为：{}", addResult);
@@ -171,7 +168,7 @@ public class PntIncomeLogSvcImpl extends BaseSvcImpl<java.lang.Long, PntIncomeLo
 
     /**
      * 获取昨日收益
-     * 
+     *
      * @param accountId
      *            用户积分账户
      * @return 昨日的收益
@@ -199,20 +196,14 @@ public class PntIncomeLogSvcImpl extends BaseSvcImpl<java.lang.Long, PntIncomeLo
         final List<PntAccountMo> accountList = pntAccountSvc.listAll();
         _log.info("执行积分收益任务查询所有积分账号信息的返回值为：{}", accountList);
         for (final PntAccountMo accountMo : accountList) {
-            if (accountMo.getIsLocked()) {
-                _log.error("执行积分收益任务时发现账号id为：{}的账号已被锁定", accountMo.getId());
-                continue;
-            }
             final BigDecimal pointAfterChanged = pntPointLogSvc.getPointAfterChangedByAccountId(accountMo.getId());
             _log.info("执行积分收益任务查询根据账号id获取今天00:00:00之前最后一个修改后的积分的返回值为：{}", pointAfterChanged);
             if (pointAfterChanged.compareTo(BigDecimal.ZERO) < 1) {
                 _log.warn("执行积分收益任务时发现账号积分小于0或等于0，账号id为：{}", accountMo.getId());
                 continue;
             }
-
             final BigDecimal changedIncome = pointAfterChanged.multiply(dailyInterestRate);
             _log.info("执行积分收益任务计算收益的返回值为：{}", changedIncome);
-
             final AddIncomeTradeTo addIncomeTradeTo = new AddIncomeTradeTo();
             addIncomeTradeTo.setAccountId(accountMo.getId());
             addIncomeTradeTo.setIncomeLogType((byte) IncomeLogTypeDic.DAY_INCOME.getCode());

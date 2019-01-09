@@ -1,14 +1,11 @@
 package rebue.pnt.test;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Date;
-
 import org.junit.Assert;
 import org.junit.Test;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import rebue.pnt.dic.IncomeLogTypeDic;
 import rebue.pnt.mo.PntIncomeLogMo;
 import rebue.pnt.to.AddIncomeTradeTo;
@@ -65,13 +62,13 @@ public class PntIncomeLogTests {
 
     private final String hostUrl = "http://127.0.0.1:9010";
 
-    @Test
+//    @Test
     public void testGetIncomeOfYesterday() throws IOException {
         final String response = OkhttpUtils.get(hostUrl + "/pnt/income/yesterday?accountId=" + 520391209198288896L);
         System.out.println(response);
     }
 
-//    @Test
+    @Test
     public void testAddIncomeTrade() throws IOException {
         AddIncomeTradeTo to = new AddIncomeTradeTo();
         to.setAccountId(525616558689484801L);

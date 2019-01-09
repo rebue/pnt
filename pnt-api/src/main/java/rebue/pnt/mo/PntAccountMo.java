@@ -1,9 +1,12 @@
 package rebue.pnt.mo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * 积分账户信息
@@ -52,15 +55,6 @@ public class PntAccountMo implements Serializable {
     private BigDecimal totalIncome;
 
     /**
-     *    是否锁定
-     *
-     *    数据库字段: PNT_ACCOUNT.IS_LOCKED
-     *
-     *    @mbg.generated 自动生成，如需修改，请删除本行
-     */
-    private Boolean isLocked;
-
-    /**
      *    修改时间戳
      *
      *    数据库字段: PNT_ACCOUNT.MODIFIED_TIMESTAMP
@@ -68,6 +62,17 @@ public class PntAccountMo implements Serializable {
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
     private Long modifiedTimestamp;
+
+    /**
+     *    日收益统计日期
+     *
+     *    数据库字段: PNT_ACCOUNT.DAY_INCOME_STAT_DATE
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    private Date dayIncomeStatDate;
 
     /**
      *    @mbg.generated 自动生成，如需修改，请删除本行
@@ -163,28 +168,6 @@ public class PntAccountMo implements Serializable {
     }
 
     /**
-     *    是否锁定
-     *
-     *    数据库字段: PNT_ACCOUNT.IS_LOCKED
-     *
-     *    @mbg.generated 自动生成，如需修改，请删除本行
-     */
-    public Boolean getIsLocked() {
-        return isLocked;
-    }
-
-    /**
-     *    是否锁定
-     *
-     *    数据库字段: PNT_ACCOUNT.IS_LOCKED
-     *
-     *    @mbg.generated 自动生成，如需修改，请删除本行
-     */
-    public void setIsLocked(Boolean isLocked) {
-        this.isLocked = isLocked;
-    }
-
-    /**
      *    修改时间戳
      *
      *    数据库字段: PNT_ACCOUNT.MODIFIED_TIMESTAMP
@@ -207,6 +190,28 @@ public class PntAccountMo implements Serializable {
     }
 
     /**
+     *    日收益统计日期
+     *
+     *    数据库字段: PNT_ACCOUNT.DAY_INCOME_STAT_DATE
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
+    public Date getDayIncomeStatDate() {
+        return dayIncomeStatDate;
+    }
+
+    /**
+     *    日收益统计日期
+     *
+     *    数据库字段: PNT_ACCOUNT.DAY_INCOME_STAT_DATE
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
+    public void setDayIncomeStatDate(Date dayIncomeStatDate) {
+        this.dayIncomeStatDate = dayIncomeStatDate;
+    }
+
+    /**
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Override
@@ -219,8 +224,8 @@ public class PntAccountMo implements Serializable {
         sb.append(", point=").append(point);
         sb.append(", income=").append(income);
         sb.append(", totalIncome=").append(totalIncome);
-        sb.append(", isLocked=").append(isLocked);
         sb.append(", modifiedTimestamp=").append(modifiedTimestamp);
+        sb.append(", dayIncomeStatDate=").append(dayIncomeStatDate);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

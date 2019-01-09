@@ -1,6 +1,7 @@
 package rebue.pnt.mapper;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -89,6 +90,6 @@ public interface PntAccountMapper extends MybatisBaseMapper<PntAccountMo, Long> 
      *  @param oldModifiedTimestamp 旧的修改时间戳
      *  @return
      */
-    @Update("update PNT_ACCOUNT set INCOME=#{newIncome,jdbcType=DECIMAL}, TOTAL_INCOME=#{newTotalIncome,jdbcType=DECIMAL}, MODIFIED_TIMESTAMP=#{newModifiedTimestamp,jdbcType=BIGINT} where ID=#{id,jdbcType=BIGINT} and INCOME=#{oldIncome,jdbcType=DECIMAL} and TOTAL_INCOME=#{oldTotalIncome,jdbcType=DECIMAL} and MODIFIED_TIMESTAMP=#{oldModifiedTimestamp,jdbcType=BIGINT}")
-    int updateIncome(@Param("id") Long id, @Param("newIncome") BigDecimal newIncome, @Param("oldIncome") BigDecimal oldIncome, @Param("newTotalIncome") BigDecimal newTotalIncome, @Param("oldTotalIncome") BigDecimal oldTotalIncome, @Param("newModifiedTimestamp") Long newModifiedTimestamp, @Param("oldModifiedTimestamp") Long oldModifiedTimestamp);
+    @Update("update PNT_ACCOUNT set INCOME=#{newIncome,jdbcType=DECIMAL}, TOTAL_INCOME=#{newTotalIncome,jdbcType=DECIMAL}, MODIFIED_TIMESTAMP=#{newModifiedTimestamp,jdbcType=BIGINT}, DAY_INCOME_STAT_DATE = #{dayIncomeStatDate,jdbcType=DATE} where ID=#{id,jdbcType=BIGINT} and INCOME=#{oldIncome,jdbcType=DECIMAL} and TOTAL_INCOME=#{oldTotalIncome,jdbcType=DECIMAL} and MODIFIED_TIMESTAMP=#{oldModifiedTimestamp,jdbcType=BIGINT}")
+    int updateIncome(@Param("id") Long id, @Param("newIncome") BigDecimal newIncome, @Param("oldIncome") BigDecimal oldIncome, @Param("newTotalIncome") BigDecimal newTotalIncome, @Param("oldTotalIncome") BigDecimal oldTotalIncome, @Param("newModifiedTimestamp") Long newModifiedTimestamp, @Param("oldModifiedTimestamp") Long oldModifiedTimestamp, @Param("dayIncomeStatDate") Date dayIncomeStatDate);
 }

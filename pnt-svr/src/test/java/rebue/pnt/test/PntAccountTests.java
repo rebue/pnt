@@ -3,7 +3,6 @@ package rebue.pnt.test;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.Date;
-
 import org.junit.Assert;
 import org.junit.Test;
 import rebue.pnt.mo.PntAccountMo;
@@ -26,12 +25,7 @@ public class PntAccountTests {
      */
     private final ObjectMapper _objectMapper = new ObjectMapper();
 
-    /**
-     *  测试基本的增删改查
-     *
-     *  @mbg.generated 自动生成，如需修改，请删除本行
-     */
-//    @Test
+    // @Test
     public void testCrud() throws IOException, ReflectiveOperationException {
         PntAccountMo mo = null;
         for (int i = 0; i < 20; i++) {
@@ -65,15 +59,15 @@ public class PntAccountTests {
     }
 
     private final String hostUrl = "http://127.0.0.1:9010";
-    
+
     @Test
     public void addTest() throws IOException {
-    	IdWorker3 idWorker3 = new IdWorker3();
-    	PntAccountMo mo = new PntAccountMo();
-    	mo.setId(idWorker3.getId());
-		final Date now = new Date();
-		mo.setModifiedTimestamp(now.getTime());
-    	final String addResult = OkhttpUtils.postByJsonParams(hostUrl + "/pnt/account", mo);
+        IdWorker3 idWorker3 = new IdWorker3();
+        PntAccountMo mo = new PntAccountMo();
+        mo.setId(idWorker3.getId());
+        final Date now = new Date();
+        mo.setModifiedTimestamp(now.getTime());
+        final String addResult = OkhttpUtils.postByJsonParams(hostUrl + "/pnt/account", mo);
         System.out.println("添加积分账户信息的返回值为：" + addResult);
     }
 }
