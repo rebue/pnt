@@ -27,7 +27,7 @@ public interface PntIncomeLogSvc extends BaseSvc<java.lang.Long, PntIncomeLogMo,
      * @param accountId
      * @return
      */
-	BigDecimal countYesterdayIncome(Long accountId);
+	BigDecimal getIncomeOfYesterday(Long accountId);
 
 	/**
 	 * 执行积分收益任务 

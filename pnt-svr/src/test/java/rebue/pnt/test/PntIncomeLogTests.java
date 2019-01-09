@@ -1,11 +1,14 @@
 package rebue.pnt.test;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Date;
+
 import org.junit.Assert;
 import org.junit.Test;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import rebue.pnt.dic.IncomeLogTypeDic;
 import rebue.pnt.mo.PntIncomeLogMo;
 import rebue.pnt.to.AddIncomeTradeTo;
@@ -63,7 +66,13 @@ public class PntIncomeLogTests {
     private final String hostUrl = "http://127.0.0.1:9010";
 
     @Test
-    public void addIncomeTradeTest() throws IOException {
+    public void testGetIncomeOfYesterday() throws IOException {
+        final String response = OkhttpUtils.get(hostUrl + "/pnt/income/yesterday?accountId=" + 520391209198288896L);
+        System.out.println(response);
+    }
+
+//    @Test
+    public void testAddIncomeTrade() throws IOException {
         AddIncomeTradeTo to = new AddIncomeTradeTo();
         to.setAccountId(525616558689484801L);
         to.setIncomeLogType((byte) IncomeLogTypeDic.DAY_INCOME.getCode());
@@ -72,7 +81,7 @@ public class PntIncomeLogTests {
         to.setChangedDetail("测试积分日收益");
         to.setModifiedTimestamp(System.currentTimeMillis());
         to.setStatDate(new Date());
-        String string = OkhttpUtils.postByJsonParams(hostUrl + "/pnt/incometrade", to);
+        final String string = OkhttpUtils.postByJsonParams(hostUrl + "/pnt/incometrade", to);
         System.out.println(string);
         to = new AddIncomeTradeTo();
         to.setAccountId(525616558689484801L);
@@ -82,7 +91,7 @@ public class PntIncomeLogTests {
         to.setChangedDetail("测试收益转出");
         to.setModifiedTimestamp(System.currentTimeMillis());
         to.setStatDate(new Date());
-        String strings = OkhttpUtils.postByJsonParams(hostUrl + "/pnt/incometrade", to);
+        final String strings = OkhttpUtils.postByJsonParams(hostUrl + "/pnt/incometrade", to);
         System.out.println(strings);
     }
 }
