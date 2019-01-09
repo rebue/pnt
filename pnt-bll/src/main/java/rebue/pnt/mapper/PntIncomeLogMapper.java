@@ -80,7 +80,7 @@ public interface PntIncomeLogMapper extends MybatisBaseMapper<PntIncomeLogMo, Lo
     int countSelective(PntIncomeLogMo record);
 
     /**
-     * 统计某日收益（目前只有获取昨日收益使用）
+     * 获取某日收益（目前只有获取昨日收益使用）
      * 
      * @param accountId
      *            用户积分账户

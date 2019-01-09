@@ -170,10 +170,11 @@ public class PntIncomeLogSvcImpl extends BaseSvcImpl<java.lang.Long, PntIncomeLo
     }
 
     /**
-     * 统计昨日收益
+     * 获取昨日收益
      * 
      * @param accountId
-     * @return
+     *            用户积分账户
+     * @return 昨日的收益
      */
     @Override
     public BigDecimal getIncomeOfYesterday(final Long accountId) {

@@ -16,21 +16,24 @@ import rebue.robotech.svc.BaseSvc;
 public interface PntIncomeLogSvc extends BaseSvc<java.lang.Long, PntIncomeLogMo, PntIncomeLogJo> {
 
     /**
-     *  添加一笔收益交易
-     *  @param to
-     *  @return
+     * 添加一笔收益交易
+     * 
+     * @param to
+     * @return
      */
     Ro addIncomeTrade(AddIncomeTradeTo to);
 
     /**
-     * 统计昨日收益
+     * 获取昨日收益
+     * 
      * @param accountId
-     * @return
+     *            用户积分账户
+     * @return 昨日的收益
      */
-	BigDecimal getIncomeOfYesterday(Long accountId);
+    BigDecimal getIncomeOfYesterday(Long accountId);
 
-	/**
-	 * 执行积分收益任务 
-	 */
-	void executePointIncomeTask();
+    /**
+     * 执行积分收益任务
+     */
+    void executePointIncomeTask();
 }
