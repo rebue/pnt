@@ -1,0 +1,3 @@
+pnt:
+  # 每天凌晨1点执行
+  executeIncomeTaskTime: 0 37 11 * * ?
