@@ -1,13 +1,14 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2018/12/24 16:48:02                          */
+/* Created on:     2019/1/9 14:52:12                            */
 /*==============================================================*/
 
-drop table if exists PNT_POINT_LOG;
+
+drop table if exists PNT_ACCOUNT;
 
 drop table if exists PNT_INCOME_LOG;
 
-drop table if exists PNT_ACCOUNT;
+drop table if exists PNT_POINT_LOG;
 
 /*==============================================================*/
 /* Table: PNT_ACCOUNT                                           */
@@ -18,8 +19,8 @@ create table PNT_ACCOUNT
    POINT                decimal(18,4) not null default 0 comment '当前积分',
    INCOME               numeric(20,10) not null default 0 comment '当前收益',
    TOTAL_INCOME         numeric(20,10) not null default 0 comment '历史总共收益',
-   IS_LOCKED            bool not null default false comment '是否锁定',
    MODIFIED_TIMESTAMP   bigint not null comment '修改时间戳',
+   DAY_INCOME_STAT_DATE date comment '日收益统计日期',
    primary key (ID)
 );
 
@@ -37,13 +38,10 @@ create table PNT_INCOME_LOG
    CHANGED_INCOME       numeric(20,10) not null comment '改变的收益',
    INCOME_AFTER_CHANGED numeric(20,10) not null comment '改变后的收益(改变后的收益=改变前的收益+改变的收益)',
    CHANGED_TITILE       varchar(30) not null comment '改变收益的标题',
-   CHANGED_DETAIL       varchar(200) not null comment '改变收益的详情',
    STAT_DATE            date comment '统计日期(日收益的日期)',
    MODIFIED_TIMESTAMP   bigint not null comment '修改时间戳',
-   OLD_MODIFIED_TIMESTAMP bigint not null comment '旧修改时间戳',
    primary key (ID),
-   unique key AK_ACCOUNT_AND_MODIFIED_TS (ACCOUNT_ID, MODIFIED_TIMESTAMP),
-   unique key AK_ACCOUNT_AND_OLD_MODIFIED_TS (ACCOUNT_ID, OLD_MODIFIED_TIMESTAMP)
+   unique key AK_INCOME_LOG_TYPE_AND_STAT_DATE (INCOME_LOG_TYPE, STAT_DATE)
 );
 
 alter table PNT_INCOME_LOG comment '收益日志';
