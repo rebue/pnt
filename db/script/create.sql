@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2019/1/9 14:52:12                            */
+/* Created on:     2019/1/9 17:53:58                            */
 /*==============================================================*/
 
 
@@ -41,7 +41,8 @@ create table PNT_INCOME_LOG
    STAT_DATE            date comment '统计日期(日收益的日期)',
    MODIFIED_TIMESTAMP   bigint not null comment '修改时间戳',
    primary key (ID),
-   unique key AK_INCOME_LOG_TYPE_AND_STAT_DATE (INCOME_LOG_TYPE, STAT_DATE)
+   unique key AK_INCOME_LOG_TYPE_AND_STAT_DATE (INCOME_LOG_TYPE, STAT_DATE),
+   unique key AK_ACCOUNT_ID_AND_INCOME_LOG_TYPE_AND_MODIFIED_TIMESTAMP (ACCOUNT_ID, INCOME_LOG_TYPE, MODIFIED_TIMESTAMP)
 );
 
 alter table PNT_INCOME_LOG comment '收益日志';
