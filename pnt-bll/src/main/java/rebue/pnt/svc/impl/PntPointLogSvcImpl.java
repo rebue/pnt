@@ -159,9 +159,10 @@ public class PntPointLogSvcImpl extends BaseSvcImpl<java.lang.Long, PntPointLogJ
      */
 	@Override
 	public PageInfo<PntPointLogMo> listByAccountId(Long accountId,final int pageNum, final int pageSize) {
-		_log.info("查询用户积分日志，请求的参数为：accountId：{}", accountId);
+		_log.info("查询用户积分日志，请求的参数为：accountId：{}", accountId+", pageNum = " + pageNum + ", pageSize = "
+				+ pageSize);
 		PageInfo<PntPointLogMo> result = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> _mapper.listByAccountId(accountId));
-		_log.info("返回的用户积分日志参数为：List<PntPointLogMo>：{}", result);
+		_log.info("返回的用户积分日志结果为：List<PntPointLogMo>：{}", result.getList());
 		return result;
 	}
 	
