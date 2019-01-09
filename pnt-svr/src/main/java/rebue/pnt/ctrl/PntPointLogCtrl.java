@@ -222,6 +222,6 @@ public class PntPointLogCtrl {
             pageSize = 5;
         }
     	 _log.info("list PntPointLogMo by AccountId: {}:"+ accountId+ ", pageNum = " + pageNum + ", pageSize = " + pageSize);
-    	return svc.listByAccountId(accountId,pageSize,pageSize);
+    	return svc.listByAccountId(accountId,pageNum,pageSize);
     }
 }
