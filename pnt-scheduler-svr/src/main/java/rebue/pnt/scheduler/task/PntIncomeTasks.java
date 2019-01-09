@@ -19,8 +19,8 @@ public class PntIncomeTasks {
 
 	private PntIncomeSvc pntIncomeSvc;
 
-	// 每天凌晨1点、中午12点执行
-	@Scheduled(cron = "0 0 1 * * ?")
+	// 每天凌晨1点执行
+	@Scheduled(cron = "${pnt.executeIncomeTaskTime:0 0 1 * * ?}")
 	public void executeTasks() {
 		_log.info("定时执行需要订单结算的任务");
 		try {

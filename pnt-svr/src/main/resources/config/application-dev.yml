@@ -1,3 +1,6 @@
 pnt:
   # 每日利率 = 年化利率12% / 12个月 / 30天
   dailyInterestRate: 0.000333
+  # 每天凌晨1点执行
+  executeIncomeTaskTime: 0 0 1 * * ?
+  
