@@ -1,6 +1,7 @@
 package rebue.pnt.svc.impl;
 
 import java.math.BigDecimal;
+
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
@@ -149,23 +150,37 @@ public class PntPointLogSvcImpl extends BaseSvcImpl<java.lang.Long, PntPointLogJ
     /**
      * 根据用户积分查询日志
      */
-	@Override
-	public PageInfo<PntPointLogMo> listByAccountId(Long accountId,final int pageNum, final int pageSize) {
-		_log.info("查询用户积分日志，请求的参数为：accountId：{}", accountId+", pageNum = " + pageNum + ", pageSize = "
-				+ pageSize);
-		PageInfo<PntPointLogMo> result = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> _mapper.listByAccountId(accountId));
-		_log.info("返回的用户积分日志结果为：List<PntPointLogMo>：{}", result.getList());
-		return result;
-	}
-	
-	/**
-	 * 根据账号id获取今天00:00:00之前最后一个修改后的积分
-	 * @param accountId
-	 * @return
-	 */
-	@Override
-	public BigDecimal getPointAfterChangedByAccountId(Long accountId) {
-		_log.info("根据账号id获取昨天最后一个修改后的积分的参数为：{}", accountId);
-		return _mapper.selectPointAfterChangedByAccountId(accountId);
-	}
+    @Override
+    public PageInfo<PntPointLogMo> listByAccountId(final Long accountId, final int pageNum, final int pageSize) {
+        _log.info("查询用户积分日志，请求的参数为：accountId：{}", accountId + ", pageNum = " + pageNum + ", pageSize = " + pageSize);
+        final PageInfo<PntPointLogMo> result = PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> _mapper.listByAccountId(accountId));
+        _log.info("返回的用户积分日志结果为：List<PntPointLogMo>：{}", result.getList());
+        return result;
+    }
+
+//	/**
+//	 * 根据账号id获取今天00:00:00之前最后一个修改后的积分
+//	 * @param accountId
+//	 * @return
+//	 */
+//	@Override
+//	public BigDecimal getPointAfterChangedByAccountId(Long accountId) {
+//		_log.info("根据账号id获取昨天最后一个修改后的积分的参数为：{}", accountId);
+//		return _mapper.selectPointAfterChangedByAccountId(accountId);
+//	}
+
+    /**
+     * 获取账户某一天24点当时的积分
+     * 
+     * @param accountId
+     *            积分账户ID
+     * @param date
+     *            指定某一天
+     * @return 获取账户某一天的积分
+     */
+    @Override
+    public BigDecimal getPointsOfDate(final Long accountId, final java.sql.Date statDate) {
+        _log.info("获取账户{}{}24点当时的积分", accountId, statDate);
+        return _mapper.getPointsOfDate(accountId, statDate.getTime() + 24 * 60 * 60 * 1000);
+    }
 }

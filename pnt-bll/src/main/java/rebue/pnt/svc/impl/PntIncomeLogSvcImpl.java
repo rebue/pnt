@@ -3,13 +3,16 @@ package rebue.pnt.svc.impl;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+
 import javax.annotation.Resource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
 import rebue.pnt.dao.PntIncomeLogDao;
 import rebue.pnt.dic.IncomeLogTypeDic;
 import rebue.pnt.jo.PntIncomeLogJo;
@@ -53,7 +56,7 @@ public class PntIncomeLogSvcImpl extends BaseSvcImpl<java.lang.Long, PntIncomeLo
      */
     @Override
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    public int add(PntIncomeLogMo mo) {
+    public int add(final PntIncomeLogMo mo) {
         _log.info("添加收益日志");
         // 如果id为空那么自动生成分布式id
         if (mo.getId() == null || mo.getId() == 0) {
@@ -63,19 +66,19 @@ public class PntIncomeLogSvcImpl extends BaseSvcImpl<java.lang.Long, PntIncomeLo
     }
 
     @Resource
-    private PntAccountSvc pntAccountSvc;
+    private PntAccountSvc   pntAccountSvc;
 
     @Resource
     private PntIncomeLogSvc thisSvc;
 
     @Resource
-    private PntPointLogSvc pntPointLogSvc;
+    private PntPointLogSvc  pntPointLogSvc;
 
     /**
      * 每日利率 = 年化利率12% / 12个月 / 30天
      */
     @Value("${pnt.dailyInterestRate:0.000333}")
-    private BigDecimal dailyInterestRate;
+    private BigDecimal      dailyInterestRate;
 
     /**
      * 添加一笔收益交易
@@ -113,20 +116,20 @@ public class PntIncomeLogSvcImpl extends BaseSvcImpl<java.lang.Long, PntIncomeLo
         BigDecimal newTotalIncome = accountMo.getTotalIncome();
         // 当前时间
         Date dayIncomeStatDate = null;
-        switch(IncomeLogTypeDic.getItem(to.getIncomeLogType())) {
-            case DAY_INCOME:
-                // 新的当前收益 = 旧的当前收益 + 改变的收益
-                newIncome = accountMo.getIncome().add(to.getChangedIncome());
-                // 新的总收益 = 旧的总收益 + 改变的收益
-                newTotalIncome = accountMo.getTotalIncome().add(to.getChangedIncome());
-                // 当前时间
-                dayIncomeStatDate = new Date();
-                break;
-            case TRANSFER_OUT_INCOME:
-                // 新的当前收益 = 旧的当前收益 - 改变的收益
-                newIncome = accountMo.getIncome().subtract(to.getChangedIncome());
-            default:
-                break;
+        switch (IncomeLogTypeDic.getItem(to.getIncomeLogType())) {
+        case DAY_INCOME:
+            // 新的当前收益 = 旧的当前收益 + 改变的收益
+            newIncome = accountMo.getIncome().add(to.getChangedIncome());
+            // 新的总收益 = 旧的总收益 + 改变的收益
+            newTotalIncome = accountMo.getTotalIncome().add(to.getChangedIncome());
+            // 当前时间
+            dayIncomeStatDate = new Date();
+            break;
+        case TRANSFER_OUT_INCOME:
+            // 新的当前收益 = 旧的当前收益 - 改变的收益
+            newIncome = accountMo.getIncome().subtract(to.getChangedIncome());
+        default:
+            break;
         }
         final ModifyIncomeTo modifyIncomeTo = new ModifyIncomeTo();
         modifyIncomeTo.setAccountId(to.getAccountId());
@@ -183,40 +186,83 @@ public class PntIncomeLogSvcImpl extends BaseSvcImpl<java.lang.Long, PntIncomeLo
 
     /**
      * 执行积分收益任务
-     * 1、查询所有积分账号信息
-     * 2、判断积分账号是否锁定
-     * 3、查询今天00:00:00之前最新修改后的积分
-     * 4、计算收益
-     * 5、添加一笔收益交易
+     */
+    @Override
+    public void executePointIncomeTask() {
+        _log.info("执行积分收益任务开始");
+        try {
+            while (true) {
+                _log.info("获取需要计算日收益的账户列表");
+                final List<PntAccountMo> pntAccounts = pntAccountSvc.listToCalcDayIncome(1000);
+                _log.info("获取需要计算日收益的账户列表的返回值：{}", pntAccounts);
+                if (pntAccounts == null || pntAccounts.isEmpty()) {
+                    break;
+                }
+
+                final java.sql.Date yesterday = new java.sql.Date(System.currentTimeMillis() - 24 * 60 * 60 * 1000);
+                _log.debug("昨日: {}", yesterday);
+
+                _log.info("开始遍历积分账户给其添加日收益");
+                for (final PntAccountMo pntAccount : pntAccounts) {
+                    try {
+                        if (pntAccount.getDayIncomeStatDate() == null) {
+                            _log.info("未曾统计的用户(一般是新用户)，直接添加昨日的收益: 积分账户-{}", pntAccount);
+                            thisSvc.addDayIncomeLogOfDate(pntAccount.getId(), yesterday);
+                        } else {
+                            java.sql.Date statDate = new java.sql.Date(pntAccount.getDayIncomeStatDate().getTime());
+                            while (!statDate.after(yesterday)) {
+                                _log.info("添加{}的收益: 账户-{}", statDate, pntAccount);
+                                thisSvc.addDayIncomeLogOfDate(pntAccount.getId(), statDate);
+                                statDate = new java.sql.Date(statDate.getTime() + 24 * 60 * 60 * 1000); // 加1天
+                                Thread.sleep(1);
+                            }
+                        }
+                    } catch (final RuntimeException e) {
+                        _log.error("给积分账户添加日收益: 积分账户-" + pntAccount, e);
+                    }
+                    Thread.sleep(1);
+                }
+                Thread.sleep(1);
+            }
+        } catch (final InterruptedException e) {
+            _log.error("执行积分收益任务时发生系统中断", e);
+        }
+    }
+
+    /**
+     * 添加某一天的日收益日志
+     * 
+     * @param accountId
+     *            用户积分账户
+     * @param statDate
+     *            统计日期
      */
     @Override
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    public void executePointIncomeTask() {
-        _log.info("执行积分收益任务开始");
-        final List<PntAccountMo> accountList = pntAccountSvc.listAll();
-        _log.info("执行积分收益任务查询所有积分账号信息的返回值为：{}", accountList);
-        for (final PntAccountMo accountMo : accountList) {
-            final BigDecimal pointAfterChanged = pntPointLogSvc.getPointAfterChangedByAccountId(accountMo.getId());
-            _log.info("执行积分收益任务查询根据账号id获取今天00:00:00之前最后一个修改后的积分的返回值为：{}", pointAfterChanged);
-            if (pointAfterChanged.compareTo(BigDecimal.ZERO) < 1) {
-                _log.warn("执行积分收益任务时发现账号积分小于0或等于0，账号id为：{}", accountMo.getId());
-                continue;
-            }
-            final BigDecimal changedIncome = pointAfterChanged.multiply(dailyInterestRate);
-            _log.info("执行积分收益任务计算收益的返回值为：{}", changedIncome);
-            final AddIncomeTradeTo addIncomeTradeTo = new AddIncomeTradeTo();
-            addIncomeTradeTo.setAccountId(accountMo.getId());
-            addIncomeTradeTo.setIncomeLogType((byte) IncomeLogTypeDic.DAY_INCOME.getCode());
-            addIncomeTradeTo.setChangedIncome(changedIncome);
-            addIncomeTradeTo.setChangedTitile("大卖网络-每日积分收益");
-            addIncomeTradeTo.setStatDate(new Date());
-            addIncomeTradeTo.setModifiedTimestamp(System.currentTimeMillis());
-            _log.info("执行积分收益任务添加一笔积分收益的参数为：{}", addIncomeTradeTo);
-            final Ro addIncomeTradeRo = thisSvc.addIncomeTrade(addIncomeTradeTo);
-            _log.info("执行积分收益任务添加一笔积分收益的返回值为：{}", addIncomeTradeRo);
-            if (addIncomeTradeRo.getResult() != ResultDic.SUCCESS) {
-                throw new RuntimeException("执行积分收益任务添加一笔积分收益出现错误");
-            }
+    public void addDayIncomeLogOfDate(final Long accountId, final java.sql.Date statDate) {
+        _log.info("添加账户{}的{}的日收益日志", accountId, statDate);
+        _log.info("获取账户某日的积分(指定日期24点时的当时积分)");
+        final BigDecimal points = pntPointLogSvc.getPointsOfDate(accountId, statDate);
+        _log.info("获取账户某日的积分(指定日期24点时的当时积分)的返回值: {}", points);
+        if (points == null || BigDecimal.ZERO.compareTo(points) >= 0) {
+            _log.info("账户{}的{}的积分为{}，不能添加日收益", accountId, statDate, points);
+            return;
+        }
+        final BigDecimal changedIncome = points.multiply(dailyInterestRate);
+        _log.info("账户{}的{}的日收益应该为: {}", accountId, statDate, changedIncome);
+
+        final AddIncomeTradeTo addIncomeTradeTo = new AddIncomeTradeTo();
+        addIncomeTradeTo.setAccountId(accountId);
+        addIncomeTradeTo.setIncomeLogType((byte) IncomeLogTypeDic.DAY_INCOME.getCode());
+        addIncomeTradeTo.setChangedIncome(changedIncome);
+        addIncomeTradeTo.setChangedTitile("大卖网络-每日积分收益");
+        addIncomeTradeTo.setStatDate(new Date());
+        addIncomeTradeTo.setModifiedTimestamp(_idWorker.getId());
+        _log.info("添加一笔积分收益的参数为：{}", addIncomeTradeTo);
+        final Ro addIncomeTradeRo = thisSvc.addIncomeTrade(addIncomeTradeTo);
+        _log.info("添加一笔积分收益的返回值为：{}", addIncomeTradeRo);
+        if (addIncomeTradeRo.getResult() != ResultDic.SUCCESS) {
+            throw new RuntimeException("执行积分收益任务添加一笔积分收益出现错误");
         }
     }
 }

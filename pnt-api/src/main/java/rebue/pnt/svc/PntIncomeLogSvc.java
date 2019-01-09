@@ -1,6 +1,8 @@
 package rebue.pnt.svc;
 
 import java.math.BigDecimal;
+import java.sql.Date;
+
 import rebue.pnt.jo.PntIncomeLogJo;
 import rebue.pnt.mo.PntIncomeLogMo;
 import rebue.pnt.to.AddIncomeTradeTo;
@@ -35,4 +37,14 @@ public interface PntIncomeLogSvc extends BaseSvc<java.lang.Long, PntIncomeLogMo,
      * 执行积分收益任务
      */
     void executePointIncomeTask();
+
+    /**
+     * 添加某一天的日收益日志
+     * 
+     * @param accountId
+     *            用户积分账户
+     * @param statDate
+     *            统计日期
+     */
+    void addDayIncomeLogOfDate(Long accountId, Date statDate);
 }

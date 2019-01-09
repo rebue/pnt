@@ -1,5 +1,7 @@
 package rebue.pnt.svc;
 
+import java.util.List;
+
 import rebue.pnt.jo.PntAccountJo;
 import rebue.pnt.mo.PntAccountMo;
 import rebue.pnt.to.ModifyIncomeTo;
@@ -15,16 +17,20 @@ import rebue.robotech.svc.BaseSvc;
 public interface PntAccountSvc extends BaseSvc<java.lang.Long, PntAccountMo, PntAccountJo> {
 
     /**
-     *  修改积分账号信息
-     *  @param to
-     *  @return
+     * 获取需要计算日收益的账户列表
+     * 
+     * @param fetchCount
+     *            获取结果限制数量
+     */
+    List<PntAccountMo> listToCalcDayIncome(int fetchCount);
+
+    /**
+     * 修改积分账号信息
      */
     Ro modifyPoint(ModifyPointTo to);
 
     /**
      * 修改收益信息
-     * @param to
-     * @return
      */
     Ro modifyIncome(ModifyIncomeTo to);
 }

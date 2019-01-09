@@ -1,9 +1,6 @@
 package rebue.pnt.svc;
 
 import java.math.BigDecimal;
-import java.util.List;
-
-import org.apache.ibatis.annotations.Param;
 
 import com.github.pagehelper.PageInfo;
 
@@ -21,23 +18,37 @@ import rebue.robotech.svc.BaseSvc;
 public interface PntPointLogSvc extends BaseSvc<java.lang.Long, PntPointLogMo, PntPointLogJo> {
 
     /**
-     *  添加积分交易
-     *  @param to
-     *  @return
+     * 添加积分交易
+     * 
+     * @param to
+     * @return
      */
     Ro addPointTrade(AddPointTradeTo to);
-    
-    /**
-     * 根据用户id查询积分日志
-     * @param accountId
-     * @return
-     */
-    PageInfo<PntPointLogMo> listByAccountId(Long accountId,int pageNum, int pageSize);
 
     /**
-     * 根据账号id获取今天00:00:00之前最后一个修改后的积分
+     * 根据用户id查询积分日志
+     * 
      * @param accountId
-     * @return
+     *            积分账户ID
      */
-	BigDecimal getPointAfterChangedByAccountId(Long accountId);
+    PageInfo<PntPointLogMo> listByAccountId(Long accountId, int pageNum, int pageSize);
+
+//    /**
+//     * 根据账号id获取今天00:00:00之前最后一个修改后的积分
+//     * 
+//     * @param accountId
+//     * @return
+//     */
+//    BigDecimal getPointAfterChangedByAccountId(Long accountId);
+
+    /**
+     * 获取账户某日的积分(指定日期24点时的当时积分)
+     * 
+     * @param accountId
+     *            积分账户ID
+     * @param statDate
+     *            统计的日期
+     * @return 获取账户某一天的积分
+     */
+    BigDecimal getPointsOfDate(Long accountId, java.sql.Date statDate);
 }
