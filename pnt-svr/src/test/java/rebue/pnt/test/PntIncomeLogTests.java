@@ -80,15 +80,14 @@ public class PntIncomeLogTests {
         to.setStatDate(new Date());
         final String string = OkhttpUtils.postByJsonParams(hostUrl + "/pnt/incometrade", to);
         System.out.println(string);
-        to = new AddIncomeTradeTo();
-        to.setAccountId(525616558689484801L);
-        to.setIncomeLogType((byte) IncomeLogTypeDic.TRANSFER_OUT_INCOME.getCode());
-        to.setChangedIncome(BigDecimal.valueOf(2));
-        to.setChangedTitile("大卖网络-收益转出");
-        to.setChangedDetail("测试收益转出");
-        to.setModifiedTimestamp(System.currentTimeMillis());
-        to.setStatDate(new Date());
-        final String strings = OkhttpUtils.postByJsonParams(hostUrl + "/pnt/incometrade", to);
-        System.out.println(strings);
+		/*
+		 * to = new AddIncomeTradeTo(); to.setAccountId(525616558689484801L);
+		 * to.setIncomeLogType((byte) IncomeLogTypeDic.TRANSFER_OUT_INCOME.getCode());
+		 * to.setChangedIncome(BigDecimal.valueOf(2)); to.setChangedTitile("大卖网络-收益转出");
+		 * to.setChangedDetail("测试收益转出");
+		 * to.setModifiedTimestamp(System.currentTimeMillis()); to.setStatDate(new
+		 * Date()); final String strings = OkhttpUtils.postByJsonParams(hostUrl +
+		 * "/pnt/incometrade", to); System.out.println(strings);
+		 */
     }
 }

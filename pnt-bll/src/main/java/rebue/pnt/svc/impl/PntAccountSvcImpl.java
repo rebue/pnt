@@ -135,7 +135,7 @@ public class PntAccountSvcImpl extends BaseSvcImpl<java.lang.Long, PntAccountJo,
     public Ro modifyIncome(final ModifyIncomeTo to) {
         _log.info("修改收益信息的参数为：{}", to);
         final Ro ro = new Ro();
-        if (to.getAccountId() == null || to.getNewIncome() == null || to.getOldIncome() == null || to.getNewTotalIncome() == null || to.getOldTotalIncome() == null
+        if (to.getId() == null || to.getNewIncome() == null || to.getOldIncome() == null || to.getNewTotalIncome() == null || to.getOldTotalIncome() == null
                 || to.getNewModifiedTimestamp() == null || to.getOldModifiedTimestamp() == null) {
             _log.error("修改收益时出现参数错误，请求的参数为：{}", to);
             ro.setResult(ResultDic.PARAM_ERROR);
@@ -143,8 +143,7 @@ public class PntAccountSvcImpl extends BaseSvcImpl<java.lang.Long, PntAccountJo,
             return ro;
         }
         _log.info("修改收益信息的参数为：{}", to);
-        final int updateIncomeResult = _mapper.updateIncome(to.getAccountId(), to.getNewIncome(), to.getOldIncome(), to.getNewTotalIncome(), to.getOldTotalIncome(),
-                to.getNewModifiedTimestamp(), to.getOldModifiedTimestamp(), to.getDayIncomeStatDate());
+        final int updateIncomeResult = _mapper.updateIncome(to);
         _log.info("修改收益信息的返回值为：{}", updateIncomeResult);
         if (updateIncomeResult != 1) {
             _log.error("修改收益出现错误，请求的参数为：{}", to);

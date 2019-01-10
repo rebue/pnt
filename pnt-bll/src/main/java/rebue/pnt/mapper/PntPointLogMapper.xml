@@ -330,5 +330,5 @@
 	<!-- AND MODIFIED_TIMESTAMP &lt; UNIX_TIMESTAMP(CAST(SYSDATE() AS DATE)) * 1000 -->
 	<!-- ORDER BY MODIFIED_TIMESTAMP DESC -->
 	<!-- LIMIT 1; -->
-</select>
+	<!-- </select> -->
 </mapper>

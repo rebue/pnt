@@ -20,7 +20,7 @@ public class ModifyIncomeTo {
 	/**
 	 * 账号ID
 	 */
-	private Long accountId;
+	private Long id;
 
 	/**
 	 * 新的当前收益

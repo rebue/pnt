@@ -13,6 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import rebue.afc.dic.TradeTypeDic;
+import rebue.afc.mo.AfcTradeMo;
+import rebue.afc.svr.feign.AfcTradeSvc;
 import rebue.pnt.dao.PntIncomeLogDao;
 import rebue.pnt.dic.IncomeLogTypeDic;
 import rebue.pnt.jo.PntIncomeLogJo;
@@ -73,6 +76,9 @@ public class PntIncomeLogSvcImpl extends BaseSvcImpl<java.lang.Long, PntIncomeLo
 
     @Resource
     private PntPointLogSvc  pntPointLogSvc;
+    
+    @Resource
+    private AfcTradeSvc afcTradeSvc;
 
     /**
      * 每日利率 = 年化利率12% / 12个月 / 30天
@@ -132,7 +138,7 @@ public class PntIncomeLogSvcImpl extends BaseSvcImpl<java.lang.Long, PntIncomeLo
             break;
         }
         final ModifyIncomeTo modifyIncomeTo = new ModifyIncomeTo();
-        modifyIncomeTo.setAccountId(to.getAccountId());
+        modifyIncomeTo.setId(to.getAccountId());
         modifyIncomeTo.setNewIncome(newIncome);
         modifyIncomeTo.setOldIncome(accountMo.getIncome());
         modifyIncomeTo.setNewTotalIncome(newTotalIncome);
@@ -163,6 +169,24 @@ public class PntIncomeLogSvcImpl extends BaseSvcImpl<java.lang.Long, PntIncomeLo
             _log.error("添加一笔收益添加收益日志出现错误，请求的参数为：{}", to);
             throw new RuntimeException("添加日志出错");
         }
+        
+        System.out.println("to.getIncomeLogType() == IncomeLogTypeDic.DAY_INCOME.getCode()=" + (to.getIncomeLogType() == IncomeLogTypeDic.DAY_INCOME.getCode()));
+        if (to.getIncomeLogType() == IncomeLogTypeDic.DAY_INCOME.getCode()) {
+        	System.out.println("newIncome.compareTo(BigDecimal.ONE)=" + (newIncome.compareTo(BigDecimal.ONE)));
+        	if (newIncome.compareTo(BigDecimal.ONE) > 0) {
+        		AfcTradeMo afcTradeMo = new AfcTradeMo();
+        		afcTradeMo.setOrderId(incomeLogMo.getId().toString());
+        		afcTradeMo.setTradeType((byte) TradeTypeDic.POINT_INCOME_WITHDRAW.getCode());
+        		afcTradeMo.setAccountId(to.getAccountId());
+        		afcTradeMo.setTradeAmount(newIncome.setScale(2, BigDecimal.ROUND_DOWN));
+        		afcTradeMo.setTradeTitle("大卖网络-用户收益提现");
+        		afcTradeMo.setTradeTime(dayIncomeStatDate);
+        		afcTradeMo.setOpId(0L);
+        		_log.info("添加一笔积分收益交易添加账号交易的参数为：{}", afcTradeMo);
+        		afcTradeSvc.addTrade(afcTradeMo);
+			}
+		}
+        
         _log.info("添加一笔收益成功，请求的参数为：{}", to);
         ro.setResult(ResultDic.SUCCESS);
         ro.setMsg("添加成功");

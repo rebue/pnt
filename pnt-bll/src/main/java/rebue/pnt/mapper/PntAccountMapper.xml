@@ -231,4 +231,19 @@
       </if>
     </where>
   </select>
+  
+  <!-- 修改收益 -->
+  <update id="updateIncome" parameterType="rebue.pnt.to.ModifyIncomeTo">
+  	update PNT_ACCOUNT set 
+	  	INCOME=#{newIncome,jdbcType=DECIMAL}, 
+	  	TOTAL_INCOME=#{newTotalIncome,jdbcType=DECIMAL}, 
+	  	MODIFIED_TIMESTAMP=#{newModifiedTimestamp,jdbcType=BIGINT}
+	  	<if test="dayIncomeStatDate != null">
+	  		,DAY_INCOME_STAT_DATE = #{dayIncomeStatDate,jdbcType=DATE} 
+	  	</if>
+  	where ID=#{id,jdbcType=BIGINT} 
+	  	and INCOME=#{oldIncome,jdbcType=DECIMAL} 
+	  	and TOTAL_INCOME=#{oldTotalIncome,jdbcType=DECIMAL} 
+	  	and MODIFIED_TIMESTAMP=#{oldModifiedTimestamp,jdbcType=BIGINT}
+  </update>
 </mapper>
