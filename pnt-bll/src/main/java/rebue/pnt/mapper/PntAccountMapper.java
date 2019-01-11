@@ -87,12 +87,12 @@ public interface PntAccountMapper extends MybatisBaseMapper<PntAccountMo, Long> 
      *            获取结果限制数量
      */
     @Select("SELECT " + //
-            "    ID, DAY_INCOME_STAT_DATE" + //
+            "    ID, DAY_INCOME_STAT_DATE  " + //
             "FROM" + //
-            "    PNT_ACCOUNT" + //
+            "    PNT_ACCOUNT  " + //
             "WHERE" + //
             "    DAY_INCOME_STAT_DATE IS NULL" + //
-            "        OR DAY_INCOME_STAT_DATE < #{yesterday,jdbcType=DATE}" + //
+            "        OR DAY_INCOME_STAT_DATE < #{yesterday,jdbcType=DATE}  " + //
             "LIMIT #{fetchCount}")
     List<PntAccountMo> listToCalcDayIncome(@Param("yesterday") java.sql.Date yesterday, @Param("fetchCount") int fetchCount);
 
