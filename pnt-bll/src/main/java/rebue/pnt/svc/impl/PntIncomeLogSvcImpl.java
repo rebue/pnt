@@ -4,9 +4,11 @@ import java.math.BigDecimal;
 import java.util.Date;
 import javax.annotation.Resource;
 
+import org.dom4j.DocumentException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -90,7 +92,7 @@ public class PntIncomeLogSvcImpl
 	 * @return
 	 */
 	@Override
-	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	public Ro addIncomeTrade(final AddIncomeTradeTo to) {
 		_log.info("添加一笔收益交易的参数为：{}", to);
 		final Ro ro = new Ro();
@@ -123,7 +125,7 @@ public class PntIncomeLogSvcImpl
 			// 新的总收益 = 旧的总收益 + 改变的收益
 			newTotalIncome = accountMo.getTotalIncome().add(to.getChangedIncome());
 			// 当前时间
-			dayIncomeStatDate = new Date();
+			dayIncomeStatDate = to.getStatDate();
 			break;
 		case TRANSFER_OUT_INCOME:
 			// 新的当前收益 = 旧的当前收益 - 改变的收益
@@ -131,6 +133,20 @@ public class PntIncomeLogSvcImpl
 		default:
 			break;
 		}
+
+		final PntIncomeLogMo incomeLogMo = new PntIncomeLogMo();
+		incomeLogMo.setAccountId(to.getAccountId());
+		incomeLogMo.setIncomeLogType(to.getIncomeLogType());
+		incomeLogMo.setIncomeBeforeChanged(accountMo.getIncome());
+		incomeLogMo.setChangedIncome(to.getChangedIncome());
+		incomeLogMo.setIncomeAfterChanged(newIncome);
+		incomeLogMo.setChangedTitile(to.getChangedTitile());
+		incomeLogMo.setStatDate(to.getStatDate());
+		incomeLogMo.setModifiedTimestamp(to.getModifiedTimestamp());
+		_log.info("添加一笔收益交易添加收益日志的参数为：{}", incomeLogMo);
+		final int addResult = thisSvc.add(incomeLogMo);
+		_log.info("添加一笔收益交易添加收益日志的返回值为：{}", addResult);
+		
 		final ModifyIncomeTo modifyIncomeTo = new ModifyIncomeTo();
 		modifyIncomeTo.setId(to.getAccountId());
 		modifyIncomeTo.setNewIncome(newIncome);
@@ -147,25 +163,7 @@ public class PntIncomeLogSvcImpl
 			_log.error("添加一笔收益修改收益信息时出现错误，请求的参数为：{}", to);
 			return modifyIncomeRo;
 		}
-		final PntIncomeLogMo incomeLogMo = new PntIncomeLogMo();
-		incomeLogMo.setAccountId(to.getAccountId());
-		incomeLogMo.setIncomeLogType(to.getIncomeLogType());
-		incomeLogMo.setIncomeBeforeChanged(accountMo.getIncome());
-		incomeLogMo.setChangedIncome(to.getChangedIncome());
-		incomeLogMo.setIncomeAfterChanged(newIncome);
-		incomeLogMo.setChangedTitile(to.getChangedTitile());
-		incomeLogMo.setStatDate(to.getStatDate());
-		incomeLogMo.setModifiedTimestamp(to.getModifiedTimestamp());
-		_log.info("添加一笔收益交易添加收益日志的参数为：{}", incomeLogMo);
-		final int addResult = thisSvc.add(incomeLogMo);
-		_log.info("添加一笔收益交易添加收益日志的返回值为：{}", addResult);
-		if (addResult != 1) {
-			_log.error("添加一笔收益添加收益日志出现错误，请求的参数为：{}", to);
-			throw new RuntimeException("添加日志出错");
-		}
 
-		System.out.println("to.getIncomeLogType() == IncomeLogTypeDic.DAY_INCOME.getCode()="
-				+ (to.getIncomeLogType() == IncomeLogTypeDic.DAY_INCOME.getCode()));
 		if (to.getIncomeLogType() == IncomeLogTypeDic.DAY_INCOME.getCode()) {
 			System.out.println("newIncome.compareTo(BigDecimal.ONE)=" + (newIncome.compareTo(BigDecimal.ONE)));
 			if (newIncome.compareTo(BigDecimal.ONE) > 0) {
@@ -208,6 +206,8 @@ public class PntIncomeLogSvcImpl
 	@Override
 	public void executePointIncomeTask(PntAccountMo pntAccount) {
 		_log.info("执行积分收益任务开始，参数为：{}", pntAccount);
+		
+		// TODO 检查参数
 		
 		final java.sql.Date yesterday = new java.sql.Date(System.currentTimeMillis() - 24 * 60 * 60 * 1000);
 		_log.debug("昨日: {}", yesterday);
@@ -253,13 +253,22 @@ public class PntIncomeLogSvcImpl
 		addIncomeTradeTo.setIncomeLogType((byte) IncomeLogTypeDic.DAY_INCOME.getCode());
 		addIncomeTradeTo.setChangedIncome(changedIncome);
 		addIncomeTradeTo.setChangedTitile("大卖网络-每日积分收益");
-		addIncomeTradeTo.setStatDate(new Date());
+		addIncomeTradeTo.setStatDate(statDate);
 		addIncomeTradeTo.setModifiedTimestamp(_idWorker.getId());
 		_log.info("添加一笔积分收益的参数为：{}", addIncomeTradeTo);
-		final Ro addIncomeTradeRo = thisSvc.addIncomeTrade(addIncomeTradeTo);
-		_log.info("添加一笔积分收益的返回值为：{}", addIncomeTradeRo);
-		if (addIncomeTradeRo.getResult() != ResultDic.SUCCESS) {
-			throw new RuntimeException("执行积分收益任务添加一笔积分收益出现错误");
+		Ro addIncomeTradeRo = null;
+		try {
+			addIncomeTradeRo = thisSvc.addIncomeTrade(addIncomeTradeTo);
+			_log.info("添加一笔积分收益的返回值为：{}", addIncomeTradeRo);
+			if (addIncomeTradeRo.getResult() != ResultDic.SUCCESS) {
+				throw new RuntimeException("执行积分收益任务添加一笔积分收益出现错误");
+			}
+		} catch (DuplicateKeyException e) {
+			_log.warn("添加某一天的日收益日志添加一笔积分收益出现重复，请求的参数为：{}", addIncomeTradeTo);
+			PntAccountMo modifyMo = new PntAccountMo();
+			modifyMo.setId(accountId);
+			modifyMo.setDayIncomeStatDate(statDate);
+			pntAccountSvc.modify(modifyMo);
 		}
 	}
 }

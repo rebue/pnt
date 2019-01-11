@@ -33,7 +33,7 @@ public class PntIncomeTasks {
 	/**
 	 * 获取日收益的条数
 	 */
-	@Value("${pnt.fetchDayIncomeCount}")
+	@Value("${pnt.fetchDayIncomeCount:1}")
 	private Integer fetchDayIncomeCount;
 
 	// 每天凌晨1点执行
