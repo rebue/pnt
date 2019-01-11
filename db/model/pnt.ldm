@@ -1416,8 +1416,8 @@ DESTINATION 0 Arial,8,N</a:FontList>
 <o:RelationshipSymbol Id="o9">
 <a:CreationDate>1545096273</a:CreationDate>
 <a:ModificationDate>1545099529</a:ModificationDate>
-<a:Rect>((11758,819), (17758,14244))</a:Rect>
-<a:ListOfPoints>((14758,13844),(14777,2220))</a:ListOfPoints>
+<a:Rect>((11767,818), (17767,14244))</a:Rect>
+<a:ListOfPoints>((14758,13844),(14786,2220))</a:ListOfPoints>
 <a:CornerStyle>1</a:CornerStyle>
 <a:ArrowStyle>4627</a:ArrowStyle>
 <a:LineColor>11881048</a:LineColor>
@@ -1483,7 +1483,7 @@ LABL 0 Arial,8,N</a:FontList>
 <a:CreationDate>1545096133</a:CreationDate>
 <a:ModificationDate>1547014972</a:ModificationDate>
 <a:IconMode>-1</a:IconMode>
-<a:Rect>((3819,-11340), (25163,2220))</a:Rect>
+<a:Rect>((3471,-11340), (25511,2220))</a:Rect>
 <a:LineColor>11881048</a:LineColor>
 <a:FillColor>16759472</a:FillColor>
 <a:ShadowColor>12632256</a:ShadowColor>
@@ -1916,18 +1916,19 @@ LABL 0 Arial,8,N</a:FontList>
 </o:Identifier>
 <o:Identifier Id="o44">
 <a:ObjectID>BB2D243D-E1B2-4910-874C-E82A67F7539F</a:ObjectID>
-<a:Name>日志类型_统计日期</a:Name>
-<a:Code>INCOME_LOG_TYPE_AND_STAT_DATE</a:Code>
+<a:Name>账号_日志类型_统计日期</a:Name>
+<a:Code>ACCOUNT_ID_AND_INCOME_LOG_TYPE_AND_STAT_DATE</a:Code>
 <a:CreationDate>1547014144</a:CreationDate>
 <a:Creator>lbl</a:Creator>
-<a:ModificationDate>1547014235</a:ModificationDate>
+<a:ModificationDate>1547172692</a:ModificationDate>
 <a:Modifier>lbl</a:Modifier>
 <c:Identifier.Attributes>
 <o:EntityAttribute Ref="o45"/>
 <o:EntityAttribute Ref="o46"/>
+<o:EntityAttribute Ref="o47"/>
 </c:Identifier.Attributes>
 </o:Identifier>
-<o:Identifier Id="o47">
+<o:Identifier Id="o48">
 <a:ObjectID>42683978-4FC9-4C3B-B820-757DDA99D3BD</a:ObjectID>
 <a:Name>账号_日志类型_修改时间戳</a:Name>
 <a:Code>ACCOUNT_ID_AND_INCOME_LOG_TYPE_AND_MODIFIED_TIMESTAMP</a:Code>
@@ -1936,8 +1937,8 @@ LABL 0 Arial,8,N</a:FontList>
 <a:ModificationDate>1547027119</a:ModificationDate>
 <a:Modifier>lbl</a:Modifier>
 <c:Identifier.Attributes>
-<o:EntityAttribute Ref="o48"/>
 <o:EntityAttribute Ref="o45"/>
+<o:EntityAttribute Ref="o46"/>
 <o:EntityAttribute Ref="o49"/>
 </c:Identifier.Attributes>
 </o:Identifier>
@@ -1958,20 +1959,20 @@ LABL 0 Arial,8,N</a:FontList>
 <a:DataType>LI</a:DataType>
 <a:LogicalAttribute.Mandatory>1</a:LogicalAttribute.Mandatory>
 </o:EntityAttribute>
-<o:EntityAttribute Id="o48">
+<o:EntityAttribute Id="o45">
 <a:ObjectID>DA7BC452-FEE7-4A9D-A11D-156B9CD72EDB</a:ObjectID>
 <a:Name>积分账户ID</a:Name>
 <a:Code>ACCOUNT_ID</a:Code>
 <a:CreationDate>1545096273</a:CreationDate>
 <a:Creator>zbz</a:Creator>
-<a:ModificationDate>1547027119</a:ModificationDate>
+<a:ModificationDate>1547172683</a:ModificationDate>
 <a:Modifier>lbl</a:Modifier>
 <a:Comment>积分账户ID(等于SUC的用户ID)</a:Comment>
 <a:DataType>LI</a:DataType>
 <a:LogicalAttribute.Mandatory>1</a:LogicalAttribute.Mandatory>
 <a:AutoMigrated>1</a:AutoMigrated>
 </o:EntityAttribute>
-<o:EntityAttribute Id="o45">
+<o:EntityAttribute Id="o46">
 <a:ObjectID>F7A83E9E-22D4-4919-BE60-AE2A00B53C9D</a:ObjectID>
 <a:Name>收益日志类型</a:Name>
 <a:Code>INCOME_LOG_TYPE</a:Code>
@@ -2039,7 +2040,7 @@ LABL 0 Arial,8,N</a:FontList>
 <a:Length>30</a:Length>
 <a:LogicalAttribute.Mandatory>1</a:LogicalAttribute.Mandatory>
 </o:EntityAttribute>
-<o:EntityAttribute Id="o46">
+<o:EntityAttribute Id="o47">
 <a:ObjectID>C29E74BB-15AB-41EF-A9AC-FF977A693297</a:ObjectID>
 <a:Name>统计日期</a:Name>
 <a:Code>STAT_DATE</a:Code>
@@ -2163,7 +2164,7 @@ LABL 0 Arial,8,N</a:FontList>
 <o:EntityAttribute Ref="o16"/>
 </c:Object1>
 <c:Object2>
-<o:EntityAttribute Ref="o48"/>
+<o:EntityAttribute Ref="o45"/>
 </c:Object2>
 </o:RelationshipJoin>
 </c:Joins>
