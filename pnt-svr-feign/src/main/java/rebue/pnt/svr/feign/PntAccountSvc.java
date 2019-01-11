@@ -1,5 +1,7 @@
 package rebue.pnt.svr.feign;
 
+import java.util.List;
+
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,4 +19,12 @@ public interface PntAccountSvc {
      */
     @GetMapping("/pnt/account/getbyid")
     PntAccountMo getById(@RequestParam("id") java.lang.Long id);
+    
+    /**
+	 * 获取需要计算日收益的账户列表
+	 * @param fetchCount 获取结果限制数量
+	 * @return
+	 */
+	@GetMapping("/pnt/account/listtocalcdayincome")
+	List<PntAccountMo> listToCalcDayIncome(@RequestParam("fetchCount") int fetchCount);
 }

@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import rebue.pnt.mo.PntAccountMo;
 import rebue.pnt.mo.PntIncomeLogMo;
 import rebue.pnt.svc.PntIncomeLogSvc;
 import rebue.pnt.to.AddIncomeTradeTo;
@@ -219,8 +221,8 @@ public class PntIncomeLogCtrl {
      * 执行积分收益任务
      */
     @PostMapping("/pnt/income/executetask")
-    void executePointIncomeTask() {
-        _log.info("开始执行积分收益任务");
-        svc.executePointIncomeTask();
+	void executePointIncomeTask(@RequestBody PntAccountMo mo) {
+        _log.info("开始执行积分收益任务, 参数为：{}", mo);
+        svc.executePointIncomeTask(mo);
     }
 }

@@ -99,7 +99,7 @@ public class PntPointLogTests {
 		System.out.println(resultsss);
 	}
 
-//	@Test
+	@Test
 	public void test001() throws IOException {
 		String listAll = OkhttpUtils.get(hostUrl + "/pnt/account/all");
 		List<Map<String, Object>> lists = _objectMapper.readValue(listAll, List.class);
@@ -116,7 +116,7 @@ public class PntPointLogTests {
 		}
 	}
 	
-	@Test
+//	@Test
 	public void test0002() {
 		BigDecimal bd = BigDecimal.ZERO;
 		System.out.println(bd.toPlainString());
