@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import rebue.pnt.mo.PntAccountMo;
 import rebue.pnt.svc.PntAccountSvc;
+import rebue.pnt.to.ModifyPointTo;
 import rebue.robotech.dic.ResultDic;
 import rebue.robotech.ro.IdRo;
 import rebue.robotech.ro.Ro;
@@ -170,7 +171,44 @@ public class PntAccountCtrl {
 		_log.info("result: " + result);
 		return result;
 	}
-
+	/**
+	 * 积分充值
+	 * @param mo
+	 * @return
+	 * @throws Exception
+	 */
+	@PutMapping("/pnt/account/recharge")
+	Ro recharge(@RequestBody ModifyPointTo to) throws Exception {
+		_log.info("modify ModifyPointTo: {}", to);
+		Ro ro = new Ro();
+		try {
+			if (svc.rechargePoint(to).getResult()==ResultDic.SUCCESS) {
+				String msg = "充值成功";
+				_log.info("{}: to-{}", msg, to);
+				ro.setMsg(msg);
+				ro.setResult(ResultDic.SUCCESS);
+				return ro;
+			} else {
+				String msg = "充值失败";
+				_log.error("{}: to-{}", msg, to);
+				ro.setMsg(msg);
+				ro.setResult(ResultDic.FAIL);
+				return ro;
+			}
+		} catch (DuplicateKeyException e) {
+			String msg = "充值失败，" + _uniqueFilesName + "已存在，不允许出现重复";
+			_log.error(msg + ": to=" + to, e);
+			ro.setMsg(msg);
+			ro.setResult(ResultDic.FAIL);
+			return ro;
+		} catch (RuntimeException e) {
+			String msg = "充值失败，出现运行时异常";
+			_log.error(msg + ": to-" + to, e);
+			ro.setMsg(msg);
+			ro.setResult(ResultDic.FAIL);
+			return ro;
+		}
+	}
 	/**
 	 * 获取单个积分账户信息
 	 *
@@ -182,6 +220,7 @@ public class PntAccountCtrl {
 		return svc.getById(id);
 	}
 
+	
 	/**
 	 * 获取所有积分账号信息
 	 * 

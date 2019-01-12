@@ -33,4 +33,9 @@ public interface PntAccountSvc extends BaseSvc<java.lang.Long, PntAccountMo, Pnt
      * 修改收益信息
      */
     Ro modifyIncome(ModifyIncomeTo to);
+    
+    /**
+     * 积分充值
+     */
+    Ro rechargePoint(ModifyPointTo to);
 }

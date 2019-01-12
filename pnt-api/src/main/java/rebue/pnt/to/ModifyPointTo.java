@@ -2,6 +2,9 @@ package rebue.pnt.to;
 
 import java.math.BigDecimal;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import lombok.Data;
 
 /**
@@ -10,6 +13,7 @@ import lombok.Data;
  * 2018年12月19日17:17:17
  */
 @Data
+@JsonInclude(Include.NON_NULL)
 public class ModifyPointTo {
 
 	/**

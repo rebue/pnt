@@ -156,4 +156,21 @@ public class PntAccountSvcImpl extends BaseSvcImpl<java.lang.Long, PntAccountJo,
         ro.setMsg("修改成功");
         return ro;
     }
+    /**
+     * 积分充值
+     */
+	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+	public Ro rechargePoint(ModifyPointTo to) {
+			_log.info("积分充值的请求参数：{}",to);
+		   final AddPointTradeTo addTo = new AddPointTradeTo();
+		   addTo.setAccountId(to.getAccountId());
+		   addTo.setPointLogType((byte) 5);
+		   addTo.setChangedTitile("大卖网络-积分充值");
+		   addTo.setOrderId(_idWorker.getId());
+		   addTo.setChangedPoint(to.getNewPoint());
+           final Ro addPointTradeRo = pntPointLogSvc.addPointTrade(addTo);
+           _log.info("积分充值的请求结果：{}",addPointTradeRo);
+           return addPointTradeRo;
+	}
 }
