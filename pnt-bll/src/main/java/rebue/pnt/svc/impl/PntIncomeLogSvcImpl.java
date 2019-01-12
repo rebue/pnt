@@ -146,7 +146,7 @@ public class PntIncomeLogSvcImpl
 		_log.info("添加一笔收益交易添加收益日志的参数为：{}", incomeLogMo);
 		final int addResult = thisSvc.add(incomeLogMo);
 		_log.info("添加一笔收益交易添加收益日志的返回值为：{}", addResult);
-		
+
 		final ModifyIncomeTo modifyIncomeTo = new ModifyIncomeTo();
 		modifyIncomeTo.setId(to.getAccountId());
 		modifyIncomeTo.setNewIncome(newIncome);
@@ -206,9 +206,9 @@ public class PntIncomeLogSvcImpl
 	@Override
 	public void executePointIncomeTask(PntAccountMo pntAccount) {
 		_log.info("执行积分收益任务开始，参数为：{}", pntAccount);
-		
+
 		// TODO 检查参数
-		
+
 		final java.sql.Date yesterday = new java.sql.Date(System.currentTimeMillis() - 24 * 60 * 60 * 1000);
 		_log.debug("昨日: {}", yesterday);
 		try {
@@ -243,6 +243,10 @@ public class PntIncomeLogSvcImpl
 		_log.info("获取账户某日的积分(指定日期24点时的当时积分)的返回值: {}", points);
 		if (points == null || BigDecimal.ZERO.compareTo(points) >= 0) {
 			_log.info("账户{}的{}的积分为{}，不能添加日收益", accountId, statDate, points);
+			PntAccountMo modifyMo = new PntAccountMo();
+			modifyMo.setId(accountId);
+			modifyMo.setDayIncomeStatDate(statDate);
+			pntAccountSvc.modify(modifyMo);
 			return;
 		}
 		final BigDecimal changedIncome = points.multiply(dailyInterestRate);
