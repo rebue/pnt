@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.util.Date;
 import javax.annotation.Resource;
 
-import org.dom4j.DocumentException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -150,7 +149,7 @@ public class PntIncomeLogSvcImpl
 		incomeLogMo.setStatDate(to.getStatDate());
 		incomeLogMo.setModifiedTimestamp(modifiedTimestamp);
 		_log.info("添加一笔收益交易添加收益日志的参数为：{}", incomeLogMo);
-		final int addResult = thisSvc.add(incomeLogMo);
+		int addResult = thisSvc.add(incomeLogMo);
 		_log.info("添加一笔收益交易添加收益日志的返回值为：{}", addResult);
 
 		final ModifyIncomeTo modifyIncomeTo = new ModifyIncomeTo();
@@ -168,39 +167,6 @@ public class PntIncomeLogSvcImpl
 		if (modifyIncomeRo.getResult() != ResultDic.SUCCESS) {
 			_log.error("添加一笔收益修改收益信息时出现错误，请求的参数为：{}", to);
 			throw new RuntimeException("添加一笔收益交易修改收益信息时出现异常");
-		}
-
-		if (to.getIncomeLogType() == IncomeLogTypeDic.DAY_INCOME.getCode()) {
-			System.out
-					.println("newIncome.compareTo(BigDecimal.ONE)=" + (newIncome.compareTo(BigDecimal.valueOf(0.00))));
-			if (newIncome.compareTo(BigDecimal.valueOf(0.00)) > 0) {
-				BigDecimal changedIncome = newIncome.setScale(2, BigDecimal.ROUND_DOWN);
-				to = new AddIncomeTradeTo();
-				to.setAccountId(accountId);
-				to.setIncomeLogType((byte) IncomeLogTypeDic.TRANSFER_OUT_INCOME.getCode());
-				to.setChangedIncome(changedIncome);
-				to.setChangedTitile("大卖网络-收益转出");
-				to.setChangedDetail("收益超过0.00元自动转出至余额");
-				to.setModifiedTimestamp(modifiedTimestamp + 1);
-				_log.info("添加一笔积分收益交易的参数为：{}", to);
-				Ro addIncomeTradeRo = thisSvc.addIncomeTrade(to);
-				_log.info("添加一笔积分收益交易的返回值为为：{}", addIncomeTradeRo);
-				if (addIncomeTradeRo.getResult() != ResultDic.SUCCESS) {
-					_log.error("添加一笔积分收益出现异常，请求的参数为：{}", to);
-					throw new RuntimeException("添加积分收益出现异常");
-				}
-
-				AfcTradeMo afcTradeMo = new AfcTradeMo();
-				afcTradeMo.setOrderId(incomeLogMo.getId().toString());
-				afcTradeMo.setTradeType((byte) TradeTypeDic.POINT_INCOME_WITHDRAW.getCode());
-				afcTradeMo.setAccountId(accountId);
-				afcTradeMo.setTradeAmount(changedIncome);
-				afcTradeMo.setTradeTitle("大卖网络-用户收益提现");
-				afcTradeMo.setTradeTime(dayIncomeStatDate);
-				afcTradeMo.setOpId(0L);
-				_log.info("添加一笔积分收益交易添加账号交易的参数为：{}", afcTradeMo);
-				afcTradeSvc.addTrade(afcTradeMo);
-			}
 		}
 
 		_log.info("添加一笔收益成功，请求的参数为：{}", to);
@@ -276,10 +242,10 @@ public class PntIncomeLogSvcImpl
 			pntAccountSvc.modify(modifyMo);
 			return;
 		}
-		final BigDecimal changedIncome = points.multiply(dailyInterestRate);
+		BigDecimal changedIncome = points.multiply(dailyInterestRate);
 		_log.info("账户{}的{}的日收益应该为: {}", accountId, statDate, changedIncome);
 
-		final AddIncomeTradeTo addIncomeTradeTo = new AddIncomeTradeTo();
+		AddIncomeTradeTo addIncomeTradeTo = new AddIncomeTradeTo();
 		addIncomeTradeTo.setAccountId(accountId);
 		addIncomeTradeTo.setIncomeLogType((byte) IncomeLogTypeDic.DAY_INCOME.getCode());
 		addIncomeTradeTo.setChangedIncome(changedIncome);
@@ -293,6 +259,39 @@ public class PntIncomeLogSvcImpl
 			_log.info("添加一笔积分收益的返回值为：{}", addIncomeTradeRo);
 			if (addIncomeTradeRo.getResult() != ResultDic.SUCCESS) {
 				throw new RuntimeException("执行积分收益任务添加一笔积分收益出现错误");
+			}
+			
+			_log.info("添加某一天的日收益日志查询积分账号信息的参数为：{}", accountId);
+			PntAccountMo pntAccountMo = pntAccountSvc.getById(accountId);
+			_log.info("添加某一天的日收益日志查询积分账号信息的返回值为：{}", pntAccountMo);
+			if (pntAccountMo.getIncome().compareTo(BigDecimal.valueOf(0.009)) > 0) {
+				changedIncome = pntAccountMo.getIncome().setScale(2, BigDecimal.ROUND_DOWN);
+				addIncomeTradeTo = new AddIncomeTradeTo();
+				addIncomeTradeTo.setAccountId(accountId);
+				addIncomeTradeTo.setIncomeLogType((byte) IncomeLogTypeDic.TRANSFER_OUT_INCOME.getCode());
+				addIncomeTradeTo.setChangedIncome(changedIncome);
+				addIncomeTradeTo.setChangedTitile("大卖网络-收益转出");
+				addIncomeTradeTo.setChangedDetail("收益超过0.00元自动转出至余额");
+				addIncomeTradeTo.setModifiedTimestamp(_idWorker.getId());
+				_log.info("添加一笔积分收益交易的参数为：{}", addIncomeTradeTo);
+				
+				Ro incomeTradeRo = thisSvc.addIncomeTrade(addIncomeTradeTo);
+				_log.info("添加一笔积分收益交易的返回值为为：{}", incomeTradeRo);
+				if (addIncomeTradeRo.getResult() != ResultDic.SUCCESS) {
+					_log.error("添加一笔积分收益出现异常，请求的参数为：{}", incomeTradeRo);
+					throw new RuntimeException("添加积分收益出现异常");
+				}
+
+				AfcTradeMo afcTradeMo = new AfcTradeMo();
+				afcTradeMo.setOrderId(_idWorker.getIdStr());
+				afcTradeMo.setTradeType((byte) TradeTypeDic.POINT_INCOME_WITHDRAW.getCode());
+				afcTradeMo.setAccountId(accountId);
+				afcTradeMo.setTradeAmount(changedIncome);
+				afcTradeMo.setTradeTitle("大卖网络-用户收益提现");
+				afcTradeMo.setTradeTime(statDate);
+				afcTradeMo.setOpId(0L);
+				_log.info("添加一笔积分收益交易添加账号交易的参数为：{}", afcTradeMo);
+				afcTradeSvc.addTrade(afcTradeMo);
 			}
 		} catch (DuplicateKeyException e) {
 			_log.warn("添加某一天的日收益日志添加一笔积分收益出现重复，请求的参数为：{}", addIncomeTradeTo);
