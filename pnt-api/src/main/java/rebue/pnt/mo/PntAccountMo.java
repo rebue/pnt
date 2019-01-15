@@ -75,6 +75,17 @@ public class PntAccountMo implements Serializable {
     private Date dayIncomeStatDate;
 
     /**
+     *    注册日期
+     *
+     *    数据库字段: PNT_ACCOUNT.REG_TIME
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date regTime;
+
+    /**
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
     private static final long serialVersionUID = 1L;
@@ -212,6 +223,28 @@ public class PntAccountMo implements Serializable {
     }
 
     /**
+     *    注册日期
+     *
+     *    数据库字段: PNT_ACCOUNT.REG_TIME
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
+    public Date getRegTime() {
+        return regTime;
+    }
+
+    /**
+     *    注册日期
+     *
+     *    数据库字段: PNT_ACCOUNT.REG_TIME
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
+    public void setRegTime(Date regTime) {
+        this.regTime = regTime;
+    }
+
+    /**
      *    @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Override
@@ -226,6 +259,7 @@ public class PntAccountMo implements Serializable {
         sb.append(", totalIncome=").append(totalIncome);
         sb.append(", modifiedTimestamp=").append(modifiedTimestamp);
         sb.append(", dayIncomeStatDate=").append(dayIncomeStatDate);
+        sb.append(", regTime=").append(regTime);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2019/1/11 10:12:07                           */
+/* Created on:     2019/1/14 18:47:05                           */
 /*==============================================================*/
 
 
@@ -21,6 +21,7 @@ create table PNT_ACCOUNT
    TOTAL_INCOME         numeric(20,10) not null default 0 comment '历史总共收益',
    MODIFIED_TIMESTAMP   bigint not null comment '修改时间戳',
    DAY_INCOME_STAT_DATE date comment '日收益统计日期',
+   REG_TIME             datetime comment '注册日期',
    primary key (ID)
 );
 

@@ -1,7 +1,6 @@
 package rebue.pnt.svc;
 
 import java.util.List;
-
 import rebue.pnt.jo.PntAccountJo;
 import rebue.pnt.mo.PntAccountMo;
 import rebue.pnt.to.ModifyIncomeTo;
@@ -18,7 +17,7 @@ public interface PntAccountSvc extends BaseSvc<java.lang.Long, PntAccountMo, Pnt
 
     /**
      * 获取需要计算日收益的账户列表
-     * 
+     *
      * @param fetchCount
      *            获取结果限制数量
      */
@@ -33,7 +32,7 @@ public interface PntAccountSvc extends BaseSvc<java.lang.Long, PntAccountMo, Pnt
      * 修改收益信息
      */
     Ro modifyIncome(ModifyIncomeTo to);
-    
+
     /**
      * 积分充值
      */

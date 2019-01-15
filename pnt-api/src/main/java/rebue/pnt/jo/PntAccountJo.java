@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -85,6 +87,16 @@ public class PntAccountJo implements Serializable {
     @Basic(optional = true)
     @Column(name = "DAY_INCOME_STAT_DATE", nullable = true, length = 10)
     private Date dayIncomeStatDate;
+
+    /**
+     *  注册日期
+     *
+     *  @mbg.generated 自动生成，如需修改，请删除本行
+     */
+    @Basic(optional = true)
+    @Column(name = "REG_TIME", nullable = true, length = 19)
+    @Temporal(TemporalType.DATE)
+    private Date regTime;
 
     /**
      *  列表
