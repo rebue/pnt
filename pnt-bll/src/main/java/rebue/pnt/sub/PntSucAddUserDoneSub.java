@@ -55,6 +55,7 @@ public class PntSucAddUserDoneSub implements ApplicationListener<ContextRefreshe
 						accountMo.setId(msg.getId());
 						final Date now = new Date();
 						accountMo.setModifiedTimestamp(now.getTime());
+						accountMo.setRegTime(now);
 						int addResult = pntAccountSvc.add(accountMo);
 						if (addResult != 1) {
 							return false;
