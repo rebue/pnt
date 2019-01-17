@@ -209,11 +209,15 @@ public class PntIncomeLogSvcImpl
 		final java.sql.Date yesterday = new java.sql.Date(yesterdayTimestamp);
 		_log.debug("昨日: {}", yesterday);
 		try {
+			_log.info("{}用户的注册时间为：{}", pntAccount.getId(), pntAccount.getRegTime());
+			_log.info("转换之后的注册时间戳为：{}", pntAccount.getRegTime().getTime());
 			if (pntAccount.getRegTime().getTime() <= yesterdayTimestamp) {
+				_log.info("小于昨天的注册账户信息为：{}", pntAccount);
 				if (pntAccount.getDayIncomeStatDate() == null) {
 					_log.info("未曾统计的用户(一般是新用户)，直接添加昨日的收益: 积分账户-{}", pntAccount);
 					thisSvc.addDayIncomeLogOfDate(pntAccount.getId(), yesterday);
 				} else {
+					_log.info("已统计过收益的用户，循环添加收益； 积分账户-{}", pntAccount);
 					java.sql.Date statDate = new java.sql.Date(pntAccount.getDayIncomeStatDate().getTime());
 					while (!statDate.after(yesterday)) {
 						_log.info("添加{}的收益: 账户-{}", statDate, pntAccount);
