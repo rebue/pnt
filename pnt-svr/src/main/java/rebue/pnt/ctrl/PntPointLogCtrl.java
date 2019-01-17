@@ -3,11 +3,8 @@ package rebue.pnt.ctrl;
 import com.github.pagehelper.PageInfo;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
-
 import javax.annotation.Resource;
 
-import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DuplicateKeyException;
@@ -173,7 +170,7 @@ public class PntPointLogCtrl {
             _log.error(msg);
             throw new IllegalArgumentException(msg);
         }
-        PageInfo<PntPointLogMo> result = svc.list(mo, pageNum, pageSize);
+        PageInfo<PntPointLogMo> result = svc.list(mo, pageNum, pageSize, "MODIFIED_TIMESTAMP desc");
         _log.info("result: " + result);
         return result;
     }

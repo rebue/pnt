@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import rebue.pnt.dic.IncomeLogTypeDic;
 import rebue.pnt.mo.PntAccountMo;
 import rebue.pnt.mo.PntIncomeLogMo;
 import rebue.pnt.svc.PntIncomeLogSvc;
@@ -158,7 +159,8 @@ public class PntIncomeLogCtrl {
      */
     @GetMapping("/pnt/incomelog")
     PageInfo<PntIncomeLogMo> list(PntIncomeLogMo mo, @RequestParam(value = "pageNum", required = false) Integer pageNum, @RequestParam(value = "pageSize", required = false) Integer pageSize) {
-        if (pageNum == null)
+        _log.info("查询收益日志的请求参数为：mo-{}, pageNum-{}, pageSize-{}", mo, pageNum, pageSize);
+    	if (pageNum == null)
             pageNum = 1;
         if (pageSize == null)
             pageSize = 5;
@@ -168,7 +170,12 @@ public class PntIncomeLogCtrl {
             _log.error(msg);
             throw new IllegalArgumentException(msg);
         }
-        PageInfo<PntIncomeLogMo> result = svc.list(mo, pageNum, pageSize);
+        PageInfo<PntIncomeLogMo> result = null;
+        if (mo.getIncomeLogType() == IncomeLogTypeDic.DAY_INCOME.getCode()) {
+        	result = svc.list(mo, pageNum, pageSize, "STAT_DATE desc");
+		} else {
+			svc.list(mo, pageNum, pageSize);
+		}
         _log.info("result: " + result);
         return result;
     }
