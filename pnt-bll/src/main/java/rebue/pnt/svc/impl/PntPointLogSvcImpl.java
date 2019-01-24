@@ -98,12 +98,14 @@ public class PntPointLogSvcImpl extends BaseSvcImpl<java.lang.Long, PntPointLogJ
         }
         // 新当前积分 = 修改的积分 + 旧的当前积分
         final BigDecimal newPoint = to.getChangedPoint().add(accountMo.getPoint());
-        if (newPoint.compareTo(BigDecimal.ZERO) < 0) {
-            _log.error("添加积分交易时发现积分不足，请求的参数为：{}", to);
-            ro.setResult(ResultDic.FAIL);
-            ro.setMsg("积分不足");
-            return ro;
-        }
+        
+        //注释备注，原先不能为负数，现在可以为负数。
+//        if (newPoint.compareTo(BigDecimal.ZERO) < 0) {
+//            _log.error("添加积分交易时发现积分不足，请求的参数为：{}", to);
+//            ro.setResult(ResultDic.FAIL);
+//            ro.setMsg("积分不足");
+//            return ro;
+//        }
 
         _log.info("添加积分交易第二步开始，请求的参数为：{}", to);
         final ModifyPointTo modifyPointTo = new ModifyPointTo();
