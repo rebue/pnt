@@ -293,15 +293,17 @@ public class PntIncomeLogSvcImpl
 	}
 
 	/**
-	 * 转出收益
+	 * 转出当前收益
 	 * 
 	 * @param accountId    账号id
-	 * @param rollOutPrice 转出的金额
 	 * @return
 	 */
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-	public Ro rollOutIncomme(Long accountId, BigDecimal rollOutPrice) {
+	public Ro rollOutIncomme(Long accountId) {
+		PntAccountMo pntAccountMo = pntAccountSvc.getById(accountId);
+		_log.info("查询积分账号信息的返回值为：{}", pntAccountMo);
+		BigDecimal rollOutPrice=pntAccountMo.getIncome().setScale(2, BigDecimal.ROUND_DOWN);
 		_log.info("转出收益的参数为：accountId-{}, rollOutPrice-{}", accountId, rollOutPrice);
 		Ro ro = new Ro();
 		if (accountId == null || rollOutPrice == null) {
@@ -310,13 +312,13 @@ public class PntIncomeLogSvcImpl
 			ro.setMsg("参数错误");
 			return ro;
 		}
-
+		
 		AddIncomeTradeTo addIncomeTradeTo = new AddIncomeTradeTo();
 		addIncomeTradeTo.setAccountId(accountId);
 		addIncomeTradeTo.setIncomeLogType((byte) IncomeLogTypeDic.TRANSFER_OUT_INCOME.getCode());
 		addIncomeTradeTo.setChangedIncome(rollOutPrice);
 		addIncomeTradeTo.setChangedTitile("大卖网络-收益转出");
-		addIncomeTradeTo.setChangedDetail("收益超过0.00元自动转出至余额");
+		addIncomeTradeTo.setChangedDetail("收益转出至余额");
 		addIncomeTradeTo.setModifiedTimestamp(_idWorker.getId());
 		_log.info("添加一笔积分收益交易的参数为：{}", addIncomeTradeTo);
 

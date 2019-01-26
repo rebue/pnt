@@ -234,14 +234,14 @@ public class PntIncomeLogCtrl {
     }
     
     /**
-     * 转出积分收益
+     * 转出当前积分收益
      * @param accountId
      * @param rollOutPrice
      * @return
      */
     @PutMapping("pnt/income/rollOut")
-    Ro rollOutIncomme(@RequestParam("accountId") final Long accountId, @RequestParam("rollOutPrice") final BigDecimal rollOutPrice) {
-    	_log.info("转出收益的请求参数为：accountId-{}, rollOutPrice-{}", accountId, rollOutPrice);
-    	return svc.rollOutIncomme(accountId, rollOutPrice);
+    Ro rollOutIncomme(@RequestParam("accountId") final Long accountId) {
+    	_log.info("转出收益的请求参数为：accountId-{}", accountId);
+    	return svc.rollOutIncomme(accountId);
     }
 }
