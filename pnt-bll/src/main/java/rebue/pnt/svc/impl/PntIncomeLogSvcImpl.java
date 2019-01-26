@@ -276,12 +276,12 @@ public class PntIncomeLogSvcImpl
 			_log.info("添加某一天的日收益日志查询积分账号信息的返回值为：{}", pntAccountMo);
 			if (pntAccountMo.getIncome().compareTo(BigDecimal.valueOf(0.009)) > 0) {
 				changedIncome = pntAccountMo.getIncome().setScale(2, BigDecimal.ROUND_DOWN);
-				_log.info("添加某一天的日收益转出收益的参数为：accountId-{}, changedIncome-{}", accountId, changedIncome);
-				Ro rollOutIncommeRo = thisSvc.rollOutIncomme(accountId, changedIncome);
-				if (rollOutIncommeRo.getResult() != ResultDic.SUCCESS) {
-					_log.error("添加某一天的日收益转出收益时出现异常，请求的参数为：accountId-{}, changedIncome-{}", accountId, changedIncome);
-					throw new RuntimeException("转出收益出现异常");
-				}
+//				_log.info("添加某一天的日收益转出收益的参数为：accountId-{}, changedIncome-{}", accountId, changedIncome);
+//				Ro rollOutIncommeRo = thisSvc.rollOutIncomme(accountId, changedIncome);
+//				if (rollOutIncommeRo.getResult() != ResultDic.SUCCESS) {
+//					_log.error("添加某一天的日收益转出收益时出现异常，请求的参数为：accountId-{}, changedIncome-{}", accountId, changedIncome);
+//					throw new RuntimeException("转出收益出现异常");
+//				}
 			}
 		} catch (DuplicateKeyException e) {
 			_log.warn("添加某一天的日收益日志添加一笔积分收益出现重复，请求的参数为：{}", addIncomeTradeTo);

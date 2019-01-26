@@ -232,4 +232,16 @@ public class PntIncomeLogCtrl {
         _log.info("开始执行积分收益任务, 参数为：{}", mo);
         svc.executePointIncomeTask(mo);
     }
+    
+    /**
+     * 转出积分收益
+     * @param accountId
+     * @param rollOutPrice
+     * @return
+     */
+    @PutMapping("pnt/income/rollOut")
+    Ro rollOutIncomme(@RequestParam("accountId") final Long accountId, @RequestParam("rollOutPrice") final BigDecimal rollOutPrice) {
+    	_log.info("转出收益的请求参数为：accountId-{}, rollOutPrice-{}", accountId, rollOutPrice);
+    	return svc.rollOutIncomme(accountId, rollOutPrice);
+    }
 }
