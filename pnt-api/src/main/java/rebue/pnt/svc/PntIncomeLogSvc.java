@@ -50,8 +50,7 @@ public interface PntIncomeLogSvc extends BaseSvc<java.lang.Long, PntIncomeLogMo,
 	 * 转出收益
 	 * 
 	 * @param accountId    账号id
-	 * @param rollOutPrice 转出的金额
 	 * @return
 	 */
-	Ro rollOutIncomme(Long accountId, BigDecimal rollOutPrice);
+	Ro rollOutIncomme(Long accountId);
 }
