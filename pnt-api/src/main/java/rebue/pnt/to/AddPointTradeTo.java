@@ -48,4 +48,8 @@ public class AddPointTradeTo {
      */
     private BigDecimal changedPoint;
 
+    /**
+     * 修改时间戳
+     */
+    private Long modifedTimestamp;
 }

@@ -84,7 +84,7 @@ public class PntPointLogSvcImpl extends BaseSvcImpl<java.lang.Long, PntPointLogJ
             return ro;
         }
 
-        final Long newModifedTimestamp = System.currentTimeMillis();
+        final Long newModifedTimestamp = to.getModifedTimestamp() == null ? System.currentTimeMillis() : to.getModifedTimestamp();
 
         _log.info("添加积分交易第一步开始，请求的参数为：{}", to);
         _log.info("添加积分交易查询积分账号信息的参数为：{}", to.getAccountId());

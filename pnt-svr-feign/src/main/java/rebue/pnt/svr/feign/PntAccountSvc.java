@@ -6,6 +6,8 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.github.pagehelper.PageInfo;
+
 import rebue.pnt.mo.PntAccountMo;
 import rebue.sbs.feign.FeignConfig;
 
@@ -27,4 +29,12 @@ public interface PntAccountSvc {
 	 */
 	@GetMapping("/pnt/account/listtocalcdayincome")
 	List<PntAccountMo> listToCalcDayIncome(@RequestParam("fetchCount") int fetchCount);
+	
+	/**
+     * 查询积分账户信息
+     *
+     * @mbg.generated 自动生成，如需修改，请删除本行
+     */
+    @GetMapping("/pnt/account")
+    PageInfo<PntAccountMo> list(@RequestParam(value = "pageNum", required = false) Integer pageNum, @RequestParam(value = "pageSize", required = false) Integer pageSize);
 }

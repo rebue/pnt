@@ -2,6 +2,8 @@ package rebue.pnt.test;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -99,7 +101,7 @@ public class PntPointLogTests {
 		System.out.println(resultsss);
 	}
 
-	@Test
+//	@Test
 	public void test001() throws IOException {
 		String listAll = OkhttpUtils.get(hostUrl + "/pnt/account/all");
 		List<Map<String, Object>> lists = _objectMapper.readValue(listAll, List.class);
@@ -116,9 +118,20 @@ public class PntPointLogTests {
 		}
 	}
 	
-//	@Test
+	@Test
 	public void test0002() {
-		BigDecimal bd = BigDecimal.ZERO;
-		System.out.println(bd.toPlainString());
+		Date now = new Date();
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(now);
+		calendar.add(Calendar.DAY_OF_YEAR, -90);
+		Date date1 = calendar.getTime();
+		System.out.println(date1);
+		
+		calendar.setTime(now);
+		calendar.add(Calendar.DAY_OF_YEAR, -60);
+		Date date2 = calendar.getTime();
+		System.out.println(date2);
+		
+		System.out.println(date1.compareTo(date2));
 	}
 }
