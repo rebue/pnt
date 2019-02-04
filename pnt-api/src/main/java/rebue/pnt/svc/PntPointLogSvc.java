@@ -51,4 +51,11 @@ public interface PntPointLogSvc extends BaseSvc<java.lang.Long, PntPointLogMo, P
      * @return 获取账户某一天的积分
      */
     BigDecimal getPointsOfDate(Long accountId, java.sql.Date statDate);
+
+    /**
+     * 根据账号id查询最新的一条积分日志信息
+     * @param accountId
+     * @return
+     */
+	PntPointLogMo getNewOne(Long accountId);
 }

@@ -221,4 +221,14 @@ public class PntPointLogCtrl {
     	 _log.info("list PntPointLogMo by AccountId: {}:"+ accountId+ ", pageNum = " + pageNum + ", pageSize = " + pageSize);
     	return svc.listByAccountId(accountId,pageNum,pageSize);
     }
+    
+    /**
+     * 根据账号id查询最新的一条积分日志信息
+     * @param accountId
+     * @return
+     */
+	PntPointLogMo getNewOne(@RequestParam("accountId") Long accountId) {
+		_log.info("根据账号id查询最新的一条积分日志信息的参数为：{}", accountId);
+		return svc.getNewOne(accountId);
+	}
 }

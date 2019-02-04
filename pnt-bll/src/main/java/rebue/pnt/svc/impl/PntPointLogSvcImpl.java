@@ -185,4 +185,15 @@ public class PntPointLogSvcImpl extends BaseSvcImpl<java.lang.Long, PntPointLogJ
         _log.info("获取账户{}{}24点当时的积分", accountId, statDate);
         return _mapper.getPointsOfDate(accountId, statDate.getTime() + 24 * 60 * 60 * 1000);
     }
+    
+    /**
+     * 根据账号id查询最新的一条积分日志信息
+     * @param accountId
+     * @return
+     */
+    @Override
+    public PntPointLogMo getNewOne(Long accountId) {
+    	_log.info("查询最新一条积分日志信息的账号id为：{}", accountId);
+    	return _mapper.selectNewOne(accountId);
+    }
 }

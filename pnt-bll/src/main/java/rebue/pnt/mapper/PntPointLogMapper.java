@@ -113,4 +113,12 @@ public interface PntPointLogMapper extends MybatisBaseMapper<PntPointLogMo, Long
             " ORDER BY MODIFIED_TIMESTAMP DESC" + //
             " LIMIT 1")
     BigDecimal getPointsOfDate(@Param("accountId") Long accountId, @Param("statDateTimestamp") Long statDateTimestamp);
+
+    /**
+     * 根据账号id查询最新的一条
+     * @param accountId
+     * @return
+     */
+    @Select("select * from PNT_POINT_LOG where ACCOUNT_ID=#{accountId,jdbcType=BIGINT} order by MODIFIED_TIMESTAMP desc limit 1")
+    PntPointLogMo selectNewOne(Long accountId);
 }
