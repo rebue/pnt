@@ -1,6 +1,7 @@
 package rebue.pnt.svr.feign;
 
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import rebue.pnt.mo.PntPointLogMo;
@@ -14,5 +15,6 @@ public interface PntPointLogSvc {
      * @param accountId
      * @return
      */
+	@GetMapping("/pnt/pointlog/getnewone")
 	PntPointLogMo getNewOne(@RequestParam("accountId") Long accountId);
 }

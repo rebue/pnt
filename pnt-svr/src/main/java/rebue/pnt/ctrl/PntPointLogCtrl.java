@@ -227,6 +227,7 @@ public class PntPointLogCtrl {
      * @param accountId
      * @return
      */
+    @GetMapping("/pnt/pointlog/getnewone")
 	PntPointLogMo getNewOne(@RequestParam("accountId") Long accountId) {
 		_log.info("根据账号id查询最新的一条积分日志信息的参数为：{}", accountId);
 		return svc.getNewOne(accountId);
