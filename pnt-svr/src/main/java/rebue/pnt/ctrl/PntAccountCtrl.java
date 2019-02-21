@@ -241,4 +241,15 @@ public class PntAccountCtrl {
         _log.info("开始获取获取需要计算日收益的账户列表，获取的条数为：{}", fetchCount);
         return svc.listToCalcDayIncome(fetchCount);
     }
+    
+    /**
+     * 根据限制数量查询积分账号信息
+     * @param limitCount
+     * @return
+     */
+    @GetMapping("/pnt/account/bylimitcount")
+	List<PntAccountMo> pntAccountByLimitCountList(@RequestParam("pageNum") Integer pageNum, @RequestParam("limitCount") Integer limitCount) {
+		_log.info("根据限制数量查询积分账号信息的请求参数为：limitCount-{}, pageNum-{}", limitCount, pageNum);
+		return svc.pntAccountByLimitCountList(pageNum, limitCount);
+	}
 }

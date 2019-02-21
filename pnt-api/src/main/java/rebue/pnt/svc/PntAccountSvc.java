@@ -37,4 +37,11 @@ public interface PntAccountSvc extends BaseSvc<java.lang.Long, PntAccountMo, Pnt
      * 积分充值
      */
     Ro rechargePoint(ModifyPointTo to);
+
+    /**
+     * 根据限制数量查询积分账号信息
+     * @param limitCount
+     * @return
+     */
+	List<PntAccountMo> pntAccountByLimitCountList(Integer pageNum, Integer limitCount);
 }

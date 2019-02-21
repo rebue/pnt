@@ -108,4 +108,12 @@ public interface PntAccountMapper extends MybatisBaseMapper<PntAccountMo, Long> 
      * @return
      */
     int updateIncome(ModifyIncomeTo to);
+    
+    /**
+     * 根据限制的条数查询积分账号信息
+     * @param limitCount
+     * @return
+     */
+    @Select("SELECT * FROM pnt.PNT_ACCOUNT limit #{pageNum,jdbcType=INTEGER}, #{limitCount,jdbcType=INTEGER}")
+    List<PntAccountMo> selectPntAccountByLimitCount(@Param("pageNum") Integer pageNum, @Param("limitCount") Integer limitCount);
 }

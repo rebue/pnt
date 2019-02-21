@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.Resource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -176,5 +177,16 @@ public class PntAccountSvcImpl extends BaseSvcImpl<java.lang.Long, PntAccountJo,
         final Ro addPointTradeRo = pntPointLogSvc.addPointTrade(addTo);
         _log.info("积分充值的请求结果：{}", addPointTradeRo);
         return addPointTradeRo;
+    }
+    
+    /**
+     * 根据限制数量查询积分账号信息
+     * @param limitCount
+     * @return
+     */
+    @Override
+    public List<PntAccountMo> pntAccountByLimitCountList(Integer pageNum, Integer limitCount){
+    	_log.info("根据限制数量查询积分账号信息的参数为：limitCount-{}, pageNum-{}", limitCount, pageNum);
+    	return _mapper.selectPntAccountByLimitCount(pageNum * limitCount, limitCount);
     }
 }
