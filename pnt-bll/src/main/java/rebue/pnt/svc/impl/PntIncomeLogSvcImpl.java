@@ -261,7 +261,7 @@ public class PntIncomeLogSvcImpl
 		addIncomeTradeTo.setChangedIncome(changedIncome);
 		addIncomeTradeTo.setChangedTitile("大卖网络-每日积分收益");
 		addIncomeTradeTo.setStatDate(statDate);
-		addIncomeTradeTo.setModifiedTimestamp(_idWorker.getId());
+		addIncomeTradeTo.setModifiedTimestamp(new Date().getTime());
 		_log.info("添加一笔积分收益的参数为：{}", addIncomeTradeTo);
 		Ro addIncomeTradeRo = null;
 		try {
@@ -319,7 +319,7 @@ public class PntIncomeLogSvcImpl
 		addIncomeTradeTo.setChangedIncome(rollOutPrice);
 		addIncomeTradeTo.setChangedTitile("大卖网络-收益转出");
 		addIncomeTradeTo.setChangedDetail("收益转出至余额");
-		addIncomeTradeTo.setModifiedTimestamp(_idWorker.getId());
+		addIncomeTradeTo.setModifiedTimestamp(new Date().getTime());
 		_log.info("添加一笔积分收益交易的参数为：{}", addIncomeTradeTo);
 
 		Ro incomeTradeRo = thisSvc.addIncomeTrade(addIncomeTradeTo);
