@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2019/1/14 18:47:05                           */
+/* Created on:     2019/6/1 16:37:27                            */
 /*==============================================================*/
 
 
@@ -21,7 +21,7 @@ create table PNT_ACCOUNT
    TOTAL_INCOME         numeric(20,10) not null default 0 comment '历史总共收益',
    MODIFIED_TIMESTAMP   bigint not null comment '修改时间戳',
    DAY_INCOME_STAT_DATE date comment '日收益统计日期',
-   REG_TIME             datetime comment '注册日期',
+   REG_TIME             datetime not null comment '注册日期',
    primary key (ID)
 );
 
@@ -66,7 +66,7 @@ create table PNT_POINT_LOG
    MODIFIED_TIMESTAMP   bigint not null comment '修改时间戳',
    OLD_MODIFIED_TIMESTAMP bigint not null comment '旧修改时间戳',
    primary key (ID),
-   unique key AK_ACCOUNT_AND_LOG_TYPE_AND_ORDER (ACCOUNT_ID, POINT_LOG_TYPE, ORDER_ID, ORDER_DETAIL_ID)
+   unique key AK_ACCOUNT_AND_LOG_TYPE_AND_ORDER_AND_ORDER_DETAIL (ACCOUNT_ID, POINT_LOG_TYPE, ORDER_ID, ORDER_DETAIL_ID)
 );
 
 alter table PNT_POINT_LOG comment '积分日志';
