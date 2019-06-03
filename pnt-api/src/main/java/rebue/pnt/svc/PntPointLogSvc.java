@@ -2,6 +2,9 @@ package rebue.pnt.svc;
 
 import java.math.BigDecimal;
 
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 import com.github.pagehelper.PageInfo;
 
 import rebue.pnt.jo.PntPointLogJo;
@@ -58,4 +61,11 @@ public interface PntPointLogSvc extends BaseSvc<java.lang.Long, PntPointLogMo, P
      * @return
      */
 	PntPointLogMo getNewOne(Long accountId);
+	
+	/**
+	 * 根据账号id、订单id和日志状态判断是否有该条记录
+	 * @param pntPointLogMo
+	 * @return
+	 */
+	int countByIdAndOrderId(PntPointLogMo pntPointLogMo );
 }

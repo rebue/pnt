@@ -196,4 +196,14 @@ public class PntPointLogSvcImpl extends BaseSvcImpl<java.lang.Long, PntPointLogJ
     	_log.info("查询最新一条积分日志信息的账号id为：{}", accountId);
     	return _mapper.selectNewOne(accountId);
     }
+    
+    /**
+     * 根据账号id、订单id和日志状态判断是否有该记录
+     */
+	@Override
+	public int countByIdAndOrderId(PntPointLogMo pntPointLogMo) {
+		int result = _mapper.countSelective(pntPointLogMo);
+		_log.info("根据账号id、订单id和日志状态判断是否有该记录的返回值为-{}",result);
+		return result;
+	}
 }

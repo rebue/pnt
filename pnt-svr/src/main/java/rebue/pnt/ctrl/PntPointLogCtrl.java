@@ -232,4 +232,15 @@ public class PntPointLogCtrl {
 		_log.info("根据账号id查询最新的一条积分日志信息的参数为：{}", accountId);
 		return svc.getNewOne(accountId);
 	}
+    
+    /**
+     * 根据账号id、订单id和日志状态判断是否有该记录
+     * @param pntPointLogMo
+     * @return
+     */
+    @GetMapping("/pnt/pointlog/countByIdAndOrderId")
+    int countByIdAndOrderId(@RequestBody PntPointLogMo pntPointLogMo ) {
+		_log.info("根据账号id、订单id和日志状态判断是否有该记录的参数为：{}", pntPointLogMo);
+    	return svc.countByIdAndOrderId(pntPointLogMo);
+    }
 }

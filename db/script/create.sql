@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2019/6/1 16:37:27                            */
+/* Created on:     2019/6/3 21:16:12                            */
 /*==============================================================*/
 
 
@@ -61,7 +61,7 @@ create table PNT_POINT_LOG
    POINT_AFTER_CHANGED  decimal(18,4) not null comment '改变后的积分(改变后的积分=改变前的积分+改变的积分)',
    CHANGED_TITILE       varchar(30) not null comment '改变积分的标题',
    CHANGED_DETAIL       varchar(200) comment '改变积分的详情',
-   ORDER_ID             bigint not null comment '订单ID',
+   ORDER_ID             bigint comment '订单ID',
    ORDER_DETAIL_ID      bigint comment '订单详情ID',
    MODIFIED_TIMESTAMP   bigint not null comment '修改时间戳',
    OLD_MODIFIED_TIMESTAMP bigint not null comment '旧修改时间戳',

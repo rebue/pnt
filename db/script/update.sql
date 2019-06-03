@@ -35,4 +35,5 @@ alter table PNT_INCOME_LOG add unique key AK_ACCOUNT_ID_AND_INCOME_LOG_TYPE_AND_
 ------------------------------------------------------------以上已更新到线上-----------------------------------------------------------
 alter table PNT_ACCOUNT add REG_TIME             datetime comment '注册日期';
 
+alter table PNT_POINT_LOG modify ORDER_ID bigint(20)  null comment "订单ID";
       

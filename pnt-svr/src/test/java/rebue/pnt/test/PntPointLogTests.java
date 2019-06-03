@@ -118,7 +118,7 @@ public class PntPointLogTests {
 		}
 	}
 	
-	@Test
+	//@Test
 	public void test0002() {
 		Date now = new Date();
 		Calendar calendar = Calendar.getInstance();
@@ -133,5 +133,15 @@ public class PntPointLogTests {
 		System.out.println(date2);
 		
 		System.out.println(date1.compareTo(date2));
+	}
+	
+	@Test
+	public void countByIdAndOrderIdTest() throws IOException {
+		PntPointLogMo mo =new PntPointLogMo();
+		mo.setAccountId(560723287034822657L);
+		mo.setPointLogType((byte)3);
+		mo.setOrderId(562075656935047168L);
+		final String results = OkhttpUtils.postByJsonParams(hostUrl+ "/pnt/pointlog/countByIdAndOrderId",mo);
+		System.out.println(results);
 	}
 }
