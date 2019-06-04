@@ -77,7 +77,7 @@ public class PntPointLogSvcImpl extends BaseSvcImpl<java.lang.Long, PntPointLogJ
     public Ro addPointTrade(final AddPointTradeTo to) {
         _log.info("添加积分交易的请求参数为：{}", to);
         final Ro ro = new Ro();
-        if (to.getAccountId() == null || to.getOrderId() == null || to.getPointLogType() == null || to.getChangedPoint() == null || to.getChangedTitile() == null) {
+        if (to.getAccountId() == null || to.getPointLogType() == null || to.getChangedPoint() == null || to.getChangedTitile() == null) {
             _log.error("添加积分交易时出现参数错误，请求的参数为：{}", to);
             ro.setResult(ResultDic.PARAM_ERROR);
             ro.setMsg("参数错误");

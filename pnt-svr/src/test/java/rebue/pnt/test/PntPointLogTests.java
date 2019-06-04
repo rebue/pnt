@@ -219,11 +219,13 @@ public class PntPointLogTests {
 					newTime += 2592000000l;
 					_log.info("一个月 newTime-{}", newTime);
 				}
+				
 				// 如果类型是7则time加上 5184000000 二个月后的时间戳
 				if (pntPointLogMo.getPointLogType() == 8 && new Date().getTime() - time > 5184000000L) {
 					newTime += 5184000000L;
 					_log.info("二个月 newTime-{}", newTime);
 				}
+				
 				// 如果类型是7则time加上 7776000000 三个月后的时间戳
 				if (pntPointLogMo.getPointLogType() == 9 && new Date().getTime() - time > 7776000000L) {
 					newTime += 7776000000L;
@@ -235,7 +237,6 @@ public class PntPointLogTests {
 				modifyPntPointLogMo.setId(pntPointLogMo.getId());
 				modifyPntPointLogMo.setModifiedTimestamp(newTime);
 				_log.info("更新积分日志时间戳的参数为：pntPointLogMo-{}", modifyPntPointLogMo);
-
 				final String result = OkhttpUtils.putByJsonParams(hostUrl + "/pnt/pointlog", modifyPntPointLogMo);
 				_log.info("更新积分日志时间戳的结果为：result-{}", result);
 				newTime = time;
