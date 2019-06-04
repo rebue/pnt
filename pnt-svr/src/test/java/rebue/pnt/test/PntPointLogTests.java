@@ -11,7 +11,10 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import rebue.ord.mo.OrdOrderMo;
 import rebue.pnt.mo.PntAccountMo;
 import rebue.pnt.mo.PntPointLogMo;
 import rebue.pnt.to.AddPointTradeTo;
@@ -28,7 +31,7 @@ import rebue.wheel.idworker.IdWorker3;
  * @mbg.generated 自动生成的注释，如需修改本注释，请删除本行
  */
 public class PntPointLogTests {
-
+	private final static Logger _log = LoggerFactory.getLogger(PntPointLogTests.class);
 	/**
 	 * @mbg.generated 自动生成，如需修改，请删除本行
 	 */
@@ -69,7 +72,7 @@ public class PntPointLogTests {
 
 	private final String hostUrl = "http://127.0.0.1:9010";
 
-//    @Test
+	// @Test
 	public void addPointTest() throws IOException {
 		AddPointTradeTo to = new AddPointTradeTo();
 		to.setAccountId(520391209198288896L);
@@ -101,7 +104,7 @@ public class PntPointLogTests {
 		System.out.println(resultsss);
 	}
 
-//	@Test
+	// @Test
 	public void test001() throws IOException {
 		String listAll = OkhttpUtils.get(hostUrl + "/pnt/account/all");
 		List<Map<String, Object>> lists = _objectMapper.readValue(listAll, List.class);
@@ -117,8 +120,8 @@ public class PntPointLogTests {
 			System.out.println(results);
 		}
 	}
-	
-	//@Test
+
+	// @Test
 	public void test0002() {
 		Date now = new Date();
 		Calendar calendar = Calendar.getInstance();
@@ -126,22 +129,119 @@ public class PntPointLogTests {
 		calendar.add(Calendar.DAY_OF_YEAR, -90);
 		Date date1 = calendar.getTime();
 		System.out.println(date1);
-		
+
 		calendar.setTime(now);
 		calendar.add(Calendar.DAY_OF_YEAR, -60);
 		Date date2 = calendar.getTime();
 		System.out.println(date2);
-		
+
 		System.out.println(date1.compareTo(date2));
 	}
-	
+
 	@Test
 	public void countByIdAndOrderIdTest() throws IOException {
-		PntPointLogMo mo =new PntPointLogMo();
+		PntPointLogMo mo = new PntPointLogMo();
 		mo.setAccountId(560723287034822657L);
-		mo.setPointLogType((byte)3);
+		mo.setPointLogType((byte) 3);
 		mo.setOrderId(562075656935047168L);
-		final String results = OkhttpUtils.postByJsonParams(hostUrl+ "/pnt/pointlog/countByIdAndOrderId",mo);
+		final String results = OkhttpUtils.postByJsonParams(hostUrl + "/pnt/pointlog/countByIdAndOrderId", mo);
 		System.out.println(results);
 	}
+
+	/**
+	 * 设置大概正确的积分(扣除类型是7，8，9)扣除时间戳 因为原来扣除积分出现bug每个类型扣除过一次之后就不会再扣除该类型的或者
+	 * 是直接扣除8,9，类型的，所以这里根据最后的签收时间(2019-6-4后是支付时间)
+	 * 来推断出大概的扣除时间是不一定准确的，注意！！这里面有想路径映射是写的时候临时写进去的 ，修正时间后就删除了，所以直接运行发出某些请求是不存在的。
+	 * 
+	 * @throws IOException
+	 */
+	@Test
+	public void setCorrectTime() throws IOException {
+
+		// 1：在积分获取所有账户，再根据帐号id获取账户最后一个订单签收的时间，如果没有的话就获取用户在积分里面的注册时间
+		PntAccountMo[] pntAccountResult = _objectMapper.readValue(OkhttpUtils.get(hostUrl + "/pnt/account/all"),
+				PntAccountMo[].class);
+		_log.info("所有积分账户信息: {}", pntAccountResult.toString());
+
+		// 遍历每个积分账户信息去获取最新的订单签收时间
+		for (PntAccountMo PntAccountMo : pntAccountResult) {
+			_log.info("开始-----------------------------------------------");
+
+			_log.info("当前积分账户信息: {}", PntAccountMo);
+			OrdOrderMo[] orderResult = _objectMapper.readValue(
+					OkhttpUtils.get("http://127.0.0.1:20180/ord/order/listselective?userId=" + PntAccountMo.getId()),
+					OrdOrderMo[].class);
+			_log.info("获取最新订单信息的结果长度为 : orderResult.length-{}", orderResult.length);
+
+			// 判断长度是否为0,如果是0的话那么用户没有买过商品，对比时间使用用户的在积分中的注册时间，否则就取签收时间，(注意！！！)测试的时候将
+			// 获取订单的方法设置成了根据签收时间排序且只返回第一个结果，虽然是个数组但是只有一个元素
+			// 最后购买或者是注册时间戳
+			Long time = 0L;
+			if (orderResult.length == 0) {
+				if (PntAccountMo.getRegTime() != null) {
+					_log.info("取注册时间-{} ", PntAccountMo.getRegTime().getTime());
+					time = PntAccountMo.getRegTime().getTime();
+				}
+				_log.info("注册时间time-{}", time);
+			} else {
+				for (OrdOrderMo ordOrderMo : orderResult) {
+					if (ordOrderMo.getReceivedTime() != null) {
+						_log.info("取签收时间-{}", ordOrderMo.getReceivedTime().getTime());
+						time = ordOrderMo.getReceivedTime().getTime();
+					}
+					_log.info("取签收时间time-{}", time);
+				}
+			}
+
+			// 如果签收或者注册时间小于三十天就终止本次循环
+			if (new Date().getTime() - time < 2592000000l) {
+				_log.info("小于三十天：{}-{}={}", new Date().getTime(), time, new Date().getTime() - time);
+				continue;
+			} else {
+				_log.info("大于三十天：{}-{}={}", new Date().getTime(), time, new Date().getTime() - time);
+			}
+
+			// 获取积分日志的三种类型扣除记录，
+			PntPointLogMo[] pntLogResult = _objectMapper.readValue(
+					OkhttpUtils.get(hostUrl + "/pnt/pointlog/selectList?accountId=" + PntAccountMo.getId()),
+					PntPointLogMo[].class);
+			_log.info("获取积分日志的三种类型扣除记录长度为 : pntLogResult.length-{}", pntLogResult.length);
+			for (PntPointLogMo pntPointLogMo : pntLogResult) {
+				// 先判断是否是正确的时间戳格式(小于当前时间)如果是就终止修改
+				if (pntPointLogMo.getModifiedTimestamp() < 1559616795104l) {
+					continue;
+				}
+				Long newTime = time;
+				_log.info("当前扣除积分类型pntPointLogMo-{}", pntPointLogMo);
+
+				// 如果类型是7则time加上 259200000 一个月后的时间戳
+				if (pntPointLogMo.getPointLogType() == 7) {
+					newTime += 2592000000l;
+					_log.info("一个月 newTime-{}", newTime);
+				}
+				// 如果类型是7则time加上 5184000000 二个月后的时间戳
+				if (pntPointLogMo.getPointLogType() == 8 && new Date().getTime() - time > 5184000000L) {
+					newTime += 5184000000L;
+					_log.info("二个月 newTime-{}", newTime);
+				}
+				// 如果类型是7则time加上 7776000000 三个月后的时间戳
+				if (pntPointLogMo.getPointLogType() == 9 && new Date().getTime() - time > 7776000000L) {
+					newTime += 7776000000L;
+					_log.info("三个月 newTime-{}", newTime);
+				}
+
+				// 改变积分日志的时间。
+				PntPointLogMo modifyPntPointLogMo = new PntPointLogMo();
+				modifyPntPointLogMo.setId(pntPointLogMo.getId());
+				modifyPntPointLogMo.setModifiedTimestamp(newTime);
+				_log.info("更新积分日志时间戳的参数为：pntPointLogMo-{}", modifyPntPointLogMo);
+
+				final String result = OkhttpUtils.putByJsonParams(hostUrl + "/pnt/pointlog", modifyPntPointLogMo);
+				_log.info("更新积分日志时间戳的结果为：result-{}", result);
+				newTime = time;
+			}
+			_log.info("结束++++++++++++++++++++++++++++++++++++++");
+		}
+	}
+
 }
