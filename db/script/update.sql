@@ -32,8 +32,9 @@ alter table PNT_INCOME_LOG add constraint FK_RELATIONSHIP_4 foreign key (ACCOUNT
 alter table PNT_INCOME_LOG DROP INDEX AK_INCOME_LOG_TYPE_AND_STAT_DATE;
 alter table PNT_INCOME_LOG add unique key AK_ACCOUNT_ID_AND_INCOME_LOG_TYPE_AND_STAT_DATE (ACCOUNT_ID, INCOME_LOG_TYPE, STAT_DATE);
 
-------------------------------------------------------------以上已更新到线上-----------------------------------------------------------
 alter table PNT_ACCOUNT add REG_TIME             datetime comment '注册日期';
 
 alter table PNT_POINT_LOG modify ORDER_ID bigint(20)  null comment "订单ID";
+------------------------------------------------------------以上已更新到线上2019-06-04-----------------------------------------------------------
+
       
