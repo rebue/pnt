@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import rebue.pnt.mo.PntAccountMo;
 import rebue.sbs.feign.FeignConfig;
 
-@FeignClient(name = "pnt-svr", configuration = FeignConfig.class)
+@FeignClient(name = "pnt-svr", configuration = FeignConfig.class, contextId = "pnt-svr-income")
 public interface PntIncomeSvc {
 
-	/**
-	 * 执行积分收益任务 
-	 */
+    /**
+     * 执行积分收益任务
+     */
     @PostMapping("/pnt/income/executetask")
-	void executePointIncomeTask(@RequestBody PntAccountMo mo);
+    void executePointIncomeTask(@RequestBody PntAccountMo mo);
 }
