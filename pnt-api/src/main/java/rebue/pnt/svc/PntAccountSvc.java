@@ -1,6 +1,7 @@
 package rebue.pnt.svc;
 
 import java.util.List;
+
 import rebue.pnt.jo.PntAccountJo;
 import rebue.pnt.mo.PntAccountMo;
 import rebue.pnt.to.ModifyIncomeTo;
@@ -19,7 +20,7 @@ public interface PntAccountSvc extends BaseSvc<java.lang.Long, PntAccountMo, Pnt
      * 获取需要计算日收益的账户列表
      *
      * @param fetchCount
-     *            获取结果限制数量
+     *                   获取结果限制数量
      */
     List<PntAccountMo> listToCalcDayIncome(int fetchCount);
 
@@ -40,8 +41,15 @@ public interface PntAccountSvc extends BaseSvc<java.lang.Long, PntAccountMo, Pnt
 
     /**
      * 根据限制数量查询积分账号信息
+     * 
      * @param limitCount
      * @return
      */
-	List<PntAccountMo> pntAccountByLimitCountList(Integer pageNum, Integer limitCount);
+    List<PntAccountMo> pntAccountByLimitCountList(Integer pageNum, Integer limitCount);
+
+    /**
+     * 积分补偿
+     */
+    Ro compensatePoint();
+
 }

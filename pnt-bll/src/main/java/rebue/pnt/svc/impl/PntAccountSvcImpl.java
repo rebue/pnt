@@ -3,6 +3,7 @@ package rebue.pnt.svc.impl;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
@@ -10,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
 import rebue.pnt.dao.PntAccountDao;
 import rebue.pnt.jo.PntAccountJo;
 import rebue.pnt.mapper.PntAccountMapper;
@@ -39,7 +41,9 @@ import rebue.robotech.svc.impl.BaseSvcImpl;
  */
 @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 @Service
-public class PntAccountSvcImpl extends BaseSvcImpl<java.lang.Long, PntAccountJo, PntAccountDao, PntAccountMo, PntAccountMapper> implements PntAccountSvc {
+public class PntAccountSvcImpl
+        extends BaseSvcImpl<java.lang.Long, PntAccountJo, PntAccountDao, PntAccountMo, PntAccountMapper>
+        implements PntAccountSvc {
 
     /**
      * @mbg.generated 自动生成，如需修改，请删除本行
@@ -50,7 +54,7 @@ public class PntAccountSvcImpl extends BaseSvcImpl<java.lang.Long, PntAccountJo,
     private PntPointLogSvc pntPointLogSvc;
 
     /**
-     *  添加积分账号信息
+     * 添加积分账号信息
      */
     @Override
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
@@ -81,16 +85,16 @@ public class PntAccountSvcImpl extends BaseSvcImpl<java.lang.Long, PntAccountJo,
     }
 
     /**
-     *  获取需要计算日收益的账户列表
+     * 获取需要计算日收益的账户列表
      *
-     *  @param fetchCount 获取结果限制数量
+     * @param fetchCount 获取结果限制数量
      */
     @Override
     public List<PntAccountMo> listToCalcDayIncome(final int fetchCount) {
         _log.info("获取需要计算日收益的账户列表的参数: fetchCount-{}", fetchCount);
         // 昨天时间戳
-        Long yesterdayTimestamp = System.currentTimeMillis() - 24 * 60 * 60 * 1000;
-        final java.sql.Date yesterday = new java.sql.Date(yesterdayTimestamp);
+        Long                yesterdayTimestamp = System.currentTimeMillis() - 24 * 60 * 60 * 1000;
+        final java.sql.Date yesterday          = new java.sql.Date(yesterdayTimestamp);
         _log.debug("昨日: {}", yesterday);
         // 昨天的注册时间
         Date yesterdayRegTime = new Date(yesterday.getTime());
@@ -98,24 +102,26 @@ public class PntAccountSvcImpl extends BaseSvcImpl<java.lang.Long, PntAccountJo,
     }
 
     /**
-     *  修改积分信息
+     * 修改积分信息
      *
-     *  @param to
-     *  @return
+     * @param to
+     * @return
      */
     @Override
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
     public Ro modifyPoint(final ModifyPointTo to) {
         _log.info("修改积分账号信息的请求参数为：{}", to);
         final Ro ro = new Ro();
-        if (to.getAccountId() == null || to.getNewPoint() == null || to.getOldPoint() == null || to.getNewModifiedTimestamp() == null || to.getOldModifiedTimestamp() == null) {
+        if (to.getAccountId() == null || to.getNewPoint() == null || to.getOldPoint() == null
+                || to.getNewModifiedTimestamp() == null || to.getOldModifiedTimestamp() == null) {
             _log.error("修改积分信息时出现参数错误，请求的参数为：{}", to);
             ro.setResult(ResultDic.PARAM_ERROR);
             ro.setMsg("参数错误");
             return ro;
         }
         _log.info("修改积分信息的参数为：{}", to);
-        final int modifyAccountResult = _mapper.updatePoint(to.getAccountId(), to.getNewPoint(), to.getOldPoint(), to.getNewModifiedTimestamp(), to.getOldModifiedTimestamp());
+        final int modifyAccountResult = _mapper.updatePoint(to.getAccountId(), to.getNewPoint(), to.getOldPoint(),
+                to.getNewModifiedTimestamp(), to.getOldModifiedTimestamp());
         _log.info("修改积分信息的返回值为：{}", modifyAccountResult);
         if (modifyAccountResult != 1) {
             _log.error("修改积分信息 出现错误，请求的参数为：{}", to);
@@ -130,17 +136,19 @@ public class PntAccountSvcImpl extends BaseSvcImpl<java.lang.Long, PntAccountJo,
     }
 
     /**
-     *  修改收益信息
+     * 修改收益信息
      *
-     *  @param to
-     *  @return
+     * @param to
+     * @return
      */
     @Override
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
     public Ro modifyIncome(final ModifyIncomeTo to) {
         _log.info("修改收益信息的参数为：{}", to);
         final Ro ro = new Ro();
-        if (to.getId() == null || to.getNewIncome() == null || to.getOldIncome() == null || to.getNewTotalIncome() == null || to.getOldTotalIncome() == null || to.getNewModifiedTimestamp() == null || to.getOldModifiedTimestamp() == null) {
+        if (to.getId() == null || to.getNewIncome() == null || to.getOldIncome() == null
+                || to.getNewTotalIncome() == null || to.getOldTotalIncome() == null
+                || to.getNewModifiedTimestamp() == null || to.getOldModifiedTimestamp() == null) {
             _log.error("修改收益时出现参数错误，请求的参数为：{}", to);
             ro.setResult(ResultDic.PARAM_ERROR);
             ro.setMsg("参数错误");
@@ -162,7 +170,7 @@ public class PntAccountSvcImpl extends BaseSvcImpl<java.lang.Long, PntAccountJo,
     }
 
     /**
-     *  积分充值
+     * 积分充值
      */
     @Override
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
@@ -178,15 +186,51 @@ public class PntAccountSvcImpl extends BaseSvcImpl<java.lang.Long, PntAccountJo,
         _log.info("积分充值的请求结果：{}", addPointTradeRo);
         return addPointTradeRo;
     }
-    
+
     /**
      * 根据限制数量查询积分账号信息
+     * 
      * @param limitCount
      * @return
      */
     @Override
-    public List<PntAccountMo> pntAccountByLimitCountList(Integer pageNum, Integer limitCount){
-    	_log.info("根据限制数量查询积分账号信息的参数为：limitCount-{}, pageNum-{}", limitCount, pageNum);
-    	return _mapper.selectPntAccountByLimitCount(pageNum * limitCount, limitCount);
+    public List<PntAccountMo> pntAccountByLimitCountList(Integer pageNum, Integer limitCount) {
+        _log.info("根据限制数量查询积分账号信息的参数为：limitCount-{}, pageNum-{}", limitCount, pageNum);
+        return _mapper.selectPntAccountByLimitCount(pageNum * limitCount, limitCount);
+    }
+
+    /**
+     * 积分补偿
+     */
+    @Override
+    public Ro compensatePoint() {
+        final Ro           ro   = new Ro();
+        List<PntAccountMo> list = _mapper.selectPntAccountByNotZero();
+        _log.info("查询积分不为0的积分账号结果：{}", list);
+        _log.info("开始补偿积分");
+        for (PntAccountMo mo : list) {
+            _log.info("积分账号：{}", mo);
+            BigDecimal            newPoint     = mo.getPoint().multiply(BigDecimal.TEN);
+            BigDecimal            changedPoint = newPoint.subtract(mo.getPoint());
+            final AddPointTradeTo addTo        = new AddPointTradeTo();
+            addTo.setAccountId(mo.getId());
+            addTo.setPointLogType((byte) 5);
+            addTo.setChangedTitile("大卖网络-新规则积分补偿");
+            addTo.setOrderId(_idWorker.getId());
+            addTo.setChangedPoint(changedPoint);
+            _log.info("积分补偿请求的参数：{}", addTo);
+            final Ro addPointTradeRo = pntPointLogSvc.addPointTrade(addTo);
+            _log.info("积分补偿的请求结果：{}", addPointTradeRo);
+            if (addPointTradeRo.getResult().getCode() != 1) {
+                _log.error("积分补偿出现错误，请求的参数为：{}", addTo);
+                ro.setResult(ResultDic.FAIL);
+                ro.setMsg("补偿失败");
+                return ro;
+            }
+        }
+        _log.info("结束补偿积分");
+        ro.setResult(ResultDic.SUCCESS);
+        ro.setMsg("补偿成功");
+        return ro;
     }
 }

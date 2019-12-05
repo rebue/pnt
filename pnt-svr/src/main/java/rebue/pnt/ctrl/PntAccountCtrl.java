@@ -1,8 +1,9 @@
 package rebue.pnt.ctrl;
 
-import com.github.pagehelper.PageInfo;
 import java.util.List;
+
 import javax.annotation.Resource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DuplicateKeyException;
@@ -13,6 +14,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.github.pagehelper.PageInfo;
+
 import rebue.pnt.mo.PntAccountMo;
 import rebue.pnt.svc.PntAccountSvc;
 import rebue.pnt.to.ModifyPointTo;
@@ -133,7 +137,7 @@ public class PntAccountCtrl {
     Ro del(@RequestParam("id") java.lang.Long id) {
         _log.info("del PntAccountMo by id: {}", id);
         int result = svc.del(id);
-        Ro ro = new Ro();
+        Ro  ro     = new Ro();
         if (result == 1) {
             String msg = "删除成功";
             _log.info("{}: id-{}", msg, id);
@@ -155,7 +159,8 @@ public class PntAccountCtrl {
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
     @GetMapping("/pnt/account")
-    PageInfo<PntAccountMo> list(PntAccountMo mo, @RequestParam(value = "pageNum", required = false) Integer pageNum, @RequestParam(value = "pageSize", required = false) Integer pageSize) {
+    PageInfo<PntAccountMo> list(PntAccountMo mo, @RequestParam(value = "pageNum", required = false) Integer pageNum,
+            @RequestParam(value = "pageSize", required = false) Integer pageSize) {
         if (pageNum == null)
             pageNum = 1;
         if (pageSize == null)
@@ -183,10 +188,11 @@ public class PntAccountCtrl {
     }
 
     /**
-     *  积分充值
-     *  @param mo
-     *  @return
-     *  @throws Exception
+     * 积分充值
+     * 
+     * @param mo
+     * @return
+     * @throws Exception
      */
     @PutMapping("/pnt/account/recharge")
     Ro recharge(@RequestBody ModifyPointTo to) throws Exception {
@@ -222,9 +228,9 @@ public class PntAccountCtrl {
     }
 
     /**
-     *  获取所有积分账号信息
+     * 获取所有积分账号信息
      *
-     *  @return
+     * @return
      */
     @GetMapping("/pnt/account/all")
     List<PntAccountMo> listAll() {
@@ -232,24 +238,38 @@ public class PntAccountCtrl {
     }
 
     /**
-     *  获取需要计算日收益的账户列表
-     *  @param fetchCount 获取结果限制数量
-     *  @return
+     * 获取需要计算日收益的账户列表
+     * 
+     * @param fetchCount 获取结果限制数量
+     * @return
      */
     @GetMapping("/pnt/account/listtocalcdayincome")
     List<PntAccountMo> listToCalcDayIncome(@RequestParam("fetchCount") int fetchCount) {
         _log.info("开始获取获取需要计算日收益的账户列表，获取的条数为：{}", fetchCount);
         return svc.listToCalcDayIncome(fetchCount);
     }
-    
+
     /**
      * 根据限制数量查询积分账号信息
+     * 
      * @param limitCount
      * @return
      */
     @GetMapping("/pnt/account/bylimitcount")
-	List<PntAccountMo> pntAccountByLimitCountList(@RequestParam("pageNum") Integer pageNum, @RequestParam("limitCount") Integer limitCount) {
-		_log.info("根据限制数量查询积分账号信息的请求参数为：limitCount-{}, pageNum-{}", limitCount, pageNum);
-		return svc.pntAccountByLimitCountList(pageNum, limitCount);
-	}
+    List<PntAccountMo> pntAccountByLimitCountList(@RequestParam("pageNum") Integer pageNum,
+            @RequestParam("limitCount") Integer limitCount) {
+        _log.info("根据限制数量查询积分账号信息的请求参数为：limitCount-{}, pageNum-{}", limitCount, pageNum);
+        return svc.pntAccountByLimitCountList(pageNum, limitCount);
+    }
+
+    /**
+     * 积分补偿
+     * 
+     * @return
+     */
+    @PostMapping("/pnt/account/compensate-point")
+    Ro compensatePoint() {
+        _log.info("开始进行积分补偿");
+        return svc.compensatePoint();
+    }
 }

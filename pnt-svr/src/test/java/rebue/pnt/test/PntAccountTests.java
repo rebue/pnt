@@ -1,10 +1,13 @@
 package rebue.pnt.test;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.Date;
+
 import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import rebue.pnt.mo.PntAccountMo;
 import rebue.robotech.dic.ResultDic;
 import rebue.robotech.ro.IdRo;
@@ -60,14 +63,21 @@ public class PntAccountTests {
 
     private final String hostUrl = "http://127.0.0.1:9010";
 
-    @Test
+//    @Test
     public void addTest() throws IOException {
-        IdWorker3 idWorker3 = new IdWorker3();
-        PntAccountMo mo = new PntAccountMo();
+        IdWorker3    idWorker3 = new IdWorker3();
+        PntAccountMo mo        = new PntAccountMo();
         mo.setId(idWorker3.getId());
         final Date now = new Date();
         mo.setModifiedTimestamp(now.getTime());
         final String addResult = OkhttpUtils.postByJsonParams(hostUrl + "/pnt/account", mo);
         System.out.println("添加积分账户信息的返回值为：" + addResult);
+    }
+
+    @Test
+    public void addPoint() throws IOException {
+        final String addResult = OkhttpUtils.post(hostUrl + "/pnt/account/compensate-point");
+        System.out.println("积分补偿的返回值为：" + addResult);
+
     }
 }
